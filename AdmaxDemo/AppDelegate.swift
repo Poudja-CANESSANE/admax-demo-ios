@@ -27,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 
         //Declare in AppDelegate to the user agent could be passed in first call
+        Prebid.shared.loggingEnabled = true
+        Prebid.shared.admaxExceptionLogger = DemoAdmaxExceptionLogger()
         Prebid.shared.prebidServerAccountId = "0dfe3a52-aeb2-4562-bdea-31bd2d69f214"
         Prebid.shared.shareGeoLocation = true
 

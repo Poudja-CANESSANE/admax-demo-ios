@@ -1,5 +1,5 @@
 PODS:
-  - AdmaxPrebidMobile (1.0.4)
+  - AdmaxPrebidMobile (1.0.7)
   - Google-Mobile-Ads-SDK (7.43.0):
     - GoogleAppMeasurement (~> 5.7)
   - GoogleAppMeasurement (5.8.1):
@@ -31,7 +31,7 @@ PODS:
   - nanopb/encode (0.3.901)
 
 DEPENDENCIES:
-  - AdmaxPrebidMobile (= 1.0.4)
+  - AdmaxPrebidMobile (= 1.0.7)
   - Google-Mobile-Ads-SDK (= 7.43.0)
 
 SPEC REPOS:
@@ -43,12 +43,12 @@ SPEC REPOS:
     - nanopb
 
 SPEC CHECKSUMS:
-  AdmaxPrebidMobile: 769df5db1e3c92289660cc5c4fb76605a6213ecd
+  AdmaxPrebidMobile: 38a5b182f21c463c4c8e08dc05e24c4ddf816a19
   Google-Mobile-Ads-SDK: e911f5544fc6488f8372a183627a802c8bdb5e36
   GoogleAppMeasurement: ffe513e90551844a739e7bcbb1d2aca1c28a4338
   GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
 
-PODFILE CHECKSUM: 03e7787f8a7a7cf00f3a4677aa66cd0a62cc4114
+PODFILE CHECKSUM: 3b0ebb3fd71e7f8c13e4964e63cd777b6f1c7958
 
 COCOAPODS: 1.6.0

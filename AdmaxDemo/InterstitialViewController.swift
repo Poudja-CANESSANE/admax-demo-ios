@@ -47,7 +47,9 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
     }
     
     func interstitial(_ interstitial: GADInterstitial, didReceiveAppEvent name: String, withInfo info: String?) {
-        interstitialUnit.sendBidWon(bidWonCacheId: info!)
+        if (AnalyticsEventType.bidWon.rawValue == name) {
+            interstitialUnit.sendBidWon(bidWonCacheId: info!)
+        }
     }
 
     func loadDFPInterstitial(adUnit: AdUnit) {
