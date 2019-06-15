@@ -16,9 +16,13 @@
 import UIKit
 import PrebidMobile
 import CoreLocation
+import SASDisplayKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    let SAS_SITE_ID: Int = 305017
+    let SAS_BASE_URL: String = "https://prg.smartadserver.com"
 
     var window: UIWindow?
 
@@ -31,6 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Prebid.shared.admaxExceptionLogger = DemoAdmaxExceptionLogger()
         Prebid.shared.prebidServerAccountId = "0dfe3a52-aeb2-4562-bdea-31bd2d69f214"
         Prebid.shared.shareGeoLocation = true
+        
+        SASConfiguration.shared.configure(siteId: SAS_SITE_ID, baseURL: SAS_BASE_URL)
+        SASConfiguration.shared.loggingEnabled = true
 
         coreLocation = CLLocationManager()
         coreLocation?.requestWhenInUseAuthorization()

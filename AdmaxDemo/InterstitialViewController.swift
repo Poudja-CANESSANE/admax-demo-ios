@@ -19,13 +19,17 @@ import PrebidMobile
 
 import GoogleMobileAds
 
-class InterstitialViewController: UIViewController, GADInterstitialDelegate, GADAppEventDelegate {
+import SASDisplayKit
+
+class InterstitialViewController: UIViewController, GADInterstitialDelegate, GADAppEventDelegate, SASInterstitialManagerDelegate {
 
     @IBOutlet var adServerLabel: UILabel!
 
     var adServerName: String = ""
 
     let request = GADRequest()
+    
+    var sasInterstitial: SASInterstitialManager!
     
     var interstitialUnit: InterstitialAdUnit!
 
@@ -42,7 +46,9 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
         if (adServerName == "DFP") {
             print("entered \(adServerName) loop" )
             loadDFPInterstitial(adUnit: interstitialUnit)
-
+        } else if (adServerName == "Smart") {
+            print("entered \(adServerName) loop")
+            loadSmartInterstitial(adUnit: interstitialUnit)
         }
     }
     
@@ -64,6 +70,18 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
             self.dfpInterstitial!.load(self.request)
         }
     }
+    
+    func loadSmartInterstitial(adUnit: AdUnit) {
+        let sasAdPlacement: SASAdPlacement = SASAdPlacement(siteId: 305017, pageId: 1109572, formatId: 80600)
+        sasInterstitial = SASInterstitialManager(placement: sasAdPlacement, delegate: self)
+        
+        let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: adUnit)
+        adUnit.fetchDemand(adObject: admaxBidderAdapter) { [weak self] (resultCode: ResultCode) in
+            print("Prebid demand fetch for Smart \(resultCode.name())")
+            self?.sasInterstitial!.load(bidderAdapter: admaxBidderAdapter)
+        }
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -86,6 +104,37 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
             self.dfpInterstitial?.present(fromRootViewController: self)
         } else {
             print("Ad not ready")
+        }
+    }
+    
+    func interstitialManager(_ manager: SASInterstitialManager, didLoad ad: SASAd) {
+        if (manager == self.sasInterstitial) {
+            print("Interstitial ad has been loaded")
+            self.sasInterstitial.show(from: self)
+        }
+    }
+    
+    func interstitialManager(_ manager: SASInterstitialManager, didFailToLoadWithError error: Error) {
+        if (manager == self.sasInterstitial) {
+            print("Interstitial ad did fail to load: \(error.localizedDescription)")
+        }
+    }
+    
+    func interstitialManager(_ manager: SASInterstitialManager, didFailToShowWithError error: Error) {
+        if (manager == self.sasInterstitial) {
+            print("Interstitial ad did fail to show: \(error.localizedDescription)")
+        }
+    }
+    
+    func interstitialManager(_ manager: SASInterstitialManager, didAppearFrom viewController: UIViewController) {
+        if (manager == self.sasInterstitial) {
+            print("Interstitial ad did appear")
+        }
+    }
+    
+    func interstitialManager(_ manager: SASInterstitialManager, didDisappearFrom viewController: UIViewController) {
+        if (manager == self.sasInterstitial) {
+            print("Interstitial ad did disappear")
         }
     }
 

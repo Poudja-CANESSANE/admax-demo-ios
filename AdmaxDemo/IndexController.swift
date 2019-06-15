@@ -30,6 +30,10 @@ class IndexController: UIViewController {
             let vc = segue.destination as? BannerController
             vc?.adServerName = adServerSegment.titleForSegment(at: adServerSegment.selectedSegmentIndex)!
         }
+        if segue.destination is RectangleController {
+            let vc = segue.destination as? RectangleController
+            vc?.adServerName = adServerSegment.titleForSegment(at: adServerSegment.selectedSegmentIndex)!
+        }
 
         if segue.destination is InterstitialViewController {
             let vc = segue.destination as? InterstitialViewController

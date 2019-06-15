@@ -15,6 +15,8 @@
 		525B816B22842624002BDD54 /* InterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525B816A22842623002BDD54 /* InterstitialViewController.swift */; };
 		525B816D22842646002BDD54 /* IndexController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525B816C22842646002BDD54 /* IndexController.swift */; };
 		525B818D22A98DD1002BDD54 /* DemoAdmaxExceptionLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525B818C22A98DD1002BDD54 /* DemoAdmaxExceptionLogger.swift */; };
+		525B819122B51E2B002BDD54 /* SASAdmaxBidderAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525B819022B51E2B002BDD54 /* SASAdmaxBidderAdapter.swift */; };
+		525B819322B51F4C002BDD54 /* RectangleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525B819222B51F4C002BDD54 /* RectangleController.swift */; };
 		D5A340B4BE2D791D39A286DE /* Pods_AdmaxDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0951BDB765EC018540D0F0BE /* Pods_AdmaxDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +32,8 @@
 		525B816A22842623002BDD54 /* InterstitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterstitialViewController.swift; sourceTree = "<group>"; };
 		525B816C22842646002BDD54 /* IndexController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexController.swift; sourceTree = "<group>"; };
 		525B818C22A98DD1002BDD54 /* DemoAdmaxExceptionLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoAdmaxExceptionLogger.swift; sourceTree = "<group>"; };
+		525B819022B51E2B002BDD54 /* SASAdmaxBidderAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SASAdmaxBidderAdapter.swift; sourceTree = "<group>"; };
+		525B819222B51F4C002BDD54 /* RectangleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleController.swift; sourceTree = "<group>"; };
 		DBB46DA066111B7415CC7DFF /* Pods-AdmaxDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdmaxDemo.release.xcconfig"; path = "Target Support Files/Pods-AdmaxDemo/Pods-AdmaxDemo.release.xcconfig"; sourceTree = "<group>"; };
 		E7E78358A4FD90340C038899 /* Pods-AdmaxDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdmaxDemo.debug.xcconfig"; path = "Target Support Files/Pods-AdmaxDemo/Pods-AdmaxDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,11 +75,13 @@
 				525B816C22842646002BDD54 /* IndexController.swift */,
 				525B816A22842623002BDD54 /* InterstitialViewController.swift */,
 				525B81682284261D002BDD54 /* BannerController.swift */,
+				525B819222B51F4C002BDD54 /* RectangleController.swift */,
 				525B815A22842457002BDD54 /* Main.storyboard */,
 				525B815D22842459002BDD54 /* Assets.xcassets */,
 				525B815F22842459002BDD54 /* LaunchScreen.storyboard */,
 				525B816222842459002BDD54 /* Info.plist */,
 				525B818C22A98DD1002BDD54 /* DemoAdmaxExceptionLogger.swift */,
+				525B819022B51E2B002BDD54 /* SASAdmaxBidderAdapter.swift */,
 			);
 			path = AdmaxDemo;
 			sourceTree = "<group>";
@@ -199,6 +205,8 @@
 				"${PODS_ROOT}/Target Support Files/Pods-AdmaxDemo/Pods-AdmaxDemo-frameworks.sh",
 				"${PODS_ROOT}/AdmaxPrebidMobile/PrebidMobile.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${PODS_ROOT}/Smart-Core-SDK/SCSCoreKit.framework",
+				"${PODS_ROOT}/Smart-Display-SDK/SASDisplayKit.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -207,6 +215,8 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PrebidMobile.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCSCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SASDisplayKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -222,8 +232,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				525B816D22842646002BDD54 /* IndexController.swift in Sources */,
+				525B819322B51F4C002BDD54 /* RectangleController.swift in Sources */,
 				525B815722842457002BDD54 /* AppDelegate.swift in Sources */,
 				525B818D22A98DD1002BDD54 /* DemoAdmaxExceptionLogger.swift in Sources */,
+				525B819122B51E2B002BDD54 /* SASAdmaxBidderAdapter.swift in Sources */,
 				525B81692284261D002BDD54 /* BannerController.swift in Sources */,
 				525B816B22842624002BDD54 /* InterstitialViewController.swift in Sources */,
 			);
