@@ -98,7 +98,11 @@ class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventD
     
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         print("adViewDidReceiveAd")
-        self.dfpBanner.resize(bannerView.adSize)
+        Utils.shared.findPrebidCreativeSize(bannerView) { (size) in
+            if let bannerView = bannerView as? DFPBannerView, let size = size {
+                bannerView.resize(GADAdSizeFromCGSize(size))
+            }
+        }
     }
     
     func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
