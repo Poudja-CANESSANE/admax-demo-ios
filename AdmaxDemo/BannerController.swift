@@ -60,9 +60,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, GADAppEventDele
     }
     
     func adView(_ banner: GADBannerView, didReceiveAppEvent name: String, withInfo info: String?) {
-        if (AnalyticsEventType.bidWon.rawValue == name) {
-            bannerUnit.sendBidWon(bidWonCacheId: info!)
-        }
+        bannerUnit.sendBidWon(bidWonCacheId: info!, eventName: name)
     }
 
     func loadDFPBanner(bannerUnit: AdUnit) {
