@@ -6,7 +6,7 @@ target 'AdmaxDemo' do
   use_frameworks!
 
   # Pods for AdmaxDemo
-  pod 'AdmaxPrebidMobile', '1.1.10'
+  pod 'AdmaxPrebidMobile', '1.1.11'
   pod 'Google-Mobile-Ads-SDK', '7.43.0'
   pod 'Smart-Display-SDK', '~> 7.0.0'
 end
