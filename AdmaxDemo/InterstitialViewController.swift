@@ -40,8 +40,10 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
 
         adServerLabel.text = adServerName
 
-        Prebid.shared.prebidServerAccountId = "0dfe3a52-aeb2-4562-bdea-31bd2d69f214"
-        interstitialUnit = InterstitialAdUnit(configId: "366c2e80-8932-4acd-ab9a-a2d7dd5abdfd")
+        Prebid.shared.prebidServerAccountId = "ee904be8-ad39-4185-a7b8-38b9dc643521"
+//        Prebid.shared.prebidServerAccountId = "0dfe3a52-aeb2-4562-bdea-31bd2d69f214"
+        interstitialUnit = InterstitialAdUnit(configId: "13b37c4b-b396-441f-94e0-3cfed95a10b2")
+//        interstitialUnit = InterstitialAdUnit(configId: "366c2e80-8932-4acd-ab9a-a2d7dd5abdfd")
 
         if (adServerName == "DFP") {
             print("entered \(adServerName) loop" )
