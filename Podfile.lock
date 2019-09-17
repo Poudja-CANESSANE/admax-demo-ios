@@ -1,5 +1,5 @@
 PODS:
-  - AdmaxPrebidMobile (1.1.13)
+  - AdmaxPrebidMobile (1.1.14)
   - Google-Mobile-Ads-SDK (7.43.0):
     - GoogleAppMeasurement (~> 5.7)
   - GoogleAppMeasurement (5.8.1):
@@ -29,14 +29,14 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
-  - Smart-Core-SDK (7.0.2)
-  - Smart-Display-SDK (7.0.2):
-    - Smart-Core-SDK (~> 7.0)
+  - Smart-Core-SDK (7.2.0)
+  - Smart-Display-SDK (7.2.0):
+    - Smart-Core-SDK (~> 7.2)
 
 DEPENDENCIES:
-  - AdmaxPrebidMobile (= 1.1.13)
+  - AdmaxPrebidMobile (= 1.1.14)
   - Google-Mobile-Ads-SDK (= 7.43.0)
-  - Smart-Display-SDK (~> 7.0.0)
+  - Smart-Display-SDK (~> 7.2.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -49,14 +49,14 @@ SPEC REPOS:
     - Smart-Display-SDK
 
 SPEC CHECKSUMS:
-  AdmaxPrebidMobile: 23d3595c4ca97af56d40363389adaf1ceec7e440
+  AdmaxPrebidMobile: cff1ec01872febd9fbb45a55c9bea12601e5c6a4
   Google-Mobile-Ads-SDK: e911f5544fc6488f8372a183627a802c8bdb5e36
   GoogleAppMeasurement: ffe513e90551844a739e7bcbb1d2aca1c28a4338
   GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
-  Smart-Core-SDK: 37810718b7fac32d1ed90249731840c47cb8bcb6
-  Smart-Display-SDK: 569f6f8f5c6097bdb1817745c0268c31c172d1eb
+  Smart-Core-SDK: ec027649dedadf778616c718283795b83155e3fa
+  Smart-Display-SDK: d84aadc873e6007568567105e9e07dfc12ff7dce
 
-PODFILE CHECKSUM: 077907966c6de93feb92fb7ee7aec9acd6100b7f
+PODFILE CHECKSUM: 15a098e59bbf8ff761764d30384c98e354d38bdc
 
 COCOAPODS: 1.6.0

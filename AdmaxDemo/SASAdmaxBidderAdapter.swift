@@ -30,6 +30,10 @@ class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol, UpdatableProtoc
     
     var targetingMap: String = ""
     
+    var creativeSize: CGSize? = nil
+    
+    var admaxAdDisplayed: Bool = false
+    
     var admaxAdUnit: AdUnit
     
     init(adUnit: AdUnit) {
@@ -42,6 +46,7 @@ class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol, UpdatableProtoc
         hbCacheID = keywords["hb_cache_id"]!
         price = Float(keywords["hb_pb"]!)!
         targetingMap = stringify(keywords: keywords)
+        creativeSize = stringToCGSize(keywords["hb_size"]!)
     }
     
     func primarySDKDisplayedBidderAd() {
@@ -55,6 +60,7 @@ class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol, UpdatableProtoc
     
     func primarySDKLostBidCompetition() {
         print("primarySDKLostBidCompetition called")
+        admaxAdDisplayed = true
     }
     
     func bidderWinningAdMarkup() -> String {
@@ -93,4 +99,29 @@ class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol, UpdatableProtoc
         keywordsString.append("}")
         return keywordsString
     }
+    
+    private func stringToCGSize(_ size: String) -> CGSize? {
+        
+        let sizeArr = size.split{$0 == "x"}.map(String.init)
+        guard sizeArr.count == 2 else {
+            print("\(size) has a wrong format")
+            return nil
+        }
+        
+        let nsNumberWidth = NumberFormatter().number(from: sizeArr[0])
+        let nsNumberHeight = NumberFormatter().number(from: sizeArr[1])
+        
+        guard let numberWidth = nsNumberWidth, let numberHeight = nsNumberHeight else {
+            print("\(size) can not be converted to CGSize")
+            return nil
+        }
+        
+        let width = CGFloat(truncating: numberWidth)
+        let height = CGFloat(truncating: numberHeight)
+        
+        let cgSize = CGSize(width: width, height: height)
+        
+        return cgSize
+    }
+
 }
