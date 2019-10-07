@@ -203,7 +203,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-AdmaxDemo/Pods-AdmaxDemo-frameworks.sh",
-				"${PODS_ROOT}/AdmaxPrebidMobile/PrebidMobile.framework",
+				"${BUILT_PRODUCTS_DIR}/AdmaxPrebidMobile/AdmaxPrebidMobile.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${PODS_ROOT}/Smart-Core-SDK/SCSCoreKit.framework",
 				"${PODS_ROOT}/Smart-Display-SDK/SASDisplayKit.framework",
@@ -213,7 +213,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PrebidMobile.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AdmaxPrebidMobile.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCSCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SASDisplayKit.framework",

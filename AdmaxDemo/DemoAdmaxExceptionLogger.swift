@@ -14,7 +14,7 @@
  */
 
 import Foundation
-import PrebidMobile
+import AdmaxPrebidMobile
 
 class DemoAdmaxExceptionLogger : NSObject, AdmaxExceptionLogger {
     func logException(cause: Error) {

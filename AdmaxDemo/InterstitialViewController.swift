@@ -15,7 +15,7 @@
 
 import UIKit
 
-import PrebidMobile
+import AdmaxPrebidMobile
 
 import GoogleMobileAds
 

@@ -8,7 +8,7 @@
 
 import Foundation
 import SASDisplayKit
-import PrebidMobile
+import AdmaxPrebidMobile
 
 class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol, UpdatableProtocol {
     
