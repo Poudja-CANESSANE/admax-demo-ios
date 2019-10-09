@@ -1,5 +1,5 @@
 PODS:
-  - AdmaxPrebidMobile (1.1.16)
+  - AdmaxPrebidMobile (1.1.17)
   - Google-Mobile-Ads-SDK (7.43.0):
     - GoogleAppMeasurement (~> 5.7)
   - GoogleAppMeasurement (5.8.1):
@@ -34,22 +34,23 @@ PODS:
     - Smart-Core-SDK (~> 7.2)
 
 DEPENDENCIES:
-  - AdmaxPrebidMobile (= 1.1.16)
+  - AdmaxPrebidMobile (= 1.1.17)
   - Google-Mobile-Ads-SDK (= 7.43.0)
   - Smart-Display-SDK (~> 7.2.0)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - AdmaxPrebidMobile
+  https://github.com/CocoaPods/Specs.git:
     - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
     - GoogleUtilities
     - nanopb
+  trunk:
+    - AdmaxPrebidMobile
     - Smart-Core-SDK
     - Smart-Display-SDK
 
 SPEC CHECKSUMS:
-  AdmaxPrebidMobile: afc4c29d9beafa598b91d7dfbe67a46974927358
+  AdmaxPrebidMobile: 1b9a828658be09bba69ee2389fcfa70b5bd98507
   Google-Mobile-Ads-SDK: e911f5544fc6488f8372a183627a802c8bdb5e36
   GoogleAppMeasurement: ffe513e90551844a739e7bcbb1d2aca1c28a4338
   GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
@@ -57,6 +58,6 @@ SPEC CHECKSUMS:
   Smart-Core-SDK: ec027649dedadf778616c718283795b83155e3fa
   Smart-Display-SDK: d84aadc873e6007568567105e9e07dfc12ff7dce
 
-PODFILE CHECKSUM: 62dc1b1b2c8e3eff5b2eaebadfa0cce408c19609
+PODFILE CHECKSUM: 88af4ee74a32dfbfa4cf3668d3c674d4260fff6f
 
-COCOAPODS: 1.6.0
+COCOAPODS: 1.8.3
