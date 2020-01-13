@@ -1,63 +1,63 @@
 PODS:
-  - AdmaxPrebidMobile (1.1.17)
-  - Google-Mobile-Ads-SDK (7.43.0):
-    - GoogleAppMeasurement (~> 5.7)
-  - GoogleAppMeasurement (5.8.1):
-    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
-    - GoogleUtilities/MethodSwizzler (~> 5.2)
-    - GoogleUtilities/Network (~> 5.2)
-    - "GoogleUtilities/NSData+zlib (~> 5.2)"
-    - nanopb (~> 0.3)
-  - GoogleUtilities/AppDelegateSwizzler (5.8.0):
+  - AdmaxPrebidMobile (1.1.21):
+    - Google-Mobile-Ads-SDK (~> 7.53.0)
+  - Google-Mobile-Ads-SDK (7.53.1):
+    - GoogleAppMeasurement (~> 6.0)
+  - GoogleAppMeasurement (6.1.7):
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (= 0.3.9011)
+  - GoogleUtilities/AppDelegateSwizzler (6.4.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (5.8.0)
-  - GoogleUtilities/Logger (5.8.0):
+  - GoogleUtilities/Environment (6.4.0)
+  - GoogleUtilities/Logger (6.4.0):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (5.8.0):
+  - GoogleUtilities/MethodSwizzler (6.4.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (5.8.0):
+  - GoogleUtilities/Network (6.4.0):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (5.8.0)"
-  - GoogleUtilities/Reachability (5.8.0):
+  - "GoogleUtilities/NSData+zlib (6.4.0)"
+  - GoogleUtilities/Reachability (6.4.0):
     - GoogleUtilities/Logger
-  - nanopb (0.3.901):
-    - nanopb/decode (= 0.3.901)
-    - nanopb/encode (= 0.3.901)
-  - nanopb/decode (0.3.901)
-  - nanopb/encode (0.3.901)
+  - nanopb (0.3.9011):
+    - nanopb/decode (= 0.3.9011)
+    - nanopb/encode (= 0.3.9011)
+  - nanopb/decode (0.3.9011)
+  - nanopb/encode (0.3.9011)
   - Smart-Core-SDK (7.2.0)
   - Smart-Display-SDK (7.2.0):
     - Smart-Core-SDK (~> 7.2)
 
 DEPENDENCIES:
-  - AdmaxPrebidMobile (= 1.1.17)
-  - Google-Mobile-Ads-SDK (= 7.43.0)
+  - AdmaxPrebidMobile (= 1.1.21)
   - Smart-Display-SDK (~> 7.2.0)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - AdmaxPrebidMobile
     - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
     - GoogleUtilities
     - nanopb
   trunk:
-    - AdmaxPrebidMobile
     - Smart-Core-SDK
     - Smart-Display-SDK
 
 SPEC CHECKSUMS:
-  AdmaxPrebidMobile: 1b9a828658be09bba69ee2389fcfa70b5bd98507
-  Google-Mobile-Ads-SDK: e911f5544fc6488f8372a183627a802c8bdb5e36
-  GoogleAppMeasurement: ffe513e90551844a739e7bcbb1d2aca1c28a4338
-  GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
-  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  AdmaxPrebidMobile: 30c8a9649562918d836f95790611cc5f037db949
+  Google-Mobile-Ads-SDK: fac081606dbd438d8db57198b83ba8b5f875a601
+  GoogleAppMeasurement: db118eb61a97dd8c4f7014e368d3c335cbbcf80a
+  GoogleUtilities: 29bd0d8f850efbd28cff6d99e8b7da1f8d236bcf
+  nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   Smart-Core-SDK: ec027649dedadf778616c718283795b83155e3fa
   Smart-Display-SDK: d84aadc873e6007568567105e9e07dfc12ff7dce
 
-PODFILE CHECKSUM: 88af4ee74a32dfbfa4cf3668d3c674d4260fff6f
+PODFILE CHECKSUM: ec97e0c8a78b5a7d3e2cdd1f212b3b707433b704
 
 COCOAPODS: 1.8.3

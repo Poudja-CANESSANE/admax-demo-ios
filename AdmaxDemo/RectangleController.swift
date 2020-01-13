@@ -14,7 +14,7 @@ import GoogleMobileAds
 
 import SASDisplayKit
 
-class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventDelegate, SASBannerViewDelegate {
+class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventDelegate, SASBannerViewDelegate, GamBannerAdListener {
     
     @IBOutlet var appRectangleView: UIView!
     
@@ -64,7 +64,6 @@ class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventD
         dfpBanner.delegate = self
         dfpBanner.appEventDelegate = self
         appRectangleView.addSubview(dfpBanner)
-        request.testDevices = [ kGADSimulatorID, "2de8cd2491690938185052d38337abcf" ]
         
         bannerUnit.fetchDemand(adObject: self.request) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for DFP \(resultCode.name())")
@@ -79,15 +78,23 @@ class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventD
         self.sasBanner.delegate = self
         self.sasBanner.modalParentViewController = self
         appRectangleView.addSubview(sasBanner)
+        guard let bannerUnit = bannerUnit as? BannerAdUnit else {
+            return
+        }
+        bannerUnit.addAdditionalSize(sizes: [CGSize(width: 320, height: 50)])
+        bannerUnit.setGamAdUnitId(gamAdUnitId: "/21807464892/pb_admax_300x250_top")
+        bannerUnit.rootViewController = self
+        bannerUnit.setGamBannerAdListener(adListener: self)
         
         let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: bannerUnit)
         bannerUnit.fetchDemand(adObject: admaxBidderAdapter) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for Smart \(resultCode.name())")
-            if (resultCode == ResultCode.prebidDemandFetchSuccess) {
-                self?.sasBanner!.load(with: sasAdPlacement, bidderAdapter: admaxBidderAdapter)
-            } else {
-                self?.sasBanner!.load(with: sasAdPlacement)
-            }
+//            if (resultCode == ResultCode.prebidDemandFetchSuccess) {
+//                self?.sasBanner!.load(with: sasAdPlacement, bidderAdapter: admaxBidderAdapter)
+//            } else {
+//                self?.sasBanner!.load(with: sasAdPlacement)
+//            }
+            self?.sasBanner!.load(with: sasAdPlacement)
         }
         
     }
@@ -135,5 +142,14 @@ class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventD
     
     func bannerView(_ bannerView: SASBannerView, didFailToLoadWithError error: Error) {
         print("SAS bannerView:didFailToLoadWithError: \(error.localizedDescription)")
+        bannerUnit.createDFPOnlyBanner(containerView: appRectangleView)
+    }
+        
+    func onAdLoaded(size: GADAdSize) {
+        print("DFP Ad loaded with size \(size.size)")
+    }
+    
+    func onAdFailedToLoad(error: GADRequestError) {
+        print("DFP Ad failed to load with error \(error)")
     }
 }

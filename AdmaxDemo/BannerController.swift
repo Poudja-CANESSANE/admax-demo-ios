@@ -71,7 +71,6 @@ class BannerController: UIViewController, GADBannerViewDelegate, GADAppEventDele
         dfpBanner.delegate = self
         dfpBanner.appEventDelegate = self
         appBannerView.addSubview(dfpBanner)
-        request.testDevices = [ kGADSimulatorID, "2de8cd2491690938185052d38337abcf" ]
 
         bannerUnit.fetchDemand(adObject: self.request) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for DFP \(resultCode.name())")

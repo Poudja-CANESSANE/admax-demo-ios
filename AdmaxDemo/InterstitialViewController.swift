@@ -62,7 +62,6 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
         dfpInterstitial = DFPInterstitial(adUnitID: "/21807464892/pb_admax_interstitial")
         dfpInterstitial.delegate = self
         dfpInterstitial.appEventDelegate = self
-        request.testDevices = [ kGADSimulatorID, "2de8cd2491690938185052d38337abcf" ]
         adUnit.fetchDemand(adObject: self.request) { (resultCode: ResultCode) in
             print("Prebid demand fetch for DFP \(resultCode.name())")
             self.dfpInterstitial!.load(self.request)
@@ -72,15 +71,18 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
     func loadSmartInterstitial(adUnit: AdUnit) {
         let sasAdPlacement: SASAdPlacement = SASAdPlacement(siteId: 305017, pageId: 1109572, formatId: 80600)
         sasInterstitial = SASInterstitialManager(placement: sasAdPlacement, delegate: self)
-        
+        adUnit.setGamAdUnitId(gamAdUnitId: "/21807464892/pb_admax_interstitial")
+        adUnit.rootViewController = self
+
         let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: adUnit)
         adUnit.fetchDemand(adObject: admaxBidderAdapter) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for Smart \(resultCode.name())")
-            if (resultCode == ResultCode.prebidDemandFetchSuccess) {
-                self?.sasInterstitial!.load(bidderAdapter: admaxBidderAdapter)
-            } else {
-                self?.sasInterstitial!.load()
-            }
+//            if (resultCode == ResultCode.prebidDemandFetchSuccess) {
+//                self?.sasInterstitial!.load(bidderAdapter: admaxBidderAdapter)
+//            } else {
+//                self?.sasInterstitial!.load()
+//            }
+            self?.sasInterstitial!.load()
         }
     }
 
@@ -119,6 +121,7 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
     func interstitialManager(_ manager: SASInterstitialManager, didFailToLoadWithError error: Error) {
         if (manager == self.sasInterstitial) {
             print("Interstitial ad did fail to load: \(error.localizedDescription)")
+            self.interstitialUnit.createDfpOnlyInterstitial()
         }
     }
     
