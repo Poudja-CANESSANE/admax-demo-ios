@@ -77,12 +77,11 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
         let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: adUnit)
         adUnit.fetchDemand(adObject: admaxBidderAdapter) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for Smart \(resultCode.name())")
-//            if (resultCode == ResultCode.prebidDemandFetchSuccess) {
-//                self?.sasInterstitial!.load(bidderAdapter: admaxBidderAdapter)
-//            } else {
-//                self?.sasInterstitial!.load()
-//            }
-            self?.sasInterstitial!.load()
+            if (resultCode == ResultCode.prebidDemandFetchSuccess) {
+                self?.sasInterstitial!.load(bidderAdapter: admaxBidderAdapter)
+            } else {
+                self?.sasInterstitial!.load()
+            }
         }
     }
 

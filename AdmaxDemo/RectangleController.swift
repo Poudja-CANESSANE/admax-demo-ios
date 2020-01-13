@@ -89,12 +89,11 @@ class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventD
         let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: bannerUnit)
         bannerUnit.fetchDemand(adObject: admaxBidderAdapter) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for Smart \(resultCode.name())")
-//            if (resultCode == ResultCode.prebidDemandFetchSuccess) {
-//                self?.sasBanner!.load(with: sasAdPlacement, bidderAdapter: admaxBidderAdapter)
-//            } else {
-//                self?.sasBanner!.load(with: sasAdPlacement)
-//            }
-            self?.sasBanner!.load(with: sasAdPlacement)
+            if (resultCode == ResultCode.prebidDemandFetchSuccess) {
+                self?.sasBanner!.load(with: sasAdPlacement, bidderAdapter: admaxBidderAdapter)
+            } else {
+                self?.sasBanner!.load(with: sasAdPlacement)
+            }
         }
         
     }
