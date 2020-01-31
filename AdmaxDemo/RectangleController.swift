@@ -28,14 +28,14 @@ class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventD
     
     var dfpBanner: DFPBannerView!
     
-    var bannerUnit: BannerAdUnit!
+    var bannerUnit: GamBannerAdUnit!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         adServerLabel.text = adServerName
         
-        bannerUnit = BannerAdUnit(configId: "366c2e80-8932-4acd-ab9a-a2d7dd5abdfd", size: CGSize(width: 300, height: 250))
+        bannerUnit = GamBannerAdUnit(configId: "366c2e80-8932-4acd-ab9a-a2d7dd5abdfd", size: CGSize(width: 300, height: 250))
         bannerUnit.setAutoRefreshMillis(time: 35000)
         
         if (adServerName == "DFP") {
@@ -78,7 +78,7 @@ class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventD
         self.sasBanner.delegate = self
         self.sasBanner.modalParentViewController = self
         appRectangleView.addSubview(sasBanner)
-        guard let bannerUnit = bannerUnit as? BannerAdUnit else {
+        guard let bannerUnit = bannerUnit as? GamBannerAdUnit else {
             return
         }
         bannerUnit.addAdditionalSize(sizes: [CGSize(width: 320, height: 50)])
