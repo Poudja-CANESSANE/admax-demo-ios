@@ -35,8 +35,8 @@ class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventD
         
         adServerLabel.text = adServerName
         
-        bannerUnit = GamBannerAdUnit(configId: "366c2e80-8932-4acd-ab9a-a2d7dd5abdfd", size: CGSize(width: 300, height: 250))
-        bannerUnit.setAutoRefreshMillis(time: 35000)
+        bannerUnit = GamBannerAdUnit(configId: "dbe12cc3-b986-4b92-8ddb-221b0eb302ef", size: CGSize(width: 300, height: 250), viewController: self)
+//        bannerUnit.setAutoRefreshMillis(time: 35000)
         
         if (adServerName == "DFP") {
             print("entered \(adServerName) loop" )
@@ -53,7 +53,13 @@ class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventD
     }
     
     func adView(_ banner: GADBannerView, didReceiveAppEvent name: String, withInfo info: String?) {
-        bannerUnit.sendBidWon(bidWonCacheId: info!, eventName: name)
+        if (AnalyticsEventType.bidWon.name() == name) {
+            if (bannerUnit.winningBiddingManager != nil) {
+                bannerUnit.winningBiddingManager?.loadAd(containerView: appRectangleView)
+            } else {
+                bannerUnit.sendBidWon(bidWonCacheId: info!)
+            }
+        }
     }
     
     func loadDFPBanner(bannerUnit: AdUnit) {
@@ -86,7 +92,7 @@ class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventD
         bannerUnit.rootViewController = self
         bannerUnit.setGamBannerAdListener(adListener: self)
         
-        let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: bannerUnit)
+        let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: bannerUnit, container: appRectangleView)
         bannerUnit.fetchDemand(adObject: admaxBidderAdapter) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for Smart \(resultCode.name())")
             if (resultCode == ResultCode.prebidDemandFetchSuccess) {

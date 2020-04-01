@@ -42,7 +42,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, GADAppEventDele
 
         adServerLabel.text = adServerName
 
-        bannerUnit = BannerAdUnit(configId: "366c2e80-8932-4acd-ab9a-a2d7dd5abdfd", size: CGSize(width: 320, height: 50))
+        bannerUnit = BannerAdUnit(configId: "fb5fac4a-1910-4d3e-8a93-7bdbf6144312", size: CGSize(width: 320, height: 50), viewController: self)
         bannerUnit.setAutoRefreshMillis(time: 35000)
 
         if (adServerName == "DFP") {
@@ -60,7 +60,13 @@ class BannerController: UIViewController, GADBannerViewDelegate, GADAppEventDele
     }
     
     func adView(_ banner: GADBannerView, didReceiveAppEvent name: String, withInfo info: String?) {
-        bannerUnit.sendBidWon(bidWonCacheId: info!, eventName: name)
+        if (AnalyticsEventType.bidWon.name() == name) {
+            if bannerUnit.winningBiddingManager != nil {
+                bannerUnit.winningBiddingManager?.loadAd(containerView: appBannerView)
+            } else {
+                bannerUnit.sendBidWon(bidWonCacheId: info!)
+            }
+        }
     }
 
     func loadDFPBanner(bannerUnit: AdUnit) {
@@ -86,7 +92,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, GADAppEventDele
         self.sasBanner.modalParentViewController = self
         appBannerView.addSubview(sasBanner)
         
-        let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: bannerUnit)
+        let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: bannerUnit, container: appBannerView)
         bannerUnit.fetchDemand(adObject: admaxBidderAdapter) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for Smart \(resultCode.name())")
             if (resultCode == ResultCode.prebidDemandFetchSuccess) {

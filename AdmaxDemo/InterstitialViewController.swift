@@ -40,8 +40,7 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
 
         adServerLabel.text = adServerName
 
-        Prebid.shared.prebidServerAccountId = "0dfe3a52-aeb2-4562-bdea-31bd2d69f214"
-        interstitialUnit = GamInterstitialAdUnit(configId: "366c2e80-8932-4acd-ab9a-a2d7dd5abdfd")
+        interstitialUnit = GamInterstitialAdUnit(configId: "5ba30daf-85c5-471c-93b5-5637f3035149", viewController: self)
 
         if (adServerName == "DFP") {
             print("entered \(adServerName) loop" )
@@ -53,7 +52,18 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
     }
     
     func interstitial(_ interstitial: GADInterstitial, didReceiveAppEvent name: String, withInfo info: String?) {
-        interstitialUnit.sendBidWon(bidWonCacheId: info!, eventName: name)
+        if (AnalyticsEventType.bidWon.name() == name) {
+            if interstitialUnit.winningBiddingManager != nil {
+                interstitialUnit.winningBiddingManager?.loadAd()
+            } else {
+                self.dfpInterstitial?.present(fromRootViewController: self)
+                interstitialUnit.sendBidWon(bidWonCacheId: info!)
+            }
+        }
+    }
+    
+    func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
+        print("Ad did fail to receive with error \(error.localizedDescription)")
     }
 
     func loadDFPInterstitial(adUnit: AdUnit) {
@@ -106,9 +116,14 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
 
     func interstitialDidReceiveAd(_ ad: GADInterstitial) {
 
-        if (self.dfpInterstitial?.isReady ?? true) {
+        if (self.dfpInterstitial.isReady) {
             print("Ad ready")
-            self.dfpInterstitial?.present(fromRootViewController: self)
+            Utils.shared.findPrebidCreativeBidder(ad, success: { (bidder) in
+                print("bidder: \(bidder)")},
+                                                  failure: { (error) in
+                                                    print("error: \(error.localizedDescription)")
+                                                    self.dfpInterstitial?.present(fromRootViewController: self)
+            })
         } else {
             print("Ad not ready")
         }
@@ -117,7 +132,9 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
     func interstitialManager(_ manager: SASInterstitialManager, didLoad ad: SASAd) {
         if (manager == self.sasInterstitial) {
             print("Interstitial ad has been loaded")
-            self.sasInterstitial.show(from: self)
+            if interstitialUnit.winningBiddingManager == nil {
+                self.sasInterstitial.show(from: self)
+            }
         }
     }
     

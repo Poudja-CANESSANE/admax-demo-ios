@@ -33,8 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Declare in AppDelegate to the user agent could be passed in first call
         Prebid.shared.loggingEnabled = true
         Prebid.shared.admaxExceptionLogger = DemoAdmaxExceptionLogger()
-        Prebid.shared.prebidServerAccountId = "0dfe3a52-aeb2-4562-bdea-31bd2d69f214"
+        Prebid.shared.prebidServerAccountId = "4803423e-c677-4993-807f-6a1554477ced"
         Prebid.shared.shareGeoLocation = true
+        Prebid.shared.initAdmaxConfig()
         
         SASConfiguration.shared.configure(siteId: SAS_SITE_ID, baseURL: SAS_BASE_URL)
         SASConfiguration.shared.loggingEnabled = true
