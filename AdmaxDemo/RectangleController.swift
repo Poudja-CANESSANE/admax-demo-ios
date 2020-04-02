@@ -14,7 +14,7 @@ import GoogleMobileAds
 
 import SASDisplayKit
 
-class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventDelegate, SASBannerViewDelegate, GamBannerAdListener {
+class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventDelegate, SASBannerViewDelegate, GamBannerAdListener, AdSizeDelegate {
     
     @IBOutlet var appRectangleView: UIView!
     
@@ -35,8 +35,9 @@ class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventD
         
         adServerLabel.text = adServerName
         
-        bannerUnit = GamBannerAdUnit(configId: "dbe12cc3-b986-4b92-8ddb-221b0eb302ef", size: CGSize(width: 300, height: 250), viewController: self)
+        bannerUnit = GamBannerAdUnit(configId: "dbe12cc3-b986-4b92-8ddb-221b0eb302ef", size: CGSize(width: 300, height: 250), viewController: self, adContainer: appRectangleView)
 //        bannerUnit.setAutoRefreshMillis(time: 35000)
+        bannerUnit.adSizeDelegate = self
         
         if (adServerName == "DFP") {
             print("entered \(adServerName) loop" )
@@ -54,12 +55,16 @@ class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventD
     
     func adView(_ banner: GADBannerView, didReceiveAppEvent name: String, withInfo info: String?) {
         if (AnalyticsEventType.bidWon.name() == name) {
-            if (bannerUnit.winningBiddingManager != nil) {
-                bannerUnit.winningBiddingManager?.loadAd(containerView: appRectangleView)
+            if (!bannerUnit.isAdServerSdkRendering()) {
+                bannerUnit.loadAd()
             } else {
                 bannerUnit.sendBidWon(bidWonCacheId: info!)
             }
         }
+    }
+    
+    func onAdLoaded(adUnit: AdUnit, size: CGSize, adContainer: UIView) {
+        print("ADMAX onAdLoaded with Size: \(size)")
     }
     
     func loadDFPBanner(bannerUnit: AdUnit) {
@@ -89,10 +94,9 @@ class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventD
         }
         bannerUnit.addAdditionalSize(sizes: [CGSize(width: 320, height: 50)])
         bannerUnit.setGamAdUnitId(gamAdUnitId: "/21807464892/pb_admax_300x250_top")
-        bannerUnit.rootViewController = self
         bannerUnit.setGamBannerAdListener(adListener: self)
         
-        let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: bannerUnit, container: appRectangleView)
+        let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: bannerUnit)
         bannerUnit.fetchDemand(adObject: admaxBidderAdapter) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for Smart \(resultCode.name())")
             if (resultCode == ResultCode.prebidDemandFetchSuccess) {

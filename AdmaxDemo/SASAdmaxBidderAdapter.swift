@@ -34,13 +34,6 @@ class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol, UpdatableProtoc
     
     var admaxAdUnit: AdUnit
     
-    var adContainer: UIView?
-    
-    init(adUnit: AdUnit, container: UIView) {
-        admaxAdUnit = adUnit
-        adContainer = container
-    }
-    
     init(adUnit: AdUnit) {
         admaxAdUnit = adUnit
     }
@@ -55,7 +48,7 @@ class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol, UpdatableProtoc
     
     func primarySDKDisplayedBidderAd() {
         print("primarySDKDisplayedBidderAd called")
-        if (admaxAdUnit.winningBiddingManager == nil) {
+        if (admaxAdUnit.isAdServerSdkRendering()) {
             admaxAdUnit.sendBidWon(bidWonCacheId: hbCacheID)
         }
     }
@@ -67,12 +60,8 @@ class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol, UpdatableProtoc
     func primarySDKLostBidCompetition() {
         print("primarySDKLostBidCompetition called")
         admaxAdDisplayed = true
-        if (admaxAdUnit.winningBiddingManager != nil) {
-            if (adContainer != nil) {
-                admaxAdUnit.winningBiddingManager?.loadAd(containerView: adContainer!)
-            } else {
-                admaxAdUnit.winningBiddingManager?.loadAd()
-            }
+        if (!admaxAdUnit.isAdServerSdkRendering()) {
+            admaxAdUnit.loadAd()
         }
     }
     

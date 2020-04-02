@@ -53,8 +53,8 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
     
     func interstitial(_ interstitial: GADInterstitial, didReceiveAppEvent name: String, withInfo info: String?) {
         if (AnalyticsEventType.bidWon.name() == name) {
-            if interstitialUnit.winningBiddingManager != nil {
-                interstitialUnit.winningBiddingManager?.loadAd()
+            if !interstitialUnit.isAdServerSdkRendering() {
+                interstitialUnit.loadAd()
             } else {
                 self.dfpInterstitial?.present(fromRootViewController: self)
                 interstitialUnit.sendBidWon(bidWonCacheId: info!)
@@ -86,7 +86,6 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
             return
         }
         adUnit.setGamAdUnitId(gamAdUnitId: "/21807464892/pb_admax_interstitial")
-        adUnit.rootViewController = self
 
         let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: adUnit)
         adUnit.fetchDemand(adObject: admaxBidderAdapter) { [weak self] (resultCode: ResultCode) in
@@ -132,7 +131,7 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
     func interstitialManager(_ manager: SASInterstitialManager, didLoad ad: SASAd) {
         if (manager == self.sasInterstitial) {
             print("Interstitial ad has been loaded")
-            if interstitialUnit.winningBiddingManager == nil {
+            if interstitialUnit.isAdServerSdkRendering() {
                 self.sasInterstitial.show(from: self)
             }
         }

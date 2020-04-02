@@ -21,7 +21,7 @@ import GoogleMobileAds
 
 import SASDisplayKit
 
-class BannerController: UIViewController, GADBannerViewDelegate, GADAppEventDelegate, SASBannerViewDelegate {
+class BannerController: UIViewController, GADBannerViewDelegate, GADAppEventDelegate, SASBannerViewDelegate, AdSizeDelegate {
 
    @IBOutlet var appBannerView: UIView!
 
@@ -42,8 +42,9 @@ class BannerController: UIViewController, GADBannerViewDelegate, GADAppEventDele
 
         adServerLabel.text = adServerName
 
-        bannerUnit = BannerAdUnit(configId: "fb5fac4a-1910-4d3e-8a93-7bdbf6144312", size: CGSize(width: 320, height: 50), viewController: self)
-        bannerUnit.setAutoRefreshMillis(time: 35000)
+        bannerUnit = BannerAdUnit(configId: "fb5fac4a-1910-4d3e-8a93-7bdbf6144312", size: CGSize(width: 320, height: 50), viewController: self, adContainer: appBannerView)
+//        bannerUnit.setAutoRefreshMillis(time: 35000)
+        bannerUnit.adSizeDelegate = self
 
         if (adServerName == "DFP") {
             print("entered \(adServerName) loop" )
@@ -61,12 +62,16 @@ class BannerController: UIViewController, GADBannerViewDelegate, GADAppEventDele
     
     func adView(_ banner: GADBannerView, didReceiveAppEvent name: String, withInfo info: String?) {
         if (AnalyticsEventType.bidWon.name() == name) {
-            if bannerUnit.winningBiddingManager != nil {
-                bannerUnit.winningBiddingManager?.loadAd(containerView: appBannerView)
+            if !bannerUnit.isAdServerSdkRendering() {
+                bannerUnit.loadAd()
             } else {
                 bannerUnit.sendBidWon(bidWonCacheId: info!)
             }
         }
+    }
+    
+    func onAdLoaded(adUnit: AdUnit, size: CGSize, adContainer: UIView) {
+        print("ADMAX onAdLoaded with Size: \(size)")
     }
 
     func loadDFPBanner(bannerUnit: AdUnit) {
@@ -92,7 +97,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, GADAppEventDele
         self.sasBanner.modalParentViewController = self
         appBannerView.addSubview(sasBanner)
         
-        let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: bannerUnit, container: appBannerView)
+        let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: bannerUnit)
         bannerUnit.fetchDemand(adObject: admaxBidderAdapter) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for Smart \(resultCode.name())")
             if (resultCode == ResultCode.prebidDemandFetchSuccess) {
