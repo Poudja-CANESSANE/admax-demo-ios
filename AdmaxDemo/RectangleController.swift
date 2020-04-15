@@ -151,7 +151,7 @@ class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventD
     
     func bannerView(_ bannerView: SASBannerView, didFailToLoadWithError error: Error) {
         print("SAS bannerView:didFailToLoadWithError: \(error.localizedDescription)")
-        bannerUnit.createDFPOnlyBanner(containerView: appRectangleView)
+        bannerUnit.createDFPOnlyBanner()
     }
         
     func onAdLoaded(size: GADAdSize) {
