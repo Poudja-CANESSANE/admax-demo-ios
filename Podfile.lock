@@ -1,8 +1,8 @@
 PODS:
-  - AdmaxPrebidMobile/Core (1.2.4):
+  - AdmaxPrebidMobile/Core (1.2.5):
     - CriteoPublisherSdk (~> 3.4)
     - Smart-Display-SDK (~> 7.3)
-  - AdmaxPrebidMobile/GoogleMobileAds (1.2.4):
+  - AdmaxPrebidMobile/GoogleMobileAds (1.2.5):
     - AdmaxPrebidMobile/Core
     - Google-Mobile-Ads-SDK (~> 7.43)
   - CriteoPublisherSdk (3.5.0)
@@ -40,7 +40,7 @@ PODS:
     - Smart-Core-SDK (~> 7.4)
 
 DEPENDENCIES:
-  - AdmaxPrebidMobile/GoogleMobileAds (= 1.2.4)
+  - AdmaxPrebidMobile/GoogleMobileAds (= 1.2.5)
   - Google-Mobile-Ads-SDK (~> 7.57.0)
   - Smart-Display-SDK (~> 7.4.0)
 
@@ -56,7 +56,7 @@ SPEC REPOS:
     - Smart-Display-SDK
 
 SPEC CHECKSUMS:
-  AdmaxPrebidMobile: 074ed29675f9db90ec68af2da2d98e33a08eb9a4
+  AdmaxPrebidMobile: 7806116c1ed3dc5d3b50261766e6d30f8454c49c
   CriteoPublisherSdk: 4fb2201637e8f8eac293ee087c9bd16ea138c22c
   Google-Mobile-Ads-SDK: ec897018b9ab9b447e7aa4876e7f75aba13ba2de
   GoogleAppMeasurement: 6e68a94d0eaeb1d73ef6b0ed4f7334e29d63ae29
@@ -65,6 +65,6 @@ SPEC CHECKSUMS:
   Smart-Core-SDK: b9da99be202c56c547557281808058b45883b1de
   Smart-Display-SDK: 58123d81e78befa34ad871e7adccc5bc2eb2d26d
 
-PODFILE CHECKSUM: 22caacfccada1adc7bedca528349af371ded649e
+PODFILE CHECKSUM: 9a532c2115eec37ad162feff6406a3fa98b7cbf0
 
 COCOAPODS: 1.8.4
