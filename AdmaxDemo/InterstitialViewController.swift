@@ -72,9 +72,9 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
         dfpInterstitial = DFPInterstitial(adUnitID: "/21807464892/pb_admax_interstitial")
         dfpInterstitial.delegate = self
         dfpInterstitial.appEventDelegate = self
-        adUnit.fetchDemand(adObject: self.request) { (resultCode: ResultCode) in
+        adUnit.fetchDemand(adObject: self.request) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for DFP \(resultCode.name())")
-            self.dfpInterstitial!.load(self.request)
+            self?.dfpInterstitial!.load(self?.request)
         }
     }
     
