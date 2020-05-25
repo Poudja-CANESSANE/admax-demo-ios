@@ -154,7 +154,7 @@ class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventD
         bannerUnit.createDFPOnlyBanner()
     }
         
-    func onAdLoaded(size: GADAdSize) {
+    func onAdLoaded(bannerUnit: GamBannerAdUnit, size: GADAdSize) {
         print("DFP Ad loaded with size \(size.size)")
     }
     

@@ -11,6 +11,9 @@ import SASDisplayKit
 import AdmaxPrebidMobile
 
 class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol, UpdatableProtocol {
+    var competitionType: SASBidderAdapterCompetitionType = SASBidderAdapterCompetitionType.price
+    
+    var keyword: String?
     
     var creativeRenderingType: SASBidderAdapterCreativeRenderingType = SASBidderAdapterCreativeRenderingType.typePrimarySDK
     
@@ -18,13 +21,13 @@ class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol, UpdatableProtoc
     
     var winningSSPName: String = ""
     
-    var winningCreativeID: String = ""
+    var winningCreativeID: String? = ""
     
     var hbCacheID: String = ""
     
     var price: Float = 0
     
-    var currency: String = "USD"
+    var currency: String? = "USD"
     
     var dealID: String? = ""
     
@@ -100,6 +103,26 @@ class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol, UpdatableProtoc
         }
         keywordsString.append("}")
         return keywordsString
+    }
+    
+    func primarySDKRequestedThirdPartyRendering() {
+        
+    }
+    
+    func loadBidderBannerAd(in view: UIView, delegate: SASBannerBidderAdapterDelegate?) {
+        
+    }
+    
+    func loadBidderInterstitial(with delegate: SASInterstitialBidderAdapterDelegate?) {
+        
+    }
+    
+    func showBidderInterstitial(from viewController: UIViewController, delegate: SASInterstitialBidderAdapterDelegate?) {
+        
+    }
+    
+    func isInterstitialAdReady() -> Bool {
+        return false
     }
 
 }

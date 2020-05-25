@@ -119,9 +119,11 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
             print("Ad ready")
             Utils.shared.findPrebidCreativeBidder(ad, success: { (bidder) in
                 print("bidder: \(bidder)")},
-                                                  failure: { (error) in
+                                                  failure: { [weak self] (error) in
                                                     print("error: \(error.localizedDescription)")
-                                                    self.dfpInterstitial?.present(fromRootViewController: self)
+                                                    if let self = self {
+                                                        self.dfpInterstitial?.present(fromRootViewController: self)
+                                                    }
             })
         } else {
             print("Ad not ready")

@@ -22,7 +22,6 @@ import SASDisplayKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let SAS_SITE_ID: Int = 305017
-    let SAS_BASE_URL: String = "https://prg.smartadserver.com"
 
     var window: UIWindow?
 
@@ -37,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Prebid.shared.shareGeoLocation = true
         Prebid.shared.initAdmaxConfig()
         
-        SASConfiguration.shared.configure(siteId: SAS_SITE_ID, baseURL: SAS_BASE_URL)
+        SASConfiguration.shared.configure(siteId: SAS_SITE_ID)
         SASConfiguration.shared.loggingEnabled = true
 
         coreLocation = CLLocationManager()
