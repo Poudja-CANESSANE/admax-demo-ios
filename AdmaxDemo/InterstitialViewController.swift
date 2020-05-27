@@ -133,7 +133,7 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
     func interstitialManager(_ manager: SASInterstitialManager, didLoad ad: SASAd) {
         if (manager == self.sasInterstitial) {
             print("Interstitial ad has been loaded")
-            if interstitialUnit.isAdServerSdkRendering() {
+            if interstitialUnit.isSmartAdServerSdkRendering() {
                 self.sasInterstitial.show(from: self)
             }
         }

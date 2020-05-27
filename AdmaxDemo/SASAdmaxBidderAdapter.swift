@@ -51,7 +51,7 @@ class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol, UpdatableProtoc
     
     func primarySDKDisplayedBidderAd() {
         print("primarySDKDisplayedBidderAd called")
-        if (admaxAdUnit.isAdServerSdkRendering()) {
+        if (admaxAdUnit.isSmartAdServerSdkRendering()) {
             admaxAdUnit.sendBidWon(bidWonCacheId: hbCacheID)
         }
     }
@@ -62,8 +62,9 @@ class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol, UpdatableProtoc
     
     func primarySDKLostBidCompetition() {
         print("primarySDKLostBidCompetition called")
+        admaxAdUnit.isSmartAdServerAd = false
         admaxAdDisplayed = true
-        if (!admaxAdUnit.isAdServerSdkRendering()) {
+        if (!admaxAdUnit.isSmartAdServerSdkRendering()) {
             admaxAdUnit.loadAd()
         }
     }

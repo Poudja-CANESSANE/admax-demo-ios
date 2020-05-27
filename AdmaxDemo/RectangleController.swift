@@ -92,7 +92,7 @@ class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventD
         guard let bannerUnit = bannerUnit as? GamBannerAdUnit else {
             return
         }
-        bannerUnit.addAdditionalSize(sizes: [CGSize(width: 320, height: 50)])
+//        bannerUnit.addAdditionalSize(sizes: [CGSize(width: 320, height: 50)])
         bannerUnit.setGamAdUnitId(gamAdUnitId: "/21807464892/pb_admax_300x250_top")
         bannerUnit.setGamBannerAdListener(adListener: self)
         
