@@ -17,7 +17,6 @@ import UIKit
 import AdmaxPrebidMobile
 import CoreLocation
 import SASDisplayKit
-import AppTrackingTransparency
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,15 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var coreLocation: CLLocationManager?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
         // Override point for customization after application launch.
-        if #available(iOS 14, *) {
-            ATTrackingManager.requestTrackingAuthorization(completionHandler: { (status) in
-                print("ATTrackingManager authorization status: \(status.rawValue)")
-                })
-        } else {
-            // Fallback on earlier versions
-        }
 
         //Declare in AppDelegate to the user agent could be passed in first call
         Prebid.shared.loggingEnabled = true
