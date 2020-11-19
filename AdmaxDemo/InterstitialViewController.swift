@@ -26,6 +26,8 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
     @IBOutlet var adServerLabel: UILabel!
 
     var adServerName: String = ""
+    
+    var bidderName: String = ""
 
     let request = GADRequest()
     
@@ -40,7 +42,15 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
 
         adServerLabel.text = adServerName
 
-        interstitialUnit = GamInterstitialAdUnit(configId: "5ba30daf-85c5-471c-93b5-5637f3035149", viewController: self)
+        if (bidderName == "Xandr") {
+            interstitialUnit = GamInterstitialAdUnit(configId: "dbe12cc3-b986-4b92-8ddb-221b0eb302ef", viewController: self)
+        } else if (bidderName == "FAN") {
+            interstitialUnit = GamInterstitialAdUnit(configId: "0dea939c-69e3-4da5-8492-7faf4d169b67", viewController: self)
+        } else if (bidderName == "Criteo") {
+            interstitialUnit = GamInterstitialAdUnit(configId: "5ba30daf-85c5-471c-93b5-5637f3035149", viewController: self)
+        } else if (bidderName == "Smart") {
+            interstitialUnit = GamInterstitialAdUnit(configId: "2cd143f6-bb9d-4ca9-9c4b-acb527657177", viewController: self)
+        }
 
         if (adServerName == "DFP") {
             print("entered \(adServerName) loop" )
@@ -52,12 +62,11 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
     }
     
     func interstitial(_ interstitial: GADInterstitial, didReceiveAppEvent name: String, withInfo info: String?) {
+        print("GAD interstitialAd did receive app event")
         if (AnalyticsEventType.bidWon.name() == name) {
+            interstitialUnit.isGoogleAdServerAd = false
             if !interstitialUnit.isAdServerSdkRendering() {
                 interstitialUnit.loadAd()
-            } else {
-                self.dfpInterstitial?.present(fromRootViewController: self)
-                interstitialUnit.sendBidWon(bidWonCacheId: info!)
             }
         }
     }
@@ -67,7 +76,7 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
     }
 
     func loadDFPInterstitial(adUnit: AdUnit) {
-        print("Google Mobile Ads SDK version: \(DFPRequest.sdkVersion())")
+        print("Google Mobile Ads SDK version: \(GADMobileAds.sharedInstance().sdkVersion)")
 
         dfpInterstitial = DFPInterstitial(adUnitID: "/21807464892/pb_admax_interstitial")
         dfpInterstitial.delegate = self
@@ -114,7 +123,7 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
     }
 
     func interstitialDidReceiveAd(_ ad: GADInterstitial) {
-
+        print("GAD interstitialAd received")
         if (self.dfpInterstitial.isReady) {
             print("Ad ready")
             Utils.shared.findPrebidCreativeBidder(ad, success: { (bidder) in

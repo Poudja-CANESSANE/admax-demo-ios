@@ -28,6 +28,8 @@ class BannerController: UIViewController, GADBannerViewDelegate, GADAppEventDele
     @IBOutlet var adServerLabel: UILabel!
 
     var adServerName: String = ""
+    
+    var bidderName: String = ""
 
     let request = DFPRequest()
     
@@ -42,7 +44,15 @@ class BannerController: UIViewController, GADBannerViewDelegate, GADAppEventDele
 
         adServerLabel.text = adServerName
 
-        bannerUnit = BannerAdUnit(configId: "fb5fac4a-1910-4d3e-8a93-7bdbf6144312", size: CGSize(width: 320, height: 50), viewController: self, adContainer: appBannerView)
+        if (bidderName == "Xandr") {
+            bannerUnit = BannerAdUnit(configId: "dbe12cc3-b986-4b92-8ddb-221b0eb302ef", size: CGSize(width: 320, height: 50), viewController: self, adContainer: appBannerView)
+        } else if (bidderName == "FAN") {
+            bannerUnit = BannerAdUnit(configId: "2cd7c1b7-82fc-40b0-9762-09760a91c470", size: CGSize(width: 320, height: 50), viewController: self, adContainer: appBannerView)
+        } else if (bidderName == "Criteo") {
+            bannerUnit = BannerAdUnit(configId: "fb5fac4a-1910-4d3e-8a93-7bdbf6144312", size: CGSize(width: 320, height: 50), viewController: self, adContainer: appBannerView)
+        } else if (bidderName == "Smart") {
+            bannerUnit = BannerAdUnit(configId: "fe7d0514-530c-4fb3-9a52-c91e7c426ba6", size: CGSize(width: 320, height: 50), viewController: self, adContainer: appBannerView)
+        }
 //        bannerUnit.setAutoRefreshMillis(time: 35000)
         bannerUnit.adSizeDelegate = self
 
@@ -61,11 +71,11 @@ class BannerController: UIViewController, GADBannerViewDelegate, GADAppEventDele
     }
     
     func adView(_ banner: GADBannerView, didReceiveAppEvent name: String, withInfo info: String?) {
+        print("GAD adView didReceiveAppEvent")
         if (AnalyticsEventType.bidWon.name() == name) {
+            bannerUnit.isGoogleAdServerAd = false
             if !bannerUnit.isAdServerSdkRendering() {
                 bannerUnit.loadAd()
-            } else {
-                bannerUnit.sendBidWon(bidWonCacheId: info!)
             }
         }
     }
@@ -75,7 +85,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, GADAppEventDele
     }
 
     func loadDFPBanner(bannerUnit: AdUnit) {
-        print("Google Mobile Ads SDK version: \(DFPRequest.sdkVersion())")
+        print("Google Mobile Ads SDK version: \(GADMobileAds.sharedInstance().sdkVersion)")
         dfpBanner = DFPBannerView(adSize: kGADAdSizeBanner)
         dfpBanner.adUnitID = "/21807464892/pb_admax_320x50_top"
         dfpBanner.rootViewController = self
@@ -116,7 +126,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, GADAppEventDele
     }
 
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("adViewDidReceiveAd")
+        print("GAD adViewDidReceiveAd")
         Utils.shared.findPrebidCreativeSize(bannerView,
                                             success: { (size) in
                                                 guard let bannerView = bannerView as? DFPBannerView else {

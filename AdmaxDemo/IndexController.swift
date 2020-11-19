@@ -19,6 +19,7 @@ import UIKit
 
 class IndexController: UIViewController {
     @IBOutlet var adServerSegment: UISegmentedControl!
+    @IBOutlet var bidderSegment: UISegmentedControl!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,15 +30,18 @@ class IndexController: UIViewController {
         if segue.destination is BannerController {
             let vc = segue.destination as? BannerController
             vc?.adServerName = adServerSegment.titleForSegment(at: adServerSegment.selectedSegmentIndex)!
+            vc?.bidderName = bidderSegment.titleForSegment(at: bidderSegment.selectedSegmentIndex)!
         }
         if segue.destination is RectangleController {
             let vc = segue.destination as? RectangleController
             vc?.adServerName = adServerSegment.titleForSegment(at: adServerSegment.selectedSegmentIndex)!
+            vc?.bidderName = bidderSegment.titleForSegment(at: bidderSegment.selectedSegmentIndex)!
         }
 
         if segue.destination is InterstitialViewController {
             let vc = segue.destination as? InterstitialViewController
             vc?.adServerName = adServerSegment.titleForSegment(at: adServerSegment.selectedSegmentIndex)!
+            vc?.bidderName = bidderSegment.titleForSegment(at: bidderSegment.selectedSegmentIndex)!
         }
     }
 
