@@ -46,8 +46,6 @@ class BannerController: UIViewController, GADBannerViewDelegate, GADAppEventDele
 
         if (bidderName == "Xandr") {
             bannerUnit = BannerAdUnit(configId: "dbe12cc3-b986-4b92-8ddb-221b0eb302ef", size: CGSize(width: 320, height: 50), viewController: self, adContainer: appBannerView)
-        } else if (bidderName == "FAN") {
-            bannerUnit = BannerAdUnit(configId: "2cd7c1b7-82fc-40b0-9762-09760a91c470", size: CGSize(width: 320, height: 50), viewController: self, adContainer: appBannerView)
         } else if (bidderName == "Criteo") {
             bannerUnit = BannerAdUnit(configId: "fb5fac4a-1910-4d3e-8a93-7bdbf6144312", size: CGSize(width: 320, height: 50), viewController: self, adContainer: appBannerView)
         } else if (bidderName == "Smart") {

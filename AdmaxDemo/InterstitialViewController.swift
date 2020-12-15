@@ -44,8 +44,6 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
 
         if (bidderName == "Xandr") {
             interstitialUnit = GamInterstitialAdUnit(configId: "dbe12cc3-b986-4b92-8ddb-221b0eb302ef", viewController: self)
-        } else if (bidderName == "FAN") {
-            interstitialUnit = GamInterstitialAdUnit(configId: "0dea939c-69e3-4da5-8492-7faf4d169b67", viewController: self)
         } else if (bidderName == "Criteo") {
             interstitialUnit = GamInterstitialAdUnit(configId: "5ba30daf-85c5-471c-93b5-5637f3035149", viewController: self)
         } else if (bidderName == "Smart") {
@@ -67,6 +65,8 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, GAD
             interstitialUnit.isGoogleAdServerAd = false
             if !interstitialUnit.isAdServerSdkRendering() {
                 interstitialUnit.loadAd()
+            } else {
+                self.dfpInterstitial?.present(fromRootViewController: self)
             }
         }
     }

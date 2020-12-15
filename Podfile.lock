@@ -1,18 +1,14 @@
 PODS:
-  - AdmaxPrebidMobile/Core (1.4.0):
+  - AdmaxPrebidMobile/Core (1.4.1):
     - CriteoPublisherSdk (~> 4.0)
-    - FBAudienceNetwork
     - Google-Mobile-Ads-SDK (~> 7.43)
     - Smart-Display-SDK (~> 7.6)
     - Try
-  - AdmaxPrebidMobile/GoogleMobileAds (1.4.0):
+  - AdmaxPrebidMobile/GoogleMobileAds (1.4.1):
     - AdmaxPrebidMobile/Core
-  - CriteoPublisherSdk (4.0.2):
-    - CriteoPublisherSdk/Sdk (= 4.0.2)
-  - CriteoPublisherSdk/Sdk (4.0.2)
-  - FBAudienceNetwork (6.2.0):
-    - FBSDKCoreKit/Basics (>= 7.0.1)
-  - FBSDKCoreKit/Basics (8.2.0)
+  - CriteoPublisherSdk (4.1.0):
+    - CriteoPublisherSdk/Sdk (= 4.1.0)
+  - CriteoPublisherSdk/Sdk (4.1.0)
   - Google-Mobile-Ads-SDK (7.68.0):
     - GoogleAppMeasurement (~> 7.0)
     - GoogleUserMessagingPlatform (~> 1.1)
@@ -52,7 +48,7 @@ PODS:
   - Try (2.1.1)
 
 DEPENDENCIES:
-  - AdmaxPrebidMobile/GoogleMobileAds (= 1.4.0)
+  - AdmaxPrebidMobile/GoogleMobileAds (= 1.4.1)
   - Google-Mobile-Ads-SDK (~> 7.68.0)
   - Smart-Display-SDK (~> 7.8.0)
 
@@ -60,8 +56,6 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - AdmaxPrebidMobile
     - CriteoPublisherSdk
-    - FBAudienceNetwork
-    - FBSDKCoreKit
     - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
     - GoogleUserMessagingPlatform
@@ -73,10 +67,8 @@ SPEC REPOS:
     - Try
 
 SPEC CHECKSUMS:
-  AdmaxPrebidMobile: 77e93d86a206ebc261ff84a89de384e3187b2ffb
-  CriteoPublisherSdk: 80661127083225ca31190b602dd0745874f0bf45
-  FBAudienceNetwork: 69193f0362accc40305703fb3265342416971446
-  FBSDKCoreKit: 4afd6ff53d8133a433dbcda44451c9498f8c6ce4
+  AdmaxPrebidMobile: c71962f56149e1967c07e44e2fd3d28db4b14f12
+  CriteoPublisherSdk: 99696dcba6b93e5de32442a1573e1be78f907a70
   Google-Mobile-Ads-SDK: 29bbdb182d69ff606cc0301da1590b40be8d2205
   GoogleAppMeasurement: 7790ef975d1d463c8614cd949a847e612edf087a
   GoogleUserMessagingPlatform: 1d4b6946710d18cec34742054092e2c2bddae61f
@@ -87,6 +79,6 @@ SPEC CHECKSUMS:
   Smart-Display-SDK: d670bac47d0aeece407117943874ad8e399306b9
   Try: 5ef669ae832617b3cee58cb2c6f99fb767a4ff96
 
-PODFILE CHECKSUM: 30c5b8ca425891985445b35a4c888b3088740154
+PODFILE CHECKSUM: 80bdd29029769e8698fb202dcb68d6d233660446
 
 COCOAPODS: 1.9.3

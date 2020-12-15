@@ -39,8 +39,6 @@ class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventD
         
         if (bidderName == "Xandr") {
             bannerUnit = GamBannerAdUnit(configId: "dbe12cc3-b986-4b92-8ddb-221b0eb302ef", size: CGSize(width: 300, height: 250), viewController: self, adContainer: appRectangleView)
-        } else if (bidderName == "FAN") {
-            bannerUnit = GamBannerAdUnit(configId: "54c11f7a-2174-462f-b1f3-7dfd06c94c1a", size: CGSize(width: 300, height: 250), viewController: self, adContainer: appRectangleView)
         } else if (bidderName == "Criteo") {
             bannerUnit = GamBannerAdUnit(configId: "dbe12cc3-b986-4b92-8ddb-221b0eb302ef", size: CGSize(width: 300, height: 250), viewController: self, adContainer: appRectangleView)
         } else if (bidderName == "Smart") {
