@@ -17,6 +17,7 @@ import UIKit
 import AdmaxPrebidMobile
 import CoreLocation
 import SASDisplayKit
+import GoogleMobileAds
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
         //Declare in AppDelegate to the user agent could be passed in first call
         Prebid.shared.loggingEnabled = true
         Prebid.shared.admaxExceptionLogger = DemoAdmaxExceptionLogger()

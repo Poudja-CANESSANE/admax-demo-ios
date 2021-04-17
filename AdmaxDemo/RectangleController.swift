@@ -24,11 +24,11 @@ class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventD
     
     var bidderName: String = ""
     
-    let request = DFPRequest()
+    let request = GAMRequest()
     
     var sasBanner: SASBannerView!
     
-    var dfpBanner: DFPBannerView!
+    var dfpBanner: GAMBannerView!
     
     var bannerUnit: GamBannerAdUnit!
     
@@ -78,7 +78,7 @@ class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventD
     
     func loadDFPBanner(bannerUnit: AdUnit) {
         print("Google Mobile Ads SDK version: \(GADMobileAds.sharedInstance().sdkVersion)")
-        dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
+        dfpBanner = GAMBannerView(adSize: kGADAdSizeMediumRectangle)
         dfpBanner.adUnitID = "/21807464892/pb_admax_300x250_top"
         dfpBanner.rootViewController = self
         dfpBanner.delegate = self
@@ -123,11 +123,11 @@ class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventD
         // Dispose of any resources that can be recreated.
     }
     
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
         print("GAD adViewDidReceiveAd")
         Utils.shared.findPrebidCreativeSize(bannerView,
                                             success: { (size) in
-                                                guard let bannerView = bannerView as? DFPBannerView else {
+                                                guard let bannerView = bannerView as? GAMBannerView else {
                                                     return
                                                 }
                                                 bannerView.resize(GADAdSizeFromCGSize(size))},
@@ -136,17 +136,7 @@ class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventD
         })
     }
     
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
-    }
-    
-    func adViewDidReceiveAd(_ bannerView: DFPBannerView) {
-        print("adViewDidReceiveAd")
-    }
-    
-    /// Tells the delegate an ad request failed.
-    func adView(_ bannerView: DFPBannerView,
-                didFailToReceiveAdWithError error: GADRequestError) {
+    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
         print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
     }
     
@@ -167,7 +157,7 @@ class RectangleController: UIViewController, GADBannerViewDelegate, GADAppEventD
         print("DFP Ad loaded with size \(size.size)")
     }
     
-    func onAdFailedToLoad(error: GADRequestError) {
+    func onAdFailedToLoad(error: Error) {
         print("DFP Ad failed to load with error \(error)")
     }
 }
