@@ -1,14 +1,14 @@
 PODS:
-  - AdmaxPrebidMobile/Core (1.5.0):
+  - AdmaxPrebidMobile/Core (1.6.0):
     - CriteoPublisherSdk (~> 4.3)
     - Google-Mobile-Ads-SDK (~> 8.3)
     - Smart-Display-SDK (~> 7.6)
     - Try
-  - AdmaxPrebidMobile/GoogleMobileAds (1.5.0):
+  - AdmaxPrebidMobile/GoogleMobileAds (1.6.0):
     - AdmaxPrebidMobile/Core
-  - CriteoPublisherSdk (4.3.1):
-    - CriteoPublisherSdk/Sdk (= 4.3.1)
-  - CriteoPublisherSdk/Sdk (4.3.1)
+  - CriteoPublisherSdk (4.3.3):
+    - CriteoPublisherSdk/Sdk (= 4.3.3)
+  - CriteoPublisherSdk/Sdk (4.3.3)
   - Google-Mobile-Ads-SDK (8.3.0):
     - GoogleAppMeasurement (~> 7.0)
     - GoogleUserMessagingPlatform (>= 1.1)
@@ -48,7 +48,7 @@ PODS:
   - Try (2.1.1)
 
 DEPENDENCIES:
-  - AdmaxPrebidMobile/GoogleMobileAds (= 1.5.0)
+  - AdmaxPrebidMobile/GoogleMobileAds (= 1.6.0)
   - Google-Mobile-Ads-SDK (~> 8.3.0)
   - Smart-Display-SDK (~> 7.8.0)
 
@@ -67,8 +67,8 @@ SPEC REPOS:
     - Try
 
 SPEC CHECKSUMS:
-  AdmaxPrebidMobile: b577b28bb024f6030a612c62de3285dab4a000bc
-  CriteoPublisherSdk: 8b7a5a68f4b4fb754311018062f03b5cd6ba4ff1
+  AdmaxPrebidMobile: 66a182d3a9f053aa731e558f529e1d701f336898
+  CriteoPublisherSdk: e0c7343d21474ac9a5381c002f2b3f40438f86ba
   Google-Mobile-Ads-SDK: c14f5a63db1414b4ca0ee1539c9f3d700ace96c2
   GoogleAppMeasurement: 1c863b1161fc3c8cf614a7460d1be6a7c262aab3
   GoogleUserMessagingPlatform: ab890ce5f6620f293a21b6bdd82e416a2c73aeca
@@ -79,6 +79,6 @@ SPEC CHECKSUMS:
   Smart-Display-SDK: d670bac47d0aeece407117943874ad8e399306b9
   Try: 5ef669ae832617b3cee58cb2c6f99fb767a4ff96
 
-PODFILE CHECKSUM: 373a11acf6d5fb00fc64e0414a3e8765b1f04827
+PODFILE CHECKSUM: 210f2626589c9728fe3523161791cac0e5708455
 
 COCOAPODS: 1.10.1

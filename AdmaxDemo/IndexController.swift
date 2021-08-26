@@ -43,6 +43,13 @@ class IndexController: UIViewController {
             vc?.adServerName = adServerSegment.titleForSegment(at: adServerSegment.selectedSegmentIndex)!
             vc?.bidderName = bidderSegment.titleForSegment(at: bidderSegment.selectedSegmentIndex)!
         }
+        
+        if segue.destination is NativeInAppViewController {
+            let vc = segue.destination as? NativeInAppViewController
+            vc?.adServerName = adServerSegment.titleForSegment(at: adServerSegment.selectedSegmentIndex)!
+            vc?.bidderName = bidderSegment.titleForSegment(at: bidderSegment.selectedSegmentIndex)!
+        }
+
     }
 
 }
