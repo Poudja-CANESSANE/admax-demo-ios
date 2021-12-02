@@ -42,10 +42,11 @@ class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol, UpdatableProtoc
     }
     
     public func update(keywords: [String: String]) {
+        let keyValuePrefix: String = AdmaxConfigUtil.getKeyvaluePrefix(admaxConfig: Prebid.shared.admaxConfig)
         winningSSPName = keywords["hb_bidder"]!
         winningCreativeID = keywords["hb_cache_id"] ?? ""
         hbCacheID = keywords["hb_cache_id"] ?? ""
-        price = Float(keywords["hb_pb"]!)!
+        price = Float(keywords[keyValuePrefix]!)!
         targetingMap = stringify(keywords: keywords)
     }
     
