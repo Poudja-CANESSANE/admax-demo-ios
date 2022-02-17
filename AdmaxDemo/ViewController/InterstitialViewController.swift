@@ -27,6 +27,6 @@ final class InterstitialViewController: UIViewController {
         let viewModel = LBCInterstitialViewModel(adServerName: self.adServerName,
                                                  bidderName: self.bidderName,
                                                  viewController: self)
-        viewModel.loadInterstitial()
+        viewModel.start()
     }
 }

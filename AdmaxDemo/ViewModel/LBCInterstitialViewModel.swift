@@ -25,118 +25,142 @@ final class LBCInterstitialViewModel: NSObject {
         self.viewController = viewController
     }
 
-    func loadInterstitial() {
-        guard let viewController = viewController else { return }
+    func start() {
+        guard let viewController = self.viewController else { return }
+        let configId = self.getConfigId()
+        self.interstitialUnit = GamInterstitialAdUnit(configId: configId, viewController: viewController)
+        self.loadInterstitial()
+    }
 
-        if self.bidderName == "Xandr" {
-            self.interstitialUnit = GamInterstitialAdUnit(configId: "dbe12cc3-b986-4b92-8ddb-221b0eb302ef", viewController: viewController)
-        } else if self.bidderName == "Criteo" {
-            self.interstitialUnit = GamInterstitialAdUnit(configId: "5ba30daf-85c5-471c-93b5-5637f3035149", viewController: viewController)
-        } else if self.bidderName == "Smart" {
-            self.interstitialUnit = GamInterstitialAdUnit(configId: "2cd143f6-bb9d-4ca9-9c4b-acb527657177", viewController: viewController)
+    private func loadInterstitial() {
+        switch self.adServerName {
+        case "DFP": self.loadDFPInterstitial(adUnit: self.interstitialUnit)
+        case "Smart": self.loadSmartInterstitial(adUnit: self.interstitialUnit)
+        default: return
+        }
+    }
+
+    private func getConfigId() -> String {
+        var configId = ""
+
+        switch self.bidderName {
+        case "Xandr": configId = "dbe12cc3-b986-4b92-8ddb-221b0eb302ef"
+        case "Criteo": configId = "5ba30daf-85c5-471c-93b5-5637f3035149"
+        case "Smart": configId = "2cd143f6-bb9d-4ca9-9c4b-acb527657177"
+        default: configId = ""
         }
 
-        if self.adServerName == "DFP" {
-            print("entered \(self.adServerName) loop" )
-            self.loadDFPInterstitial(adUnit: self.interstitialUnit)
-        } else if self.adServerName == "Smart" {
-            print("entered \(self.adServerName) loop")
-            self.loadSmartInterstitial(adUnit: self.interstitialUnit)
-        }
+        return configId
     }
 
     private func loadDFPInterstitial(adUnit: AdUnit) {
+        print("entered \(self.adServerName) loop")
         print("Google Mobile Ads SDK version: \(GADMobileAds.sharedInstance().sdkVersion)")
-        adUnit.fetchDemand(adObject: self.request) { (resultCode: ResultCode) in
+        adUnit.fetchDemand(adObject: self.request) { resultCode in
             print("Prebid demand fetch for DFP \(resultCode.name())")
-            GAMInterstitialAd.load(withAdManagerAdUnitID: "/21807464892/pb_admax_interstitial", request: self.request) { ad, error in
-                if let error = error {
-                    print("Failed to load interstitial ad with error: \(error.localizedDescription)")
-                } else if let ad = ad {
-                    self.dfpInterstitial = ad
-                    self.dfpInterstitial.appEventDelegate = self
-                    Utils.shared.findPrebidCreativeBidder(
-                        ad,
-                        success: { (bidder) in
-                            print("bidder: \(bidder)")},
-                        failure: { (error) in
-                            print("error: \(error.localizedDescription)")
-                            if let viewController = self.viewController {
-                                self.dfpInterstitial?.present(fromRootViewController: viewController)
-                            }
-                        }
-                    )
-                }
-            }
+            self.loadGAMInterstitialAd()
         }
     }
 
-    private func loadSmartInterstitial(adUnit: AdUnit) {
-        let sasAdPlacement: SASAdPlacement = SASAdPlacement(siteId: 305017, pageId: 1109572, formatId: 80600)
-        self.sasInterstitial = SASInterstitialManager(placement: sasAdPlacement, delegate: self)
-        guard let adUnit = adUnit as? GamInterstitialAdUnit else { return }
+    private func loadGAMInterstitialAd() {
+        GAMInterstitialAd.load(withAdManagerAdUnitID: "/21807464892/pb_admax_interstitial",
+                               request: self.request) { ad, error in
+            guard let ad = ad else {
+                return  print("Failed to load interstitial ad with error: \(error?.localizedDescription ?? "error")")
+            }
+
+            self.dfpInterstitial = ad
+            self.dfpInterstitial.appEventDelegate = self
+            self.findPrebidCreativeBidder(ad: ad)
+        }
+    }
+
+    private func findPrebidCreativeBidder(ad: GAMInterstitialAd) {
+        Utils.shared.findPrebidCreativeBidder(
+            ad,
+            success: { bidder in
+                print("bidder: \(bidder)")},
+            failure: { error in
+                print("error: \(error.localizedDescription)")
+                if let viewController = self.viewController {
+                    self.dfpInterstitial?.present(fromRootViewController: viewController)
+                }
+            }
+        )
+    }
+
+    private func loadSmartInterstitial(adUnit: GamInterstitialAdUnit) {
+        print("entered \(self.adServerName) loop")
+        self.sasInterstitial = self.createSASInterstitialManager()
         adUnit.setGamAdUnitId(gamAdUnitId: "/21807464892/pb_admax_interstitial")
         let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: adUnit)
 
         adUnit.fetchDemand(adObject: admaxBidderAdapter) { resultCode in
-            print("Prebid demand fetch for Smart \(resultCode.name())")
-            if resultCode == ResultCode.prebidDemandFetchSuccess {
-                self.sasInterstitial!.load(bidderAdapter: admaxBidderAdapter)
-            } else {
-                self.sasInterstitial!.load()
-            }
+            self.handleSmartFetchDemand(resultCode: resultCode, admaxBidderAdapter: admaxBidderAdapter)
         }
+    }
+
+    private func handleSmartFetchDemand(resultCode: ResultCode, admaxBidderAdapter: SASAdmaxBidderAdapter) {
+        print("Prebid demand fetch for Smart \(resultCode.name())")
+        guard let sasInterstitial = self.sasInterstitial else { return }
+        switch resultCode {
+        case .prebidDemandFetchSuccess: sasInterstitial.load(bidderAdapter: admaxBidderAdapter)
+        default: sasInterstitial.load()
+        }
+    }
+
+    private func createSASInterstitialManager() -> SASInterstitialManager {
+        let sasAdPlacement: SASAdPlacement = SASAdPlacement(siteId: 305017,
+                                                            pageId: 1109572,
+                                                            formatId: 80600)
+        return SASInterstitialManager(placement: sasAdPlacement, delegate: self)
     }
 }
 
 extension LBCInterstitialViewModel: GADAppEventDelegate {
     func interstitialAd(_ interstitial: GADInterstitialAd, didReceiveAppEvent name: String, withInfo info: String?) {
         print("GAD interstitialAd did receive app event")
-        if (AnalyticsEventType.bidWon.name() == name) {
-            self.interstitialUnit.isGoogleAdServerAd = false
-            if !self.interstitialUnit.isAdServerSdkRendering() {
-                self.interstitialUnit.loadAd()
-            } else {
-                guard let viewController = self.viewController else { return }
-                self.dfpInterstitial?.present(fromRootViewController: viewController)
-            }
+        guard AnalyticsEventType.bidWon.name() == name else { return }
+        self.interstitialUnit.isGoogleAdServerAd = false
+
+        if !self.interstitialUnit.isAdServerSdkRendering() {
+            self.interstitialUnit.loadAd()
+        } else {
+            guard let viewController = self.viewController else { return }
+            self.dfpInterstitial?.present(fromRootViewController: viewController)
         }
+
     }
 }
 
 extension LBCInterstitialViewModel: SASInterstitialManagerDelegate {
     func interstitialManager(_ manager: SASInterstitialManager, didLoad ad: SASAd) {
-        if (manager == self.sasInterstitial) {
-            print("Interstitial ad has been loaded")
-            if interstitialUnit.isSmartAdServerSdkRendering() {
-                guard let viewController = viewController else { return }
-                self.sasInterstitial.show(from: viewController)
-            }
-        }
+        guard self.sasInterstitial == manager,
+              self.interstitialUnit.isSmartAdServerSdkRendering(),
+              let viewController = viewController
+        else { return }
+        print("Interstitial ad has been loaded")
+        self.sasInterstitial.show(from: viewController)
     }
 
     func interstitialManager(_ manager: SASInterstitialManager, didFailToLoadWithError error: Error) {
-        if (manager == self.sasInterstitial) {
-            print("Interstitial ad did fail to load: \(error.localizedDescription)")
-            self.interstitialUnit.createDfpOnlyInterstitial()
-        }
+        guard self.sasInterstitial == manager else { return }
+        print("Interstitial ad did fail to load: \(error.localizedDescription)")
+        self.interstitialUnit.createDfpOnlyInterstitial()
     }
 
     func interstitialManager(_ manager: SASInterstitialManager, didFailToShowWithError error: Error) {
-        if (manager == self.sasInterstitial) {
-            print("Interstitial ad did fail to show: \(error.localizedDescription)")
-        }
+        guard self.sasInterstitial == manager else { return }
+        print("Interstitial ad did fail to show: \(error.localizedDescription)")
     }
 
     func interstitialManager(_ manager: SASInterstitialManager, didAppearFrom viewController: UIViewController) {
-        if (manager == self.sasInterstitial) {
-            print("Interstitial ad did appear")
-        }
+        guard self.sasInterstitial == manager else { return }
+        print("Interstitial ad did appear")
     }
 
     func interstitialManager(_ manager: SASInterstitialManager, didDisappearFrom viewController: UIViewController) {
-        if (manager == self.sasInterstitial) {
-            print("Interstitial ad did disappear")
-        }
+        guard self.sasInterstitial == manager else { return }
+        print("Interstitial ad did disappear")
     }
 }
