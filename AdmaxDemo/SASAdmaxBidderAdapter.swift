@@ -8,7 +8,6 @@
 
 import Foundation
 import SASDisplayKit
-import AdmaxPrebidMobile
 
 final class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol {
     var competitionType: SASBidderAdapterCompetitionType = SASBidderAdapterCompetitionType.price
