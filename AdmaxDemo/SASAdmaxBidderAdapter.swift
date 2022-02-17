@@ -79,7 +79,7 @@ final class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol {
     }
 }
 
-extension SASAdmaxBidderAdapter: UpdatableProtocol {
+extension SASAdmaxBidderAdapter: LBCUpdatableProtocol {
     public func update(keywords: [String: String]) {
         let keyValuePrefix: String = AdmaxConfigUtil.getKeyvaluePrefix(admaxConfig: self.prebidService.admaxConfig)
         self.winningSSPName = keywords["hb_bidder"]!
