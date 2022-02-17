@@ -32,11 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         GADMobileAds.sharedInstance().start(completionHandler: nil)
         //Declare in AppDelegate to the user agent could be passed in first call
-        Prebid.shared.loggingEnabled = true
-        Prebid.shared.admaxExceptionLogger = DemoAdmaxExceptionLogger()
-        Prebid.shared.prebidServerAccountId = "4803423e-c677-4993-807f-6a1554477ced"
-        Prebid.shared.shareGeoLocation = true
-        Prebid.shared.initAdmaxConfig()
+        LBCServices.shared.prebidService.start()
         
         SASConfiguration.shared.configure(siteId: SAS_SITE_ID)
         SASConfiguration.shared.loggingEnabled = true
