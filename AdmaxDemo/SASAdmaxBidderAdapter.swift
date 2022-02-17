@@ -10,63 +10,42 @@ import Foundation
 import SASDisplayKit
 import AdmaxPrebidMobile
 
-class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol, UpdatableProtocol {
+final class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol {
     var competitionType: SASBidderAdapterCompetitionType = SASBidderAdapterCompetitionType.price
-    
     var keyword: String?
-    
     var creativeRenderingType: SASBidderAdapterCreativeRenderingType = SASBidderAdapterCreativeRenderingType.typePrimarySDK
-    
     var adapterName: String = "SASAdmaxBidderAdapter"
-    
     var winningSSPName: String = ""
-    
     var winningCreativeID: String? = ""
-    
     var hbCacheID: String = ""
-    
     var price: Float = 0
-    
     var currency: String? = "USD"
-    
     var dealID: String? = ""
-    
-    var targetingMap: String = ""
-    
-    var admaxAdDisplayed: Bool = false
-    
-    var admaxAdUnit: AdUnit
-    
+    private var targetingMap: String = ""
+    private var admaxAdDisplayed: Bool = false
+    private var admaxAdUnit: AdUnit
+
     init(adUnit: AdUnit) {
-        admaxAdUnit = adUnit
+        self.admaxAdUnit = adUnit
     }
-    
-    public func update(keywords: [String: String]) {
-        let keyValuePrefix: String = AdmaxConfigUtil.getKeyvaluePrefix(admaxConfig: Prebid.shared.admaxConfig)
-        winningSSPName = keywords["hb_bidder"]!
-        winningCreativeID = keywords["hb_cache_id"] ?? ""
-        hbCacheID = keywords["hb_cache_id"] ?? ""
-        price = Float(keywords[keyValuePrefix]!)!
-        targetingMap = stringify(keywords: keywords)
-    }
-    
+
     func primarySDKDisplayedBidderAd() {
         print("primarySDKDisplayedBidderAd called")
     }
-    
+
     func primarySDKClickedBidderAd() {
         print("primarySDKClickedBidderAd called")
     }
-    
+
     func primarySDKLostBidCompetition() {
         print("primarySDKLostBidCompetition called")
-        admaxAdUnit.isSmartAdServerAd = false
-        admaxAdDisplayed = true
-        if (!admaxAdUnit.isSmartAdServerSdkRendering()) {
-            admaxAdUnit.loadAd()
+        self.admaxAdUnit.isSmartAdServerAd = false
+        self.admaxAdDisplayed = true
+        if (!self.admaxAdUnit.isSmartAdServerSdkRendering()) {
+            self.admaxAdUnit.loadAd()
         }
     }
-    
+
     func bidderWinningAdMarkup() -> String {
         let appId: String = Bundle.main.bundleIdentifier!
         let adm: String = "<script src = \"https://cdn.admaxmedia.io/creative.js\"></script>\n" +
@@ -74,7 +53,7 @@ class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol, UpdatableProtoc
             "  var ucTagData = {};\n" +
             "  ucTagData.adServerDomain = \"\";\n" +
             "  ucTagData.pubUrl = \"" + appId + "\";\n" +
-            "  ucTagData.targetingMap = " + targetingMap + ";\n" +
+            "  ucTagData.targetingMap = " + self.targetingMap + ";\n" +
             "\n" +
             "  try {\n" +
             "    ucTag.renderAd(document, ucTagData);\n" +
@@ -84,7 +63,27 @@ class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol, UpdatableProtoc
         "</script>"
         return adm
     }
-    
+
+    func primarySDKRequestedThirdPartyRendering() {}
+    func loadBidderBannerAd(in view: UIView, delegate: SASBannerBidderAdapterDelegate?) {}
+    func loadBidderInterstitial(with delegate: SASInterstitialBidderAdapterDelegate?) {}
+    func showBidderInterstitial(from viewController: UIViewController, delegate: SASInterstitialBidderAdapterDelegate?) {}
+
+    func isInterstitialAdReady() -> Bool {
+        return false
+    }
+}
+
+extension SASAdmaxBidderAdapter: UpdatableProtocol {
+    public func update(keywords: [String: String]) {
+        let keyValuePrefix: String = AdmaxConfigUtil.getKeyvaluePrefix(admaxConfig: Prebid.shared.admaxConfig)
+        self.winningSSPName = keywords["hb_bidder"]!
+        self.winningCreativeID = keywords["hb_cache_id"] ?? ""
+        self.hbCacheID = keywords["hb_cache_id"] ?? ""
+        self.price = Float(keywords[keyValuePrefix]!)!
+        self.targetingMap = self.stringify(keywords: keywords)
+    }
+
     private func stringify(keywords: [String: String]) -> String {
         let n: Int = keywords.count - 1
         var i: Int = 0
@@ -103,25 +102,4 @@ class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol, UpdatableProtoc
         keywordsString.append("}")
         return keywordsString
     }
-    
-    func primarySDKRequestedThirdPartyRendering() {
-        
-    }
-    
-    func loadBidderBannerAd(in view: UIView, delegate: SASBannerBidderAdapterDelegate?) {
-        
-    }
-    
-    func loadBidderInterstitial(with delegate: SASInterstitialBidderAdapterDelegate?) {
-        
-    }
-    
-    func showBidderInterstitial(from viewController: UIViewController, delegate: SASInterstitialBidderAdapterDelegate?) {
-        
-    }
-    
-    func isInterstitialAdReady() -> Bool {
-        return false
-    }
-
 }
