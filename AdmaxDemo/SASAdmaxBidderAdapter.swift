@@ -21,12 +21,17 @@ final class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol {
     var price: Float = 0
     var currency: String? = "USD"
     var dealID: String? = ""
+
     private var targetingMap: String = ""
     private var admaxAdDisplayed: Bool = false
     private var admaxAdUnit: AdUnit
 
-    init(adUnit: AdUnit) {
+    private let prebidService: LBCPrebidServiceProtocol
+
+    init(adUnit: AdUnit,
+         prebidService: LBCPrebidServiceProtocol = LBCServices.shared.prebidService) {
         self.admaxAdUnit = adUnit
+        self.prebidService = prebidService
     }
 
     func primarySDKDisplayedBidderAd() {
@@ -76,7 +81,7 @@ final class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol {
 
 extension SASAdmaxBidderAdapter: UpdatableProtocol {
     public func update(keywords: [String: String]) {
-        let keyValuePrefix: String = AdmaxConfigUtil.getKeyvaluePrefix(admaxConfig: Prebid.shared.admaxConfig)
+        let keyValuePrefix: String = AdmaxConfigUtil.getKeyvaluePrefix(admaxConfig: self.prebidService.admaxConfig)
         self.winningSSPName = keywords["hb_bidder"]!
         self.winningCreativeID = keywords["hb_cache_id"] ?? ""
         self.hbCacheID = keywords["hb_cache_id"] ?? ""
