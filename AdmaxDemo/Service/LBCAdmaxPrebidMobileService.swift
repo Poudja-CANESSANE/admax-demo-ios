@@ -132,9 +132,9 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     }
 
     private func createSASInterstitialManager() -> SASInterstitialManager {
-        let sasAdPlacement: SASAdPlacement = SASAdPlacement(siteId: 305017,
-                                                            pageId: 1109572,
-                                                            formatId: 80600)
+        let sasAdPlacement = LBCSASAdPlacement(siteId: 305017,
+                                               pageId: 1109572,
+                                               formatId: 80600)
         let sasInterstitialManager = SASInterstitialManager(placement: sasAdPlacement, delegate: self.sasInterstitialManagerDelegate)
         self.sasInterstitialManagerDelegate?.sasInterstitialManager = sasInterstitialManager
         return sasInterstitialManager
