@@ -7,7 +7,6 @@
 //
 
 import SASDisplayKit
-import AdmaxPrebidMobile
 
 final class LBCSASInterstitialManagerDelegate: NSObject, SASInterstitialManagerDelegate {
     weak var sasInterstitialManager: SASInterstitialManager?
