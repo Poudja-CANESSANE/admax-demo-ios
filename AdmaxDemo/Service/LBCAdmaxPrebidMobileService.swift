@@ -32,6 +32,15 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
         )
     }()
 
+    private lazy var sasInterstitialManagerDelegate: LBCSASInterstitialManagerDelegate? = {
+        guard let viewController = viewController else { return nil }
+        return LBCSASInterstitialManagerDelegate(
+            interstitialUnit: self.interstitialUnit,
+            viewController: viewController
+        )
+    }()
+
+
     init(adServerName: String, bidderName: String, viewController: UIViewController) {
         self.adServerName = adServerName
         self.bidderName = bidderName
@@ -126,38 +135,8 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
         let sasAdPlacement: SASAdPlacement = SASAdPlacement(siteId: 305017,
                                                             pageId: 1109572,
                                                             formatId: 80600)
-        return SASInterstitialManager(placement: sasAdPlacement, delegate: self)
-    }
-}
-
-extension LBCAdmaxPrebidMobileService: SASInterstitialManagerDelegate {
-    func interstitialManager(_ manager: SASInterstitialManager, didLoad ad: SASAd) {
-        guard self.sasInterstitial == manager,
-              self.interstitialUnit.isSmartAdServerSdkRendering(),
-              let viewController = viewController
-        else { return }
-        print("Interstitial ad has been loaded")
-        self.sasInterstitial.show(from: viewController)
-    }
-
-    func interstitialManager(_ manager: SASInterstitialManager, didFailToLoadWithError error: Error) {
-        guard self.sasInterstitial == manager else { return }
-        print("Interstitial ad did fail to load: \(error.localizedDescription)")
-        self.interstitialUnit.createDfpOnlyInterstitial()
-    }
-
-    func interstitialManager(_ manager: SASInterstitialManager, didFailToShowWithError error: Error) {
-        guard self.sasInterstitial == manager else { return }
-        print("Interstitial ad did fail to show: \(error.localizedDescription)")
-    }
-
-    func interstitialManager(_ manager: SASInterstitialManager, didAppearFrom viewController: UIViewController) {
-        guard self.sasInterstitial == manager else { return }
-        print("Interstitial ad did appear")
-    }
-
-    func interstitialManager(_ manager: SASInterstitialManager, didDisappearFrom viewController: UIViewController) {
-        guard self.sasInterstitial == manager else { return }
-        print("Interstitial ad did disappear")
+        let sasInterstitialManager = SASInterstitialManager(placement: sasAdPlacement, delegate: self.sasInterstitialManagerDelegate)
+        self.sasInterstitialManagerDelegate?.sasInterstitialManager = sasInterstitialManager
+        return sasInterstitialManager
     }
 }
