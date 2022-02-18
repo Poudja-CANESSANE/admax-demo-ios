@@ -23,6 +23,15 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     private var dfpInterstitial: GAMInterstitialAd!
     private weak var viewController: UIViewController?
 
+    private lazy var gadAppEventDelegate: LBCGADAppEventDelegate? = {
+        guard let viewController = self.viewController else { return nil }
+         return LBCGADAppEventDelegate(
+            interstitialUnit: self.interstitialUnit,
+            viewController: viewController,
+            dfpInterstitial: self.dfpInterstitial
+        )
+    }()
+
     init(adServerName: String, bidderName: String, viewController: UIViewController) {
         self.adServerName = adServerName
         self.bidderName = bidderName
@@ -74,7 +83,7 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
             }
 
             self.dfpInterstitial = ad
-            self.dfpInterstitial.appEventDelegate = self
+            self.dfpInterstitial.appEventDelegate = self.gadAppEventDelegate
             self.findPrebidCreativeBidder(ad: ad)
         }
     }
@@ -118,22 +127,6 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
                                                             pageId: 1109572,
                                                             formatId: 80600)
         return SASInterstitialManager(placement: sasAdPlacement, delegate: self)
-    }
-}
-
-extension LBCAdmaxPrebidMobileService: GADAppEventDelegate {
-    func interstitialAd(_ interstitial: GADInterstitialAd, didReceiveAppEvent name: String, withInfo info: String?) {
-        print("GAD interstitialAd did receive app event")
-        guard AnalyticsEventType.bidWon.name() == name else { return }
-        self.interstitialUnit.isGoogleAdServerAd = false
-
-        if !self.interstitialUnit.isAdServerSdkRendering() {
-            self.interstitialUnit.loadAd()
-        } else {
-            guard let viewController = self.viewController else { return }
-            self.dfpInterstitial?.present(fromRootViewController: viewController)
-        }
-
     }
 }
 
