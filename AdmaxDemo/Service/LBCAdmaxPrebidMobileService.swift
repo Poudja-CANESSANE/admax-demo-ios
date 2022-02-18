@@ -18,7 +18,7 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     private let adServerName: String
     private let bidderName: String
     private let request = GAMRequest()
-    private var sasInterstitial: SASInterstitialManager!
+    private var sasInterstitial: LBCSASInterstitialManager!
     private var interstitialUnit: GamInterstitialAdUnit!
     private var dfpInterstitial: GAMInterstitialAd!
     private weak var viewController: UIViewController?
@@ -131,11 +131,12 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
         }
     }
 
-    private func createSASInterstitialManager() -> SASInterstitialManager {
+    private func createSASInterstitialManager() -> LBCSASInterstitialManager {
         let sasAdPlacement = LBCSASAdPlacement(siteId: 305017,
                                                pageId: 1109572,
                                                formatId: 80600)
-        let sasInterstitialManager = SASInterstitialManager(placement: sasAdPlacement, delegate: self.sasInterstitialManagerDelegate)
+        let sasInterstitialManager = LBCSASInterstitialManager(placement: sasAdPlacement,
+                                                               delegate: self.sasInterstitialManagerDelegate)
         self.sasInterstitialManagerDelegate?.sasInterstitialManager = sasInterstitialManager
         return sasInterstitialManager
     }
