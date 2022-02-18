@@ -10,11 +10,11 @@ import GoogleMobileAds
 import AdmaxPrebidMobile
 
 final class LBCGADAppEventDelegate: NSObject, GADAppEventDelegate {
-    private let interstitialUnit: GamInterstitialAdUnit
+    private let interstitialUnit: LBCGamInterstitialAdUnitProtocol
     private let viewController: UIViewController
     private let dfpInterstitial: GAMInterstitialAd
 
-    init(interstitialUnit: GamInterstitialAdUnit,
+    init(interstitialUnit: LBCGamInterstitialAdUnitProtocol,
          viewController: UIViewController,
          dfpInterstitial: GAMInterstitialAd) {
         self.interstitialUnit = interstitialUnit
@@ -33,4 +33,3 @@ final class LBCGADAppEventDelegate: NSObject, GADAppEventDelegate {
 
     }
 }
-
