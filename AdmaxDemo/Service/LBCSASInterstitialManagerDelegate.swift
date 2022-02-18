@@ -11,10 +11,10 @@ import AdmaxPrebidMobile
 
 final class LBCSASInterstitialManagerDelegate: NSObject, SASInterstitialManagerDelegate {
     weak var sasInterstitialManager: SASInterstitialManager?
-    private let interstitialUnit: GamInterstitialAdUnit
+    private let interstitialUnit: LBCGamInterstitialAdUnitProtocol
     private let viewController: UIViewController
 
-    init(interstitialUnit: GamInterstitialAdUnit,
+    init(interstitialUnit: LBCGamInterstitialAdUnitProtocol,
          viewController: UIViewController) {
         self.interstitialUnit = interstitialUnit
         self.viewController = viewController

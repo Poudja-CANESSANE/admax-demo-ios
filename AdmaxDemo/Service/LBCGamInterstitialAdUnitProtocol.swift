@@ -14,6 +14,7 @@ protocol LBCGamInterstitialAdUnitProtocol: LBCAdUnitProtocol {
     func isAdServerSdkRendering() -> Bool
     func loadAd()
     func isSmartAdServerSdkRendering() -> Bool
+    func createDfpOnlyInterstitial()
 }
 
 extension GamInterstitialAdUnit: LBCGamInterstitialAdUnitProtocol {}
