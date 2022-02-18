@@ -7,7 +7,6 @@
 //
 
 import GoogleMobileAds
-import AdmaxPrebidMobile
 
 final class LBCGADAppEventDelegate: NSObject, GADAppEventDelegate {
     private let interstitialUnit: LBCGamInterstitialAdUnitProtocol
