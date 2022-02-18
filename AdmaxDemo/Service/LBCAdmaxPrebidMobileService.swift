@@ -19,7 +19,7 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     private let request = GAMRequest()
     private var sasInterstitial: LBCSASInterstitialManager!
     private var interstitialUnit: GamInterstitialAdUnit!
-    private var dfpInterstitial: GAMInterstitialAd!
+    private var dfpInterstitial: LBCGAMInterstitialAdProtocol!
     private weak var viewController: UIViewController?
 
     private lazy var gadAppEventDelegate: LBCGADAppEventDelegate? = {
@@ -84,8 +84,8 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     }
 
     private func loadGAMInterstitialAd() {
-        GAMInterstitialAd.load(withAdManagerAdUnitID: "/21807464892/pb_admax_interstitial",
-                               request: self.request) { ad, error in
+        LBCGAMInterstitialAd.load(withAdManagerAdUnitID: "/21807464892/pb_admax_interstitial",
+                                  request: self.request) { ad, error in
             guard let ad = ad else {
                 return  print("Failed to load interstitial ad with error: \(error?.localizedDescription ?? "error")")
             }
@@ -96,11 +96,11 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
         }
     }
 
-    private func findPrebidCreativeBidder(ad: GAMInterstitialAd) {
+    private func findPrebidCreativeBidder(ad: LBCGAMInterstitialAdProtocol) {
+        guard let object = ad as? NSObject else { return print("Failed to cast ad as NSObject") }
         Utils.shared.findPrebidCreativeBidder(
-            ad,
-            success: { bidder in
-                print("bidder: \(bidder)")},
+            object,
+            success: { bidder in print("bidder: \(bidder)") },
             failure: { error in
                 print("error: \(error.localizedDescription)")
                 if let viewController = self.viewController {
