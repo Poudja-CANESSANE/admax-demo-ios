@@ -27,7 +27,7 @@
 		A2C1097B27BEA9E2003CBDDB /* LBCAdUnitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1097A27BEA9E2003CBDDB /* LBCAdUnitProtocol.swift */; };
 		A2C1097D27BEABAB003CBDDB /* LBCUpdatableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1097C27BEABAB003CBDDB /* LBCUpdatableProtocol.swift */; };
 		A2C1097F27BEAC95003CBDDB /* LBCAdmaxConfigUtilService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1097E27BEAC95003CBDDB /* LBCAdmaxConfigUtilService.swift */; };
-		A2C1098227BEDDCA003CBDDB /* LBCInterstitialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1098127BEDDCA003CBDDB /* LBCInterstitialViewModel.swift */; };
+		A2C1098227BEDDCA003CBDDB /* LBCAdmaxPrebidMobileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1098127BEDDCA003CBDDB /* LBCAdmaxPrebidMobileService.swift */; };
 		D5A340B4BE2D791D39A286DE /* Pods_AdmaxDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0951BDB765EC018540D0F0BE /* Pods_AdmaxDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,7 +55,7 @@
 		A2C1097A27BEA9E2003CBDDB /* LBCAdUnitProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCAdUnitProtocol.swift; sourceTree = "<group>"; };
 		A2C1097C27BEABAB003CBDDB /* LBCUpdatableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCUpdatableProtocol.swift; sourceTree = "<group>"; };
 		A2C1097E27BEAC95003CBDDB /* LBCAdmaxConfigUtilService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCAdmaxConfigUtilService.swift; sourceTree = "<group>"; };
-		A2C1098127BEDDCA003CBDDB /* LBCInterstitialViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCInterstitialViewModel.swift; sourceTree = "<group>"; };
+		A2C1098127BEDDCA003CBDDB /* LBCAdmaxPrebidMobileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCAdmaxPrebidMobileService.swift; sourceTree = "<group>"; };
 		DBB46DA066111B7415CC7DFF /* Pods-AdmaxDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdmaxDemo.release.xcconfig"; path = "Target Support Files/Pods-AdmaxDemo/Pods-AdmaxDemo.release.xcconfig"; sourceTree = "<group>"; };
 		E7E78358A4FD90340C038899 /* Pods-AdmaxDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdmaxDemo.debug.xcconfig"; path = "Target Support Files/Pods-AdmaxDemo/Pods-AdmaxDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,7 +113,6 @@
 		525B815522842457002BDD54 /* AdmaxDemo */ = {
 			isa = PBXGroup;
 			children = (
-				A2C1098027BEDDBC003CBDDB /* ViewModel */,
 				A2C1097527BEA3D0003CBDDB /* Service */,
 				A2C1097427BEA2EC003CBDDB /* ViewController */,
 				A2C1097327BEA2D0003CBDDB /* SupportingFiles */,
@@ -159,6 +158,7 @@
 		A2C1097527BEA3D0003CBDDB /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				A2C1098127BEDDCA003CBDDB /* LBCAdmaxPrebidMobileService.swift */,
 				A2C1097627BEA42E003CBDDB /* LBCPrebidService.swift */,
 				A2C1097827BEA4BF003CBDDB /* LBCServices.swift */,
 				A2C1097A27BEA9E2003CBDDB /* LBCAdUnitProtocol.swift */,
@@ -166,14 +166,6 @@
 				A2C1097E27BEAC95003CBDDB /* LBCAdmaxConfigUtilService.swift */,
 			);
 			path = Service;
-			sourceTree = "<group>";
-		};
-		A2C1098027BEDDBC003CBDDB /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				A2C1098127BEDDCA003CBDDB /* LBCInterstitialViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		EAEE5951BE99B4A88B2D3575 /* Frameworks */ = {
@@ -303,7 +295,7 @@
 			files = (
 				52142D2826D7F170004851C7 /* CriteoNativeAdView.swift in Sources */,
 				A2C1097927BEA4BF003CBDDB /* LBCServices.swift in Sources */,
-				A2C1098227BEDDCA003CBDDB /* LBCInterstitialViewModel.swift in Sources */,
+				A2C1098227BEDDCA003CBDDB /* LBCAdmaxPrebidMobileService.swift in Sources */,
 				52142D2126D7F165004851C7 /* NativeInAppViewController.swift in Sources */,
 				A2C1097B27BEA9E2003CBDDB /* LBCAdUnitProtocol.swift in Sources */,
 				525B816D22842646002BDD54 /* IndexController.swift in Sources */,

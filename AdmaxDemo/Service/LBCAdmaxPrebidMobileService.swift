@@ -1,5 +1,5 @@
 //
-//  LBCInterstitialViewModel.swift
+//  LBCAdmaxPrebidMobileService.swift
 //  AdmaxDemo
 //
 //  Created by Poudja.canessane on 17/02/2022.
@@ -10,7 +10,11 @@ import AdmaxPrebidMobile
 import GoogleMobileAds
 import SASDisplayKit
 
-final class LBCInterstitialViewModel: NSObject {
+protocol LBCAdmaxPrebidMobileServiceProtocol: AnyObject {
+    func loadInterstitial()
+}
+
+final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServiceProtocol {
     private let adServerName: String
     private let bidderName: String
     private let request = GAMRequest()
@@ -25,17 +29,17 @@ final class LBCInterstitialViewModel: NSObject {
         self.viewController = viewController
     }
 
-    func start() {
+    func loadInterstitial() {
         guard let viewController = self.viewController else { return }
         let configId = self.getConfigId()
         self.interstitialUnit = GamInterstitialAdUnit(configId: configId, viewController: viewController)
-        self.loadInterstitial()
+        self.loadInterstialAccordingToAdServerName()
     }
 
-    private func loadInterstitial() {
+    private func loadInterstialAccordingToAdServerName() {
         switch self.adServerName {
-        case "DFP": self.loadDFPInterstitial(adUnit: self.interstitialUnit)
-        case "Smart": self.loadSmartInterstitial(adUnit: self.interstitialUnit)
+        case "DFP": self.loadDFPInterstitial()
+        case "Smart": self.loadSmartInterstitial()
         default: return
         }
     }
@@ -53,10 +57,10 @@ final class LBCInterstitialViewModel: NSObject {
         return configId
     }
 
-    private func loadDFPInterstitial(adUnit: AdUnit) {
+    private func loadDFPInterstitial() {
         print("entered \(self.adServerName) loop")
         print("Google Mobile Ads SDK version: \(GADMobileAds.sharedInstance().sdkVersion)")
-        adUnit.fetchDemand(adObject: self.request) { resultCode in
+        self.interstitialUnit.fetchDemand(adObject: self.request) { resultCode in
             print("Prebid demand fetch for DFP \(resultCode.name())")
             self.loadGAMInterstitialAd()
         }
@@ -89,13 +93,13 @@ final class LBCInterstitialViewModel: NSObject {
         )
     }
 
-    private func loadSmartInterstitial(adUnit: GamInterstitialAdUnit) {
+    private func loadSmartInterstitial() {
         print("entered \(self.adServerName) loop")
         self.sasInterstitial = self.createSASInterstitialManager()
-        adUnit.setGamAdUnitId(gamAdUnitId: "/21807464892/pb_admax_interstitial")
-        let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: adUnit)
+        self.interstitialUnit.setGamAdUnitId(gamAdUnitId: "/21807464892/pb_admax_interstitial")
+        let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: self.interstitialUnit)
 
-        adUnit.fetchDemand(adObject: admaxBidderAdapter) { resultCode in
+        self.interstitialUnit.fetchDemand(adObject: admaxBidderAdapter) { resultCode in
             self.handleSmartFetchDemand(resultCode: resultCode, admaxBidderAdapter: admaxBidderAdapter)
         }
     }
@@ -117,7 +121,7 @@ final class LBCInterstitialViewModel: NSObject {
     }
 }
 
-extension LBCInterstitialViewModel: GADAppEventDelegate {
+extension LBCAdmaxPrebidMobileService: GADAppEventDelegate {
     func interstitialAd(_ interstitial: GADInterstitialAd, didReceiveAppEvent name: String, withInfo info: String?) {
         print("GAD interstitialAd did receive app event")
         guard AnalyticsEventType.bidWon.name() == name else { return }
@@ -133,7 +137,7 @@ extension LBCInterstitialViewModel: GADAppEventDelegate {
     }
 }
 
-extension LBCInterstitialViewModel: SASInterstitialManagerDelegate {
+extension LBCAdmaxPrebidMobileService: SASInterstitialManagerDelegate {
     func interstitialManager(_ manager: SASInterstitialManager, didLoad ad: SASAd) {
         guard self.sasInterstitial == manager,
               self.interstitialUnit.isSmartAdServerSdkRendering(),
