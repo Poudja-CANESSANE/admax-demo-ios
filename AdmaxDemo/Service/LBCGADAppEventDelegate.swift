@@ -24,7 +24,7 @@ final class LBCGADAppEventDelegate: NSObject, GADAppEventDelegate {
 
     func interstitialAd(_ interstitial: GADInterstitialAd, didReceiveAppEvent name: String, withInfo info: String?) {
         print("GAD interstitialAd did receive app event")
-        guard name == AnalyticsEventType.bidWon.name() else { return }
+        guard LBCAnalyticsEventTypeName.bidWon.rawValue == name else { return }
         self.interstitialUnit.isGoogleAdServerAd = false
 
         !self.interstitialUnit.isAdServerSdkRendering()
