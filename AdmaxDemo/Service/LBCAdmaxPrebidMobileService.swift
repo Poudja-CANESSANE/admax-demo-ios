@@ -29,7 +29,7 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     private let bannerAdContainer: UIView?
     private var sasBanner: SASBannerView!
     private var dfpBanner: GAMBannerView!
-    private var bannerUnit: BannerAdUnit!
+    private var bannerAdUnit: BannerAdUnit!
     private let sasBannerViewDelegate: LBCSASBannerViewDelegateProtocol = LBCSASBannerViewDelegate()
 
     private lazy var gadAppEventDelegate: LBCGADAppEventDelegate? = {
@@ -155,18 +155,18 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     // MARK: - Banner
 
     func stopBannerUnitAutoRefresh() {
-        guard let bannerUnit = self.bannerUnit else { return }
+        guard let bannerUnit = self.bannerAdUnit else { return }
         bannerUnit.stopAutoRefresh()
     }
 
     func loadBanner() {
         let configId = self.getBannerConfigId()
-        self.bannerUnit = BannerAdUnit(configId: configId,
+        self.bannerAdUnit = BannerAdUnit(configId: configId,
                                        size:  CGSize(width: 320, height: 50),
                                        viewController: self.viewController,
                                        adContainer: self.bannerAdContainer)
-//        bannerUnit.setAutoRefreshMillis(time: 35000)
-        self.bannerUnit.adSizeDelegate = self
+//        bannerAdUnit.setAutoRefreshMillis(time: 35000)
+        self.bannerAdUnit.adSizeDelegate = self
         self.loadBannerAccordingToAdServerName()
     }
 
@@ -194,7 +194,7 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     private func loadDFPBanner() {
         print("entered \(self.adServerName) loop")
         self.setupDFPBanner()
-        self.bannerUnit.fetchDemand(adObject: self.request) { resultCode in
+        self.bannerAdUnit.fetchDemand(adObject: self.request) { resultCode in
             print("Prebid demand fetch for DFP \(resultCode.name())")
             self.dfpBanner.load(self.request)
         }
@@ -205,15 +205,17 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
         self.dfpBanner.adUnitID = "/21807464892/pb_admax_320x50_top"
         self.dfpBanner.rootViewController = self.viewController
         self.dfpBanner.delegate = self
-        self.dfpBanner.appEventDelegate = self
+        self.dfpBanner.appEventDelegate = self.bannerAppEventDelegate
         self.bannerAdContainer?.addSubview(self.dfpBanner)
     }
+
+    private lazy var bannerAppEventDelegate = LBCBannerGADAppEventDelegate(bannerAdUnit: self.bannerAdUnit)
 
     private func loadSmartBanner() {
         print("entered \(self.adServerName) loop")
         self.setupSASBanner()
-        let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: self.bannerUnit)
-        self.bannerUnit.fetchDemand(adObject: admaxBidderAdapter) { resultCode in
+        let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: self.bannerAdUnit)
+        self.bannerAdUnit.fetchDemand(adObject: admaxBidderAdapter) { resultCode in
             self.handleBannerSmartFetchDemand(resultCode: resultCode, bidderAdapter: admaxBidderAdapter)
         }
     }
@@ -256,18 +258,6 @@ extension LBCAdmaxPrebidMobileService: GADBannerViewDelegate {
 
     func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
         print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
-    }
-}
-
-extension LBCAdmaxPrebidMobileService: GADAppEventDelegate {
-    func adView(_ banner: GADBannerView, didReceiveAppEvent name: String, withInfo info: String?) {
-        print("GAD adView didReceiveAppEvent")
-        if name == AnalyticsEventType.bidWon.name() {
-            self.bannerUnit.isGoogleAdServerAd = false
-            if !self.bannerUnit.isAdServerSdkRendering() {
-                self.bannerUnit.loadAd()
-            }
-        }
     }
 }
 
