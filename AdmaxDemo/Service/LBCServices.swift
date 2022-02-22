@@ -6,8 +6,6 @@
 //  Copyright © 2022 Admax. All rights reserved.
 //
 
-import AdmaxPrebidMobile
-
 final class LBCServices {
     static let shared = LBCServices()
     private init() {}
