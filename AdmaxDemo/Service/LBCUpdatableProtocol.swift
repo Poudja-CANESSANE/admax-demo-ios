@@ -7,4 +7,5 @@
 //
 
 import AdmaxPrebidMobile
+
 protocol LBCUpdatableProtocol: UpdatableProtocol {}

@@ -16,7 +16,7 @@ protocol LBCAdmaxPrebidMobileServiceProtocol: AnyObject {
 final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServiceProtocol {
     private let adServerName: String
     private let bidderName: String
-    private let request = GAMRequest()
+    private let request = LBCGAMRequest().createRequest()
     private var sasInterstitial: LBCSASInterstitialManager!
     private var interstitialUnit: GamInterstitialAdUnit!
     private var dfpInterstitial: LBCGAMInterstitialAdProtocol!
@@ -76,7 +76,6 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
 
     private func loadDFPInterstitial() {
         print("entered \(self.adServerName) loop")
-        print("Google Mobile Ads SDK version: \(GADMobileAds.sharedInstance().sdkVersion)")
         self.interstitialUnit.fetchDemand(adObject: self.request) { resultCode in
             print("Prebid demand fetch for DFP \(resultCode.name())")
             self.loadGAMInterstitialAd()
