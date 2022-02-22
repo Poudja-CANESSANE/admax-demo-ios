@@ -25,8 +25,8 @@ final class InterstitialViewController: UIViewController {
         super.viewDidLoad()
         self.adServerLabel.text = self.adServerName
         let viewModel = LBCAdmaxPrebidMobileService(adServerName: self.adServerName,
-                                                 bidderName: self.bidderName,
-                                                 viewController: self)
+                                                    bidderName: self.bidderName,
+                                                    viewController: self)
         viewModel.loadInterstitial()
     }
 }
