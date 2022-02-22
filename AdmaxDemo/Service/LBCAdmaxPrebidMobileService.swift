@@ -32,9 +32,9 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     private var bannerAdUnit: BannerAdUnit!
     private let sasBannerViewDelegate: LBCSASBannerViewDelegateProtocol = LBCSASBannerViewDelegate()
 
-    private lazy var gadAppEventDelegate: LBCGADAppEventDelegate? = {
+    private lazy var gadInterstitialAppEventDelegate: LBCGADInterstitialAppEventDelegate? = {
         guard let viewController = self.viewController else { return nil }
-         return LBCGADAppEventDelegate(
+         return LBCGADInterstitialAppEventDelegate(
             interstitialUnit: self.interstitialUnit,
             viewController: viewController,
             dfpInterstitial: self.dfpInterstitial
@@ -103,7 +103,7 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
             }
 
             self.dfpInterstitial = ad
-            self.dfpInterstitial.appEventDelegate = self.gadAppEventDelegate
+            self.dfpInterstitial.appEventDelegate = self.gadInterstitialAppEventDelegate
             self.findPrebidCreativeBidder(ad: ad)
         }
     }

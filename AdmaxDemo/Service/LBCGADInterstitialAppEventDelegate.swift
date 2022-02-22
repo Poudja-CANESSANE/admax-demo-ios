@@ -1,5 +1,5 @@
 //
-//  LBCGADAppEventDelegate.swift
+//  LBCGADInterstitialAppEventDelegate.swift
 //  AdmaxDemo
 //
 //  Created by Poudja.canessane on 18/02/2022.
@@ -8,7 +8,7 @@
 
 import GoogleMobileAds
 
-final class LBCGADAppEventDelegate: NSObject, GADAppEventDelegate {
+final class LBCGADInterstitialAppEventDelegate: NSObject, GADAppEventDelegate {
     private let interstitialUnit: LBCGamInterstitialAdUnitProtocol
     private let viewController: UIViewController
     private let dfpInterstitial: LBCGAMInterstitialAdProtocol
