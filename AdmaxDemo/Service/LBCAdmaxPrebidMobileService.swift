@@ -27,7 +27,7 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     private var dfpInterstitial: LBCGAMInterstitialAdProtocol!
 
     private let bannerAdContainer: UIView?
-    private var sasBanner: SASBannerView!
+    private var sasBanner: LBCSASBannerViewProtocol!
     private var dfpBanner: GAMBannerView!
     private var bannerAdUnit: BannerAdUnit!
     private let sasBannerViewDelegate: LBCSASBannerViewDelegateProtocol = LBCSASBannerViewDelegate()
@@ -222,7 +222,7 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
 
     private func handleBannerSmartFetchDemand(resultCode: ResultCode, bidderAdapter: SASAdmaxBidderAdapter) {
         print("Prebid demand fetch for Smart \(resultCode.name())")
-        let sasAdPlacement: SASAdPlacement = SASAdPlacement(siteId: 305017, pageId: 1109572, formatId: 80250)
+        let sasAdPlacement = LBCSASAdPlacement(siteId: 305017, pageId: 1109572, formatId: 80250)
 
         switch resultCode {
         case .prebidDemandFetchSuccess: self.sasBanner.load(with: sasAdPlacement, bidderAdapter: bidderAdapter)
@@ -235,7 +235,8 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
             return print("Couldn't unwrap bannerAdContainer")
         }
 
-        self.sasBanner = SASBannerView(frame: CGRect(x: 0, y: 0, width: bannerAdContainer.frame.width, height: 50))
+        let frame = CGRect(x: 0, y: 0, width: bannerAdContainer.frame.width, height: 50)
+        self.sasBanner = LBCSASBannerView(frame: frame)
         self.sasBanner.delegate = self.sasBannerViewDelegate
         self.sasBanner.modalParentViewController = self.viewController
         self.bannerAdContainer?.addSubview(self.sasBanner)
