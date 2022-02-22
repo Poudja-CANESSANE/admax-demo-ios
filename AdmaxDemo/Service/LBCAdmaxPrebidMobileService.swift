@@ -30,6 +30,7 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     private var sasBanner: SASBannerView!
     private var dfpBanner: GAMBannerView!
     private var bannerUnit: BannerAdUnit!
+    private let sasBannerViewDelegate: LBCSASBannerViewDelegateProtocol = LBCSASBannerViewDelegate()
 
     private lazy var gadAppEventDelegate: LBCGADAppEventDelegate? = {
         guard let viewController = self.viewController else { return nil }
@@ -233,8 +234,7 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
         }
 
         self.sasBanner = SASBannerView(frame: CGRect(x: 0, y: 0, width: bannerAdContainer.frame.width, height: 50))
-        self.sasBanner.autoresizingMask = .flexibleWidth
-        self.sasBanner.delegate = self
+        self.sasBanner.delegate = self.sasBannerViewDelegate
         self.sasBanner.modalParentViewController = self.viewController
         self.bannerAdContainer?.addSubview(self.sasBanner)
     }
@@ -268,16 +268,6 @@ extension LBCAdmaxPrebidMobileService: GADAppEventDelegate {
                 self.bannerUnit.loadAd()
             }
         }
-    }
-}
-
-extension LBCAdmaxPrebidMobileService: SASBannerViewDelegate {
-    func bannerViewDidLoad(_ bannerView: SASBannerView) {
-        print("SAS bannerViewDidLoad")
-    }
-
-    func bannerView(_ bannerView: SASBannerView, didFailToLoadWithError error: Error) {
-        print("SAS bannerView:didFailToLoadWithError: \(error.localizedDescription)")
     }
 }
 
