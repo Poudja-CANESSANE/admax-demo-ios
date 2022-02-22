@@ -31,6 +31,8 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     private var dfpBanner: GAMBannerView!
     private var bannerAdUnit: BannerAdUnit!
     private let sasBannerViewDelegate: LBCSASBannerViewDelegateProtocol = LBCSASBannerViewDelegate()
+    private let gadBannerViewDelegate = LBCGADBannerViewDelegate()
+    private lazy var bannerAppEventDelegate = LBCBannerGADAppEventDelegate(bannerAdUnit: self.bannerAdUnit)
 
     private lazy var gadInterstitialAppEventDelegate: LBCGADInterstitialAppEventDelegate? = {
         guard let viewController = self.viewController else { return nil }
@@ -204,12 +206,10 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
         self.dfpBanner = GAMBannerView(adSize: kGADAdSizeBanner)
         self.dfpBanner.adUnitID = "/21807464892/pb_admax_320x50_top"
         self.dfpBanner.rootViewController = self.viewController
-        self.dfpBanner.delegate = self
+        self.dfpBanner.delegate = self.gadBannerViewDelegate
         self.dfpBanner.appEventDelegate = self.bannerAppEventDelegate
         self.bannerAdContainer?.addSubview(self.dfpBanner)
     }
-
-    private lazy var bannerAppEventDelegate = LBCBannerGADAppEventDelegate(bannerAdUnit: self.bannerAdUnit)
 
     private func loadSmartBanner() {
         print("entered \(self.adServerName) loop")
@@ -239,25 +239,6 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
         self.sasBanner.delegate = self.sasBannerViewDelegate
         self.sasBanner.modalParentViewController = self.viewController
         self.bannerAdContainer?.addSubview(self.sasBanner)
-    }
-}
-
-
-extension LBCAdmaxPrebidMobileService: GADBannerViewDelegate {
-    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("GAD adViewDidReceiveAd")
-        Utils.shared.findPrebidCreativeSize(
-            bannerView,
-            success: { size in
-                guard let bannerView = bannerView as? GAMBannerView else { return }
-                bannerView.resize(GADAdSizeFromCGSize(size))
-            },
-            failure: { error in  print("error: \(error.localizedDescription)") }
-        )
-    }
-
-    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
-        print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
     }
 }
 
