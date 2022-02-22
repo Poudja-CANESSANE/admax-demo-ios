@@ -8,7 +8,6 @@
 
 import AdmaxPrebidMobile
 import GoogleMobileAds
-import SASDisplayKit
 
 protocol LBCAdmaxPrebidMobileServiceProtocol: AnyObject {
     func loadInterstitial()
