@@ -27,11 +27,19 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
 
     private let bannerAdContainer: UIView?
     private var sasBanner: LBCSASBannerViewProtocol!
-    private var dfpBanner: GAMBannerView!
+
+    private lazy var dfpBanner: LBCGAMBannerViewProtocol = {
+        self.gamBannerViewService.createBannerView(adUnitId: "/21807464892/pb_admax_320x50_top",
+                                                   rootViewController: self.viewController,
+                                                   delegate: self.gadBannerViewDelegate,
+                                                   appEventDelegate: self.bannerAppEventDelegate)
+    }()
+
     private var bannerAdUnit: BannerAdUnit!
     private let sasBannerViewDelegate: LBCSASBannerViewDelegateProtocol = LBCSASBannerViewDelegate()
     private let gadBannerViewDelegate = LBCGADBannerViewDelegate()
     private lazy var bannerAppEventDelegate = LBCBannerGADAppEventDelegate(bannerAdUnit: self.bannerAdUnit)
+    private let gamBannerViewService: LBCGAMBannerViewServiceProtocol
 
     private lazy var gadInterstitialAppEventDelegate: LBCGADInterstitialAppEventDelegate? = {
         guard let viewController = self.viewController else { return nil }
@@ -51,11 +59,17 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     }()
 
 
-    init(adServerName: String, bidderName: String, viewController: UIViewController, bannerAdContainer: UIView? = nil) {
+    init(adServerName: String,
+         bidderName: String,
+         viewController: UIViewController,
+         bannerAdContainer: UIView? = nil,
+         gamBannerViewService: LBCGAMBannerViewServiceProtocol = LBCServices.shared.gamBannerViewService
+    ) {
         self.adServerName = adServerName
         self.bidderName = bidderName
         self.viewController = viewController
         self.bannerAdContainer = bannerAdContainer
+        self.gamBannerViewService = gamBannerViewService
     }
 
     // MARK: - Interstitial
@@ -194,20 +208,11 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
 
     private func loadDFPBanner() {
         print("entered \(self.adServerName) loop")
-        self.setupDFPBanner()
+        self.bannerAdContainer?.addSubview(self.dfpBanner)
         self.bannerAdUnit.fetchDemand(adObject: self.request) { resultCode in
             print("Prebid demand fetch for DFP \(resultCode.name())")
             self.dfpBanner.load(self.request)
         }
-    }
-
-    private func setupDFPBanner() {
-        self.dfpBanner = GAMBannerView(adSize: kGADAdSizeBanner)
-        self.dfpBanner.adUnitID = "/21807464892/pb_admax_320x50_top"
-        self.dfpBanner.rootViewController = self.viewController
-        self.dfpBanner.delegate = self.gadBannerViewDelegate
-        self.dfpBanner.appEventDelegate = self.bannerAppEventDelegate
-        self.bannerAdContainer?.addSubview(self.dfpBanner)
     }
 
     private func loadSmartBanner() {

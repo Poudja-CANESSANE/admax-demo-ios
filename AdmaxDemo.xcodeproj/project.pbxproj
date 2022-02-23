@@ -42,6 +42,7 @@
 		A2C109AE27C55572003CBDDB /* LBCGADBannerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C109AD27C55572003CBDDB /* LBCGADBannerViewDelegate.swift */; };
 		A2C109B027C55738003CBDDB /* LBCUtilsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C109AF27C55738003CBDDB /* LBCUtilsService.swift */; };
 		A2C109B227C56109003CBDDB /* LBCSASBannerViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C109B127C56109003CBDDB /* LBCSASBannerViewProtocol.swift */; };
+		A2C109B427C56A45003CBDDB /* LBCGAMBannerViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C109B327C56A45003CBDDB /* LBCGAMBannerViewService.swift */; };
 		D5A340B4BE2D791D39A286DE /* Pods_AdmaxDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0951BDB765EC018540D0F0BE /* Pods_AdmaxDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +85,7 @@
 		A2C109AD27C55572003CBDDB /* LBCGADBannerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCGADBannerViewDelegate.swift; sourceTree = "<group>"; };
 		A2C109AF27C55738003CBDDB /* LBCUtilsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCUtilsService.swift; sourceTree = "<group>"; };
 		A2C109B127C56109003CBDDB /* LBCSASBannerViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCSASBannerViewProtocol.swift; sourceTree = "<group>"; };
+		A2C109B327C56A45003CBDDB /* LBCGAMBannerViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCGAMBannerViewService.swift; sourceTree = "<group>"; };
 		DBB46DA066111B7415CC7DFF /* Pods-AdmaxDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdmaxDemo.release.xcconfig"; path = "Target Support Files/Pods-AdmaxDemo/Pods-AdmaxDemo.release.xcconfig"; sourceTree = "<group>"; };
 		E7E78358A4FD90340C038899 /* Pods-AdmaxDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdmaxDemo.debug.xcconfig"; path = "Target Support Files/Pods-AdmaxDemo/Pods-AdmaxDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -206,6 +208,7 @@
 				A2C109AD27C55572003CBDDB /* LBCGADBannerViewDelegate.swift */,
 				A2C109AF27C55738003CBDDB /* LBCUtilsService.swift */,
 				A2C109B127C56109003CBDDB /* LBCSASBannerViewProtocol.swift */,
+				A2C109B327C56A45003CBDDB /* LBCGAMBannerViewService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 				525B819322B51F4C002BDD54 /* RectangleController.swift in Sources */,
 				A2C109AE27C55572003CBDDB /* LBCGADBannerViewDelegate.swift in Sources */,
 				A2C1099627BFF65C003CBDDB /* LBCGADInterstitialAppEventDelegate.swift in Sources */,
+				A2C109B427C56A45003CBDDB /* LBCGAMBannerViewService.swift in Sources */,
 				A2C109B227C56109003CBDDB /* LBCSASBannerViewProtocol.swift in Sources */,
 				A2C109AC27C54FC2003CBDDB /* LBCBannerAdUnitProtocol.swift in Sources */,
 				A2C109A427C019B3003CBDDB /* LBCGAMInterstitialAd.swift in Sources */,

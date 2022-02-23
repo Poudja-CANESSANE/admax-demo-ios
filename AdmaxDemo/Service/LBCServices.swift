@@ -13,4 +13,5 @@ final class LBCServices {
     let prebidService: LBCPrebidServiceProtocol = LBCPrebidService()
     let admaxConfigUtil: LBCAdmaxConfigUtilServiceProtocol = LBCAdmaxConfigUtilService()
     let utilsService: LBCUtilsServiceProtocol = LBCUtilsService()
+    let gamBannerViewService: LBCGAMBannerViewServiceProtocol = LBCGAMBannerViewService()
 }
