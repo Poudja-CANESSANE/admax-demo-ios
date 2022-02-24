@@ -29,8 +29,8 @@ final class LBCGAMInterstitialAd: LBCGAMInterstitialAdProtocol {
     }
 
     func present(fromRootViewController viewController: UIViewController) {
-        let dfpInterstitial = GAMInterstitialAd()
-        dfpInterstitial.present(fromRootViewController: viewController)
+        let gamInterstitial = GAMInterstitialAd()
+        gamInterstitial.present(fromRootViewController: viewController)
     }
 }
 

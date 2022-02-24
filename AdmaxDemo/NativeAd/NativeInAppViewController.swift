@@ -37,7 +37,7 @@ class NativeInAppViewController: UIViewController, GAMBannerAdLoaderDelegate, GA
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if (adServerName == "DFP") {
+        if (adServerName == "Google") {
             print("entered \(adServerName) loop" )
             setupAndLoadNativeInAppForDFP(bidder:bidderName)
         }

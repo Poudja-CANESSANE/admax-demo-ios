@@ -24,12 +24,12 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
 
     private var sasInterstitial: LBCSASInterstitialManager!
     private var interstitialUnit: GamInterstitialAdUnit!
-    private var dfpInterstitial: LBCGAMInterstitialAdProtocol!
+    private var gamInterstitial: LBCGAMInterstitialAdProtocol!
 
     private let bannerAdContainer: UIView?
     private var sasBanner: LBCSASBannerViewProtocol!
 
-    private lazy var dfpBanner: LBCGAMBannerViewProtocol = {
+    private lazy var gamBannerView: LBCGAMBannerViewProtocol = {
         self.gamBannerViewService.createBannerView(adUnitId: "/21807464892/pb_admax_320x50_top",
                                                    rootViewController: self.viewController,
                                                    delegate: self.gadBannerViewDelegate,
@@ -47,7 +47,7 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
          return LBCGADInterstitialAppEventDelegate(
             interstitialUnit: self.interstitialUnit,
             viewController: viewController,
-            dfpInterstitial: self.dfpInterstitial
+            gamInterstitial: self.gamInterstitial
         )
     }()
 
@@ -87,7 +87,7 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
 
     private func loadInterstialAccordingToAdServerName() {
         switch self.adServerName {
-        case "DFP": self.loadDFPInterstitial()
+        case "Google": self.loadGoogleInterstitial()
         case "Smart": self.loadSmartInterstitial()
         default: return
         }
@@ -106,10 +106,10 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
         return configId
     }
 
-    private func loadDFPInterstitial() {
+    private func loadGoogleInterstitial() {
         print("entered \(self.adServerName) loop")
         self.interstitialUnit.fetchDemand(adObject: self.request) { resultCode in
-            print("Prebid demand fetch for DFP \(resultCode.name())")
+            print("Prebid demand fetch for Google \(resultCode.name())")
             self.loadGAMInterstitialAd()
         }
     }
@@ -121,8 +121,8 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
                 return  print("Failed to load interstitial ad with error: \(error?.localizedDescription ?? "error")")
             }
 
-            self.dfpInterstitial = ad
-            self.dfpInterstitial.appEventDelegate = self.gadInterstitialAppEventDelegate
+            self.gamInterstitial = ad
+            self.gamInterstitial.appEventDelegate = self.gadInterstitialAppEventDelegate
             self.findPrebidCreativeBidder(ad: ad)
         }
     }
@@ -135,7 +135,7 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
             failure: { error in
                 print("error: \(error.localizedDescription)")
                 if let viewController = self.viewController {
-                    self.dfpInterstitial?.present(fromRootViewController: viewController)
+                    self.gamInterstitial?.present(fromRootViewController: viewController)
                 }
             }
         )
@@ -204,18 +204,18 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
 
     private func loadBannerAccordingToAdServerName() {
         switch self.adServerName {
-        case "DFP": self.loadDFPBanner()
+        case "Google": self.loadGoogleBanner()
         case "Smart": self.loadSmartBanner()
         default: return
         }
     }
 
-    private func loadDFPBanner() {
+    private func loadGoogleBanner() {
         print("entered \(self.adServerName) loop")
-        self.bannerAdContainer?.addSubview(self.dfpBanner)
+        self.bannerAdContainer?.addSubview(self.gamBannerView)
         self.bannerAdUnit.fetchDemand(adObject: self.request) { resultCode in
-            print("Prebid demand fetch for DFP \(resultCode.name())")
-            self.dfpBanner.load(self.request)
+            print("Prebid demand fetch for Google \(resultCode.name())")
+            self.gamBannerView.load(self.request)
         }
     }
 
