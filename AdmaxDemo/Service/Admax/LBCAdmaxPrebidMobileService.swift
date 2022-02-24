@@ -30,17 +30,16 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     private var sasBanner: LBCSASBannerViewProtocol!
 
     private lazy var gamBannerView: LBCGAMBannerViewProtocol = {
-        self.gamBannerViewService.createBannerView(adUnitId: "/21807464892/pb_admax_320x50_top",
-                                                   rootViewController: self.viewController,
-                                                   delegate: self.gadBannerViewDelegate,
-                                                   appEventDelegate: self.bannerAppEventDelegate)
+        self.googleMobileAdsService.createBannerView(adUnitId: "/21807464892/pb_admax_320x50_top",
+                                                     rootViewController: self.viewController,
+                                                     delegate: self.gadBannerViewDelegate,
+                                                     appEventDelegate: self.bannerAppEventDelegate)
     }()
 
     private var bannerAdUnit: BannerAdUnit!
     private let sasBannerViewDelegate: LBCSASBannerViewDelegateProtocol = LBCSASBannerViewDelegate()
     private let gadBannerViewDelegate = LBCGADBannerViewDelegate()
     private lazy var bannerAppEventDelegate = LBCBannerGADAppEventDelegate(bannerAdUnit: self.bannerAdUnit)
-    private let gamBannerViewService: LBCGAMBannerViewServiceProtocol
 
     private lazy var gadInterstitialAppEventDelegate: LBCGADInterstitialAppEventDelegate? = {
         guard let viewController = self.viewController else { return nil }
@@ -64,14 +63,12 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
          bidderName: String,
          viewController: UIViewController,
          bannerAdContainer: UIView? = nil,
-         gamBannerViewService: LBCGAMBannerViewServiceProtocol = LBCServices.shared.gamBannerViewService,
          googleMobileAdsService: LBCGoogleMobileAdsServiceProtocol = LBCServices.shared.googleMobileAdsService
     ) {
         self.adServerName = adServerName
         self.bidderName = bidderName
         self.viewController = viewController
         self.bannerAdContainer = bannerAdContainer
-        self.gamBannerViewService = gamBannerViewService
         self.googleMobileAdsService = googleMobileAdsService
         self.request = googleMobileAdsService.createGAMRequest()
     }
