@@ -8,6 +8,6 @@
 
 import GoogleMobileAds
 
-protocol LBCGAMRequestProtocol2: GAMRequest {}
+protocol LBCGAMRequestProtocol: GAMRequest {}
 
-extension GAMRequest: LBCGAMRequestProtocol2 {}
+extension GAMRequest: LBCGAMRequestProtocol {}

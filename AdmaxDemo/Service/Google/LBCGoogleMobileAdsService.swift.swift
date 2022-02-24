@@ -9,11 +9,11 @@
 import GoogleMobileAds
 
 protocol LBCGoogleMobileAdsServiceProtocol: AnyObject {
-    func createGAMRequest() -> LBCGAMRequestProtocol2
+    func createGAMRequest() -> LBCGAMRequestProtocol
 }
 
 final class LBCGoogleMobileAdsService: LBCGoogleMobileAdsServiceProtocol {
-    func createGAMRequest() -> LBCGAMRequestProtocol2 {
+    func createGAMRequest() -> LBCGAMRequestProtocol {
         return GAMRequest()
     }
 }

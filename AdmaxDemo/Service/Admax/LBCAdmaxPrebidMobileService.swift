@@ -17,7 +17,7 @@ protocol LBCAdmaxPrebidMobileServiceProtocol: AnyObject {
 final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServiceProtocol {
     private let adServerName: String
     private let bidderName: String
-    private let request: LBCGAMRequestProtocol2
+    private let request: LBCGAMRequestProtocol
     private weak var viewController: UIViewController?
 
     private let googleMobileAdsService: LBCGoogleMobileAdsServiceProtocol
