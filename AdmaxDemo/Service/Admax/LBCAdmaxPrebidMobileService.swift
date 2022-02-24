@@ -20,6 +20,8 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     private let request = LBCGAMRequest().createRequest()
     private weak var viewController: UIViewController?
 
+    private let googleMobileAdsService: LBCGoogleMobileAdsServiceProtocol
+
     private var sasInterstitial: LBCSASInterstitialManager!
     private var interstitialUnit: GamInterstitialAdUnit!
     private var dfpInterstitial: LBCGAMInterstitialAdProtocol!
@@ -62,13 +64,15 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
          bidderName: String,
          viewController: UIViewController,
          bannerAdContainer: UIView? = nil,
-         gamBannerViewService: LBCGAMBannerViewServiceProtocol = LBCServices.shared.gamBannerViewService
+         gamBannerViewService: LBCGAMBannerViewServiceProtocol = LBCServices.shared.gamBannerViewService,
+         googleMobileAdsService: LBCGoogleMobileAdsServiceProtocol = LBCServices.shared.googleMobileAdsService
     ) {
         self.adServerName = adServerName
         self.bidderName = bidderName
         self.viewController = viewController
         self.bannerAdContainer = bannerAdContainer
         self.gamBannerViewService = gamBannerViewService
+        self.googleMobileAdsService = googleMobileAdsService
     }
 
     // MARK: - Interstitial
