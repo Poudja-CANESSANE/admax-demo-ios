@@ -35,7 +35,6 @@
 		A2C1099E27C0048B003CBDDB /* LBCSASAdPlacement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1099D27C0048B003CBDDB /* LBCSASAdPlacement.swift */; };
 		A2C109A027C00907003CBDDB /* LBCSASInterstitialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1099F27C00907003CBDDB /* LBCSASInterstitialManager.swift */; };
 		A2C109A427C019B3003CBDDB /* LBCGAMInterstitialAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C109A327C019B3003CBDDB /* LBCGAMInterstitialAd.swift */; };
-		A2C109A627C02EA1003CBDDB /* LBCGAMRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C109A527C02EA1003CBDDB /* LBCGAMRequest.swift */; };
 		A2C109A827C5442D003CBDDB /* LBCSASBannerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C109A727C5442D003CBDDB /* LBCSASBannerViewDelegate.swift */; };
 		A2C109AA27C54C03003CBDDB /* LBCBannerGADAppEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C109A927C54C03003CBDDB /* LBCBannerGADAppEventDelegate.swift */; };
 		A2C109AC27C54FC2003CBDDB /* LBCBannerAdUnitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C109AB27C54FC2003CBDDB /* LBCBannerAdUnitProtocol.swift */; };
@@ -80,7 +79,6 @@
 		A2C1099D27C0048B003CBDDB /* LBCSASAdPlacement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCSASAdPlacement.swift; sourceTree = "<group>"; };
 		A2C1099F27C00907003CBDDB /* LBCSASInterstitialManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCSASInterstitialManager.swift; sourceTree = "<group>"; };
 		A2C109A327C019B3003CBDDB /* LBCGAMInterstitialAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCGAMInterstitialAd.swift; sourceTree = "<group>"; };
-		A2C109A527C02EA1003CBDDB /* LBCGAMRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCGAMRequest.swift; sourceTree = "<group>"; };
 		A2C109A727C5442D003CBDDB /* LBCSASBannerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCSASBannerViewDelegate.swift; sourceTree = "<group>"; };
 		A2C109A927C54C03003CBDDB /* LBCBannerGADAppEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCBannerGADAppEventDelegate.swift; sourceTree = "<group>"; };
 		A2C109AB27C54FC2003CBDDB /* LBCBannerAdUnitProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCBannerAdUnitProtocol.swift; sourceTree = "<group>"; };
@@ -205,7 +203,6 @@
 			isa = PBXGroup;
 			children = (
 				A2C109A327C019B3003CBDDB /* LBCGAMInterstitialAd.swift */,
-				A2C109A527C02EA1003CBDDB /* LBCGAMRequest.swift */,
 				A2C109B327C56A45003CBDDB /* LBCGAMBannerViewService.swift */,
 				A2C109C227C7BEA6003CBDDB /* Delegate */,
 				A2C109C527C7BFF9003CBDDB /* LBCGAMRequestProtocol.swift */,
@@ -406,7 +403,6 @@
 				525B816B22842624002BDD54 /* InterstitialViewController.swift in Sources */,
 				A2C109B027C55738003CBDDB /* LBCUtilsService.swift in Sources */,
 				52142D2726D7F170004851C7 /* NativeAdView.swift in Sources */,
-				A2C109A627C02EA1003CBDDB /* LBCGAMRequest.swift in Sources */,
 				A2C1097727BEA42E003CBDDB /* LBCPrebidService.swift in Sources */,
 				A2C1097F27BEAC95003CBDDB /* LBCAdmaxConfigUtilService.swift in Sources */,
 			);
