@@ -202,11 +202,9 @@
 		A2C109B727C63EF4003CBDDB /* Google */ = {
 			isa = PBXGroup;
 			children = (
-				A2C109C227C7BEA6003CBDDB /* Delegate */,
-				A2C109C527C7BFF9003CBDDB /* LBCGAMRequestProtocol.swift */,
 				A2C109C727C7C16B003CBDDB /* LBCGoogleMobileAdsService.swift.swift */,
-				A2C109C927C7CA9F003CBDDB /* LBCGAMBannerViewProtocol.swift */,
-				A2C109CB27C7DE9F003CBDDB /* LBCGAMInterstitialAdProtocol.swift */,
+				A2C109CE27C7E76E003CBDDB /* Protocol */,
+				A2C109C227C7BEA6003CBDDB /* Delegate */,
 			);
 			path = Google;
 			sourceTree = "<group>";
@@ -246,6 +244,16 @@
 				A2C109AD27C55572003CBDDB /* LBCGADBannerViewDelegate.swift */,
 			);
 			path = Delegate;
+			sourceTree = "<group>";
+		};
+		A2C109CE27C7E76E003CBDDB /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				A2C109C527C7BFF9003CBDDB /* LBCGAMRequestProtocol.swift */,
+				A2C109C927C7CA9F003CBDDB /* LBCGAMBannerViewProtocol.swift */,
+				A2C109CB27C7DE9F003CBDDB /* LBCGAMInterstitialAdProtocol.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		EAEE5951BE99B4A88B2D3575 /* Frameworks */ = {
