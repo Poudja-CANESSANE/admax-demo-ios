@@ -24,7 +24,6 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
 
     private var sasInterstitial: LBCSASInterstitialManager!
     private var interstitialUnit: GamInterstitialAdUnit!
-    private var gamInterstitial: LBCGAMInterstitialAdProtocol!
 
     private let bannerAdContainer: UIView?
     private var sasBanner: LBCSASBannerViewProtocol!
@@ -43,10 +42,10 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
 
     private lazy var gadInterstitialAppEventDelegate: LBCGADInterstitialAppEventDelegate? = {
         guard let viewController = self.viewController else { return nil }
-         return LBCGADInterstitialAppEventDelegate(
+        return LBCGADInterstitialAppEventDelegate(
             interstitialUnit: self.interstitialUnit,
             viewController: viewController,
-            gamInterstitial: self.gamInterstitial
+            gamInterstitial: self.googleMobileAdsService.gamInterstitial
         )
     }()
 
@@ -112,27 +111,26 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     }
 
     private func loadGAMInterstitialAd() {
-        LBCGAMInterstitialAd.load(withAdManagerAdUnitID: "/21807464892/pb_admax_interstitial",
-                                  request: self.request) { ad, error in
+        self.googleMobileAdsService.gamInterstitial.load2(withAdManagerAdUnitID: "/21807464892/pb_admax_interstitial",
+                                                          request: self.request) { ad, error in
             guard let ad = ad else {
                 return  print("Failed to load interstitial ad with error: \(error?.localizedDescription ?? "error")")
             }
 
-            self.gamInterstitial = ad
-            self.gamInterstitial.appEventDelegate = self.gadInterstitialAppEventDelegate
+            self.googleMobileAdsService.gamInterstitial = ad
+            self.googleMobileAdsService.gamInterstitial.appEventDelegate = self.gadInterstitialAppEventDelegate
             self.findPrebidCreativeBidder(ad: ad)
         }
     }
 
-    private func findPrebidCreativeBidder(ad: LBCGAMInterstitialAdProtocol) {
-        guard let object = ad as? NSObject else { return print("Failed to cast ad as NSObject") }
+    private func findPrebidCreativeBidder(ad object: NSObject) {
         Utils.shared.findPrebidCreativeBidder(
             object,
             success: { bidder in print("bidder: \(bidder)") },
             failure: { error in
                 print("error: \(error.localizedDescription)")
                 if let viewController = self.viewController {
-                    self.gamInterstitial?.present(fromRootViewController: viewController)
+                    self.googleMobileAdsService.gamInterstitial.present(fromRootViewController: viewController)
                 }
             }
         )
@@ -178,10 +176,10 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     func loadBanner() {
         let configId = self.getBannerConfigId()
         self.bannerAdUnit = BannerAdUnit(configId: configId,
-                                       size:  CGSize(width: 320, height: 50),
-                                       viewController: self.viewController,
-                                       adContainer: self.bannerAdContainer)
-//        bannerAdUnit.setAutoRefreshMillis(time: 35000)
+                                         size:  CGSize(width: 320, height: 50),
+                                         viewController: self.viewController,
+                                         adContainer: self.bannerAdContainer)
+//        self.bannerAdUnit.setAutoRefreshMillis(time: 35000)
         self.bannerAdUnit.adSizeDelegate = self
         self.loadBannerAccordingToAdServerName()
     }

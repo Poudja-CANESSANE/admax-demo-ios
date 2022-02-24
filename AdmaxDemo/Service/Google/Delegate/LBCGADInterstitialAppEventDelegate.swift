@@ -11,11 +11,11 @@ import GoogleMobileAds
 final class LBCGADInterstitialAppEventDelegate: NSObject, GADAppEventDelegate {
     private let interstitialUnit: LBCGamInterstitialAdUnitProtocol
     private let viewController: UIViewController
-    private weak var gamInterstitial: LBCGAMInterstitialAdProtocol?
+    private weak var gamInterstitial: LBCGAMInterstitialAdProtocol2?
 
     init(interstitialUnit: LBCGamInterstitialAdUnitProtocol,
          viewController: UIViewController,
-         gamInterstitial: LBCGAMInterstitialAdProtocol?) {
+         gamInterstitial: LBCGAMInterstitialAdProtocol2?) {
         self.interstitialUnit = interstitialUnit
         self.viewController = viewController
         self.gamInterstitial = gamInterstitial
