@@ -8,7 +8,7 @@
 
 import GoogleMobileAds
 
-protocol LBCGAMInterstitialAdProtocol2: AnyObject {
+protocol LBCGAMInterstitialAdProtocol: AnyObject {
     var appEventDelegate: GADAppEventDelegate? { get set }
 
     func load2(withAdManagerAdUnitID id: String,
@@ -17,7 +17,7 @@ protocol LBCGAMInterstitialAdProtocol2: AnyObject {
     func present(fromRootViewController viewController: UIViewController)
 }
 
-extension GAMInterstitialAd: LBCGAMInterstitialAdProtocol2 {
+extension GAMInterstitialAd: LBCGAMInterstitialAdProtocol {
     func load2(withAdManagerAdUnitID id: String, request: GAMRequest?, completionHandler: @escaping GAMInterstitialAdLoadCompletionHandler) {
         Self.load(withAdManagerAdUnitID: id, request: request, completionHandler: completionHandler)
     }
