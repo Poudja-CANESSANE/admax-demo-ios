@@ -28,13 +28,6 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     private let bannerAdContainer: UIView?
     private var sasBanner: LBCSASBannerViewProtocol!
 
-    private lazy var gamBannerView: LBCGAMBannerViewProtocol = {
-        self.googleMobileAdsService.createBannerView(adUnitId: "/21807464892/pb_admax_320x50_top",
-                                                     rootViewController: self.viewController,
-                                                     delegate: self.gadBannerViewDelegate,
-                                                     appEventDelegate: self.bannerAppEventDelegate)
-    }()
-
     private var bannerAdUnit: BannerAdUnit!
     private let sasBannerViewDelegate: LBCSASBannerViewDelegateProtocol = LBCSASBannerViewDelegate()
     private let gadBannerViewDelegate = LBCGADBannerViewDelegate()
@@ -207,10 +200,14 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
 
     private func loadGoogleBanner() {
         print("entered \(self.adServerName) loop")
-        self.bannerAdContainer?.addSubview(self.gamBannerView)
+        let gamBannerView = self.googleMobileAdsService.createBannerView(adUnitId: "/21807464892/pb_admax_320x50_top",
+                                                                         rootViewController: self.viewController,
+                                                                         delegate: self.gadBannerViewDelegate,
+                                                                         appEventDelegate: self.bannerAppEventDelegate)
+        self.bannerAdContainer?.addSubview(gamBannerView)
         self.bannerAdUnit.fetchDemand(adObject: self.request) { resultCode in
             print("Prebid demand fetch for Google \(resultCode.name())")
-            self.gamBannerView.load(self.request)
+            gamBannerView.load(self.request)
         }
     }
 
