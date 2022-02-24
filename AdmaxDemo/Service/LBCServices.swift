@@ -14,4 +14,5 @@ final class LBCServices {
     let admaxConfigUtil: LBCAdmaxConfigUtilServiceProtocol = LBCAdmaxConfigUtilService()
     let utilsService: LBCUtilsServiceProtocol = LBCUtilsService()
     let gamBannerViewService: LBCGAMBannerViewServiceProtocol = LBCGAMBannerViewService()
+    let googleMobileAdsService: LBCGoogleMobileAdsServiceProtocol = LBCGoogleMobileAdsService()
 }
