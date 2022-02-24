@@ -10,7 +10,7 @@ import AdmaxPrebidMobile
 
 protocol LBCAdmaxPrebidMobileServiceProtocol: AnyObject {
     func loadInterstitial()
-    func loadBanner()
+    func loadBanner(adContainer: UIView)
     func stopBannerUnitAutoRefresh()
 }
 
@@ -25,7 +25,6 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     private var sasInterstitial: LBCSASInterstitialManager!
     private var interstitialUnit: GamInterstitialAdUnit!
 
-    private let bannerAdContainer: UIView?
     private var sasBanner: LBCSASBannerViewProtocol!
 
     private var bannerAdUnit: BannerAdUnit!
@@ -54,13 +53,11 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     init(adServerName: String,
          bidderName: String,
          viewController: UIViewController,
-         bannerAdContainer: UIView? = nil,
          googleMobileAdsService: LBCGoogleMobileAdsServiceProtocol = LBCServices.shared.googleMobileAdsService
     ) {
         self.adServerName = adServerName
         self.bidderName = bidderName
         self.viewController = viewController
-        self.bannerAdContainer = bannerAdContainer
         self.googleMobileAdsService = googleMobileAdsService
         self.request = googleMobileAdsService.createGAMRequest()
     }
@@ -166,15 +163,15 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
         bannerUnit.stopAutoRefresh()
     }
 
-    func loadBanner() {
+    func loadBanner(adContainer: UIView) {
         let configId = self.getBannerConfigId()
         self.bannerAdUnit = BannerAdUnit(configId: configId,
                                          size:  CGSize(width: 320, height: 50),
                                          viewController: self.viewController,
-                                         adContainer: self.bannerAdContainer)
+                                         adContainer: adContainer)
 //        self.bannerAdUnit.setAutoRefreshMillis(time: 35000)
         self.bannerAdUnit.adSizeDelegate = self
-        self.loadBannerAccordingToAdServerName()
+        self.loadBannerAccordingToAdServerName(adContainer: adContainer)
     }
 
     private func getBannerConfigId() -> String {
@@ -190,30 +187,30 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
         return configId
     }
 
-    private func loadBannerAccordingToAdServerName() {
+    private func loadBannerAccordingToAdServerName(adContainer: UIView) {
         switch self.adServerName {
-        case "Google": self.loadGoogleBanner()
-        case "Smart": self.loadSmartBanner()
+        case "Google": self.loadGoogleBanner(adContainer: adContainer)
+        case "Smart": self.loadSmartBanner(adContainer: adContainer)
         default: return
         }
     }
 
-    private func loadGoogleBanner() {
+    private func loadGoogleBanner(adContainer: UIView) {
         print("entered \(self.adServerName) loop")
         let gamBannerView = self.googleMobileAdsService.createBannerView(adUnitId: "/21807464892/pb_admax_320x50_top",
                                                                          rootViewController: self.viewController,
                                                                          delegate: self.gadBannerViewDelegate,
                                                                          appEventDelegate: self.bannerAppEventDelegate)
-        self.bannerAdContainer?.addSubview(gamBannerView)
+        adContainer.addSubview(gamBannerView)
         self.bannerAdUnit.fetchDemand(adObject: self.request) { resultCode in
             print("Prebid demand fetch for Google \(resultCode.name())")
             gamBannerView.load(self.request)
         }
     }
 
-    private func loadSmartBanner() {
+    private func loadSmartBanner(adContainer: UIView) {
         print("entered \(self.adServerName) loop")
-        self.setupSASBanner()
+        self.setupSASBanner(adContainer: adContainer)
         let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: self.bannerAdUnit)
         self.bannerAdUnit.fetchDemand(adObject: admaxBidderAdapter) { resultCode in
             self.handleBannerSmartFetchDemand(resultCode: resultCode, bidderAdapter: admaxBidderAdapter)
@@ -230,16 +227,12 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
         }
     }
 
-    private func setupSASBanner() {
-        guard let bannerAdContainer = self.bannerAdContainer else {
-            return print("Couldn't unwrap bannerAdContainer")
-        }
-
-        let frame = CGRect(x: 0, y: 0, width: bannerAdContainer.frame.width, height: 50)
+    private func setupSASBanner(adContainer: UIView) {
+        let frame = CGRect(x: 0, y: 0, width: adContainer.frame.width, height: 50)
         self.sasBanner = LBCSASBannerView(frame: frame)
         self.sasBanner.delegate = self.sasBannerViewDelegate
         self.sasBanner.modalParentViewController = self.viewController
-        self.bannerAdContainer?.addSubview(self.sasBanner)
+        adContainer.addSubview(self.sasBanner)
     }
 }
 
