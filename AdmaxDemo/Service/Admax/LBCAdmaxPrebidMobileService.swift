@@ -17,7 +17,7 @@ protocol LBCAdmaxPrebidMobileServiceProtocol: AnyObject {
 final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServiceProtocol {
     private let adServerName: String
     private let bidderName: String
-    private let request = LBCGAMRequest().createRequest()
+    private let request: LBCGAMRequestProtocol2
     private weak var viewController: UIViewController?
 
     private let googleMobileAdsService: LBCGoogleMobileAdsServiceProtocol
@@ -73,6 +73,7 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
         self.bannerAdContainer = bannerAdContainer
         self.gamBannerViewService = gamBannerViewService
         self.googleMobileAdsService = googleMobileAdsService
+        self.request = googleMobileAdsService.createGAMRequest()
     }
 
     // MARK: - Interstitial
