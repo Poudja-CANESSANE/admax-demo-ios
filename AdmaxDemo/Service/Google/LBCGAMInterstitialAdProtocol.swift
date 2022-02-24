@@ -11,14 +11,14 @@ import GoogleMobileAds
 protocol LBCGAMInterstitialAdProtocol: AnyObject {
     var appEventDelegate: GADAppEventDelegate? { get set }
 
-    func load2(withAdManagerAdUnitID id: String,
+    func load(withAdManagerAdUnitID id: String,
               request: GAMRequest?,
               completionHandler: @escaping GAMInterstitialAdLoadCompletionHandler)
     func present(fromRootViewController viewController: UIViewController)
 }
 
 extension GAMInterstitialAd: LBCGAMInterstitialAdProtocol {
-    func load2(withAdManagerAdUnitID id: String, request: GAMRequest?, completionHandler: @escaping GAMInterstitialAdLoadCompletionHandler) {
+    func load(withAdManagerAdUnitID id: String, request: GAMRequest?, completionHandler: @escaping GAMInterstitialAdLoadCompletionHandler) {
         Self.load(withAdManagerAdUnitID: id, request: request, completionHandler: completionHandler)
     }
 }

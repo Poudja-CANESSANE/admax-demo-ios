@@ -111,8 +111,8 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     }
 
     private func loadGAMInterstitialAd() {
-        self.googleMobileAdsService.gamInterstitial.load2(withAdManagerAdUnitID: "/21807464892/pb_admax_interstitial",
-                                                          request: self.request) { ad, error in
+        self.googleMobileAdsService.gamInterstitial.load(withAdManagerAdUnitID: "/21807464892/pb_admax_interstitial",
+                                                         request: self.request) { ad, error in
             guard let ad = ad else {
                 return  print("Failed to load interstitial ad with error: \(error?.localizedDescription ?? "error")")
             }
