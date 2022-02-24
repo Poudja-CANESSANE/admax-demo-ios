@@ -16,3 +16,5 @@ protocol LBCGAMBannerViewProtocol: UIView {
 
     func load(_ request: GADRequest?)
 }
+
+extension GAMBannerView: LBCGAMBannerViewProtocol {}
