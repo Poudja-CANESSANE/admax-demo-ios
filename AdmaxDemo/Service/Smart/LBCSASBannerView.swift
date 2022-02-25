@@ -1,5 +1,5 @@
 //
-//  LBCSASBannerViewProtocol.swift
+//  LBCSASBannerView.swift
 //  AdmaxDemo
 //
 //  Created by Poudja.canessane on 22/02/2022.
