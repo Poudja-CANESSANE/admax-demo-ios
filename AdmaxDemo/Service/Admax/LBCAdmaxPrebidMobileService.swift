@@ -119,9 +119,8 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
             success: { bidder in print("bidder: \(bidder)") },
             failure: { error in
                 print("error: \(error.localizedDescription)")
-                if let viewController = self.viewController {
-                    self.googleMobileAdsService.gamInterstitial.present(fromRootViewController: viewController)
-                }
+                guard let viewController = self.viewController else { return }
+                self.googleMobileAdsService.gamInterstitial.present(fromRootViewController: viewController)
             }
         )
     }
