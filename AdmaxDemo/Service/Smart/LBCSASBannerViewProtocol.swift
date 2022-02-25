@@ -19,8 +19,12 @@ protocol LBCSASBannerViewProtocol: UIView {
 final class LBCSASBannerView: UIView, LBCSASBannerViewProtocol {
     private let sasBannerView: SASBannerView
 
-    override init(frame: CGRect) {
+    init(frame: CGRect,
+         delegate: LBCSASBannerViewDelegateProtocol?,
+         modalParentViewController: UIViewController?) {
         self.sasBannerView = SASBannerView(frame: frame)
+        self.sasBannerView.delegate = delegate
+        self.sasBannerView.modalParentViewController = modalParentViewController
         super.init(frame: frame)
     }
 

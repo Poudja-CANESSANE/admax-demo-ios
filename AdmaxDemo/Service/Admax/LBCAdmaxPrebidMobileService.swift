@@ -220,9 +220,9 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
 
     private func createSASBannerView(adContainer: UIView) -> LBCSASBannerViewProtocol {
         let frame = CGRect(x: 0, y: 0, width: adContainer.frame.width, height: 50)
-        let sasBannerView = LBCSASBannerView(frame: frame)
-        sasBannerView.delegate = self.sasBannerViewDelegate
-        sasBannerView.modalParentViewController = self.viewController
+        let sasBannerView = LBCSASBannerView(frame: frame,
+                                             delegate: self.sasBannerViewDelegate,
+                                             modalParentViewController: self.viewController)
         adContainer.addSubview(sasBannerView)
         return sasBannerView
     }
