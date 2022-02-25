@@ -21,6 +21,7 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     private weak var viewController: UIViewController?
 
     private let googleMobileAdsService: LBCGoogleMobileAdsServiceProtocol
+    private let sasDisplayKitService: LBCSASDisplayKitServiceProtocol
 
     private var interstitialUnit: GamInterstitialAdUnit!
 
@@ -50,13 +51,15 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     init(adServerName: String,
          bidderName: String,
          viewController: UIViewController,
-         googleMobileAdsService: LBCGoogleMobileAdsServiceProtocol = LBCServices.shared.googleMobileAdsService
+         googleMobileAdsService: LBCGoogleMobileAdsServiceProtocol = LBCServices.shared.googleMobileAdsService,
+         sasDisplayKitService: LBCSASDisplayKitServiceProtocol = LBCServices.shared.sasDisplayKitService
     ) {
         self.adServerName = adServerName
         self.bidderName = bidderName
         self.viewController = viewController
         self.googleMobileAdsService = googleMobileAdsService
         self.request = googleMobileAdsService.createGAMRequest()
+        self.sasDisplayKitService = sasDisplayKitService
     }
 
     // MARK: - Interstitial
@@ -146,13 +149,10 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     }
 
     private func createSASInterstitialManager() -> LBCSASInterstitialManager {
-        let sasAdPlacement = LBCSASAdPlacement(siteId: 305017,
-                                               pageId: 1109572,
-                                               formatId: 80600)
-        let sasInterstitialManager = LBCSASInterstitialManager(placement: sasAdPlacement,
+        self.sasDisplayKitService.createSASInterstitialManager(siteId: 305017,
+                                                               pageId: 1109572,
+                                                               formatId: 80600,
                                                                delegate: self.sasInterstitialManagerDelegate)
-        self.sasInterstitialManagerDelegate?.sasInterstitialManager = sasInterstitialManager
-        return sasInterstitialManager
     }
 
     // MARK: - Banner
@@ -219,10 +219,9 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     }
 
     private func createSASBannerView(adContainer: UIView) -> LBCSASBannerViewProtocol {
-        let frame = CGRect(x: 0, y: 0, width: adContainer.frame.width, height: 50)
-        let sasBannerView = LBCSASBannerView(frame: frame,
-                                             delegate: self.sasBannerViewDelegate,
-                                             modalParentViewController: self.viewController)
+        let sasBannerView = self.sasDisplayKitService.createSASBannerView(width: adContainer.frame.width,
+                                                                          delegate: self.sasBannerViewDelegate,
+                                                                          modalParentViewContorller: self.viewController)
         adContainer.addSubview(sasBannerView)
         return sasBannerView
     }
