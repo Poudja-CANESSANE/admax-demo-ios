@@ -229,12 +229,9 @@
 			children = (
 				A2C1098127BEDDCA003CBDDB /* LBCAdmaxPrebidMobileService.swift */,
 				A2C1097627BEA42E003CBDDB /* LBCPrebidService.swift */,
-				A2C1097A27BEA9E2003CBDDB /* LBCAdUnitProtocol.swift */,
-				A2C1097C27BEABAB003CBDDB /* LBCUpdatableProtocol.swift */,
 				A2C1097E27BEAC95003CBDDB /* LBCAdmaxConfigUtilService.swift */,
-				A2C1099727BFFAC2003CBDDB /* LBCGamInterstitialAdUnitProtocol.swift */,
-				A2C109AB27C54FC2003CBDDB /* LBCBannerAdUnitProtocol.swift */,
 				A2C109AF27C55738003CBDDB /* LBCUtilsService.swift */,
+				A2C109DC27C95F05003CBDDB /* Protocol */,
 			);
 			path = Admax;
 			sourceTree = "<group>";
@@ -255,6 +252,17 @@
 				A2C109C527C7BFF9003CBDDB /* LBCGAMRequestProtocol.swift */,
 				A2C109C927C7CA9F003CBDDB /* LBCGAMBannerViewProtocol.swift */,
 				A2C109CB27C7DE9F003CBDDB /* LBCGAMInterstitialAdProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		A2C109DC27C95F05003CBDDB /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				A2C109AB27C54FC2003CBDDB /* LBCBannerAdUnitProtocol.swift */,
+				A2C1099727BFFAC2003CBDDB /* LBCGamInterstitialAdUnitProtocol.swift */,
+				A2C1097C27BEABAB003CBDDB /* LBCUpdatableProtocol.swift */,
+				A2C1097A27BEA9E2003CBDDB /* LBCAdUnitProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
