@@ -24,17 +24,11 @@ final class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol {
     private var admaxAdDisplayed: Bool = false
 
     private let admaxAdUnit: LBCAdUnitProtocol
-    private let prebidService: LBCPrebidServiceProtocol
-    private let admaxConfigUtilService: LBCAdmaxConfigUtilServiceProtocol
     private let admaxPrebidMobileService: LBCAdmaxPrebidMobileServiceProtocol
 
     init(adUnit: LBCAdUnitProtocol,
-         prebidService: LBCPrebidServiceProtocol = LBCServices.shared.prebidService,
-         admaxConfigUtilService: LBCAdmaxConfigUtilServiceProtocol = LBCServices.shared.admaxConfigUtil,
          admaxPrebidMobileService: LBCAdmaxPrebidMobileServiceProtocol = LBCServices.shared.admaxPrebidMobileService) {
         self.admaxAdUnit = adUnit
-        self.prebidService = prebidService
-        self.admaxConfigUtilService = admaxConfigUtilService
         self.admaxPrebidMobileService = admaxPrebidMobileService
     }
 
