@@ -26,6 +26,7 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     private var interstitialUnit: GamInterstitialAdUnit!
 
     private var bannerAdUnit: BannerAdUnit!
+    private let adSizeDelegate = LBCAdSizeDelegate()
     private let sasBannerViewDelegate: LBCSASBannerViewDelegateProtocol = LBCSASBannerViewDelegate()
     private let gadBannerViewDelegate = LBCGADBannerViewDelegate()
     private lazy var bannerAppEventDelegate = LBCBannerGADAppEventDelegate(bannerAdUnit: self.bannerAdUnit)
@@ -169,7 +170,7 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
                                          viewController: self.viewController,
                                          adContainer: adContainer)
 //        self.bannerAdUnit.setAutoRefreshMillis(time: 35000)
-        self.bannerAdUnit.adSizeDelegate = self
+        self.bannerAdUnit.adSizeDelegate = self.adSizeDelegate
         self.loadBannerAccordingToAdServerName(adContainer: adContainer)
     }
 
@@ -236,11 +237,5 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
         case .prebidDemandFetchSuccess: sasBannerView.load(with: sasAdPlacement, bidderAdapter: bidderAdapter)
         default: sasBannerView.load(with: sasAdPlacement)
         }
-    }
-}
-
-extension LBCAdmaxPrebidMobileService: AdSizeDelegate {
-    func onAdLoaded(adUnit: AdUnit, size: CGSize, adContainer: UIView) {
-        print("ADMAX onAdLoaded with Size: \(size)")
     }
 }
