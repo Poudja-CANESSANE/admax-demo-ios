@@ -175,6 +175,11 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
     }
 
     func loadBanner(adContainer: UIView) {
+        self.setupBannerAdUnit(adContainer: adContainer)
+        self.loadBannerAccordingToAdServerName(adContainer: adContainer)
+    }
+
+    private func setupBannerAdUnit(adContainer: UIView) {
         let configId = self.getBannerConfigId()
         let size = CGSize(width: 320, height: 50)
         self.bannerAdUnit = self.admaxPrebidMobileService.createBannerAdUnit(
@@ -185,7 +190,6 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
         )
 //        self.bannerAdUnit.setAutoRefreshMillis(time: 35000)
         self.bannerAdUnit.adSizeDelegate = self.adSizeDelegate
-        self.loadBannerAccordingToAdServerName(adContainer: adContainer)
     }
 
     private func getBannerConfigId() -> String {
@@ -213,15 +217,20 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
 
     private func loadGoogleBanner(adContainer: UIView) {
         print("entered \(self.adServerName) loop")
+        let gamBannerView = self.createBannerView(adContainer: adContainer)
+        self.bannerAdUnit.fetchLBCDemand(adObject: self.request) { resultCode in
+            print("Prebid demand fetch for Google \(resultCode)")
+            gamBannerView.load(self.request)
+        }
+    }
+
+    private func createBannerView(adContainer: UIView) -> LBCGAMBannerViewProtocol {
         let gamBannerView = self.googleMobileAdsService.createBannerView(adUnitId: "/21807464892/pb_admax_320x50_top",
                                                                          rootViewController: self.viewController,
                                                                          delegate: self.gadBannerViewDelegate,
                                                                          appEventDelegate: self.bannerAppEventDelegate)
         adContainer.addSubview(gamBannerView)
-        self.bannerAdUnit.fetchLBCDemand(adObject: self.request) { resultCode in
-            print("Prebid demand fetch for Google \(resultCode)")
-            gamBannerView.load(self.request)
-        }
+        return gamBannerView
     }
 
     // MARK: Smart
