@@ -10,7 +10,6 @@ final class LBCServices {
     static let shared = LBCServices()
     private init() {}
 
-    let utilsService: LBCUtilsServiceProtocol = LBCUtilsService()
     let googleMobileAdsService: LBCGoogleMobileAdsServiceProtocol = LBCGoogleMobileAdsService()
     let sasDisplayKitService: LBCSASDisplayKitServiceProtocol = LBCSASDisplayKitService()
     let admaxPrebidMobileService: LBCAdmaxPrebidMobileServiceProtocol = LBCAdmaxPrebidMobileService()
