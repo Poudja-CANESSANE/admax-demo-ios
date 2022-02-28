@@ -22,6 +22,7 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
 
     private let googleMobileAdsService: LBCGoogleMobileAdsServiceProtocol
     private let sasDisplayKitService: LBCSASDisplayKitServiceProtocol
+    private let admaxPrebidMobileService: LBCAdmaxPrebidMobileServiceProtocol
 
     private var interstitialUnit: LBCGamInterstitialAdUnitProtocol!
 
@@ -53,7 +54,8 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
          bidderName: String,
          viewController: UIViewController,
          googleMobileAdsService: LBCGoogleMobileAdsServiceProtocol = LBCServices.shared.googleMobileAdsService,
-         sasDisplayKitService: LBCSASDisplayKitServiceProtocol = LBCServices.shared.sasDisplayKitService
+         sasDisplayKitService: LBCSASDisplayKitServiceProtocol = LBCServices.shared.sasDisplayKitService,
+         admaxPrebidMobileService: LBCAdmaxPrebidMobileServiceProtocol = LBCServices.shared.admaxPrebidMobileService
     ) {
         self.adServerName = adServerName
         self.bidderName = bidderName
@@ -61,6 +63,7 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
         self.googleMobileAdsService = googleMobileAdsService
         self.request = googleMobileAdsService.createGAMRequest()
         self.sasDisplayKitService = sasDisplayKitService
+        self.admaxPrebidMobileService = admaxPrebidMobileService
     }
 
     // MARK: - Interstitial
@@ -68,7 +71,8 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
     func loadInterstitial() {
         guard let viewController = self.viewController else { return }
         let configId = self.getInterstitialConfigId()
-        self.interstitialUnit = GamInterstitialAdUnit(configId: configId, viewController: viewController)
+        self.interstitialUnit = self.admaxPrebidMobileService
+            .createGamInterstitialAdUnit(configId: configId, viewController: viewController)
         self.loadInterstialAccordingToAdServerName()
     }
 
@@ -115,7 +119,7 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
     }
 
     private func findPrebidCreativeBidder(ad object: NSObject) {
-        Utils.shared.findPrebidCreativeBidder(
+        self.admaxPrebidMobileService.findPrebidCreativeBidder(
             object,
             success: { bidder in print("bidder: \(bidder)") },
             failure: { error in
@@ -165,10 +169,13 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
 
     func loadBanner(adContainer: UIView) {
         let configId = self.getBannerConfigId()
-        self.bannerAdUnit = BannerAdUnit(configId: configId,
-                                         size:  CGSize(width: 320, height: 50),
-                                         viewController: self.viewController,
-                                         adContainer: adContainer)
+        let size = CGSize(width: 320, height: 50)
+        self.bannerAdUnit = self.admaxPrebidMobileService.createBannerAdUnit(
+            configId: configId,
+            size: size,
+            viewController: self.viewController,
+            adContainer: adContainer
+        )
 //        self.bannerAdUnit.setAutoRefreshMillis(time: 35000)
         self.bannerAdUnit.adSizeDelegate = self.adSizeDelegate
         self.loadBannerAccordingToAdServerName(adContainer: adContainer)
