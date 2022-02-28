@@ -215,10 +215,8 @@
 			isa = PBXGroup;
 			children = (
 				A2C109DA27C9468C003CBDDB /* LBCSASDisplayKitService.swift */,
+				A2C109EA27CD853C003CBDDB /* Protocol */,
 				A2C109E827CD5C50003CBDDB /* Delegate */,
-				A2C1099D27C0048B003CBDDB /* LBCSASAdPlacementProtocol.swift */,
-				A2C1099F27C00907003CBDDB /* LBCSASInterstitialManagerProtocol.swift */,
-				A2C109B127C56109003CBDDB /* LBCSASBannerViewProtocol.swift */,
 			);
 			path = Smart;
 			sourceTree = "<group>";
@@ -281,6 +279,16 @@
 				A2C109A727C5442D003CBDDB /* LBCSASBannerViewDelegate.swift */,
 			);
 			path = Delegate;
+			sourceTree = "<group>";
+		};
+		A2C109EA27CD853C003CBDDB /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				A2C1099D27C0048B003CBDDB /* LBCSASAdPlacementProtocol.swift */,
+				A2C1099F27C00907003CBDDB /* LBCSASInterstitialManagerProtocol.swift */,
+				A2C109B127C56109003CBDDB /* LBCSASBannerViewProtocol.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		EAEE5951BE99B4A88B2D3575 /* Frameworks */ = {
