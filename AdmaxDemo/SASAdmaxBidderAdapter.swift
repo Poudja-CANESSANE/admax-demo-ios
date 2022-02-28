@@ -6,7 +6,6 @@
 //  Copyright © 2019 Admax. All rights reserved.
 //
 
-import Foundation
 import SASDisplayKit
 
 final class SASAdmaxBidderAdapter: NSObject, SASBidderAdapterProtocol {
