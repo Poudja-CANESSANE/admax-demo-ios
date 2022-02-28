@@ -42,11 +42,13 @@ final class LBCSASDisplayKitService: LBCSASDisplayKitServiceProtocol {
         return SASAdPlacement(siteId: siteId, pageId: pageId, formatId: formatId)
     }
 
-    func createSASBannerView(width: CGFloat, delegate: LBCSASBannerViewDelegateProtocol?, modalParentViewContorller: UIViewController?) -> LBCSASBannerViewProtocol {
+    func createSASBannerView(width: CGFloat,
+                             delegate: LBCSASBannerViewDelegateProtocol?,
+                             modalParentViewContorller: UIViewController?) -> LBCSASBannerViewProtocol {
         let frame = CGRect(x: 0, y: 0, width: width, height: 50)
-        let sasBannerView = LBCSASBannerView(frame: frame,
-                                             delegate: delegate,
-                                             modalParentViewController: modalParentViewContorller)
+        let sasBannerView = SASBannerView(frame: frame)
+        sasBannerView.delegate = delegate
+        sasBannerView.modalParentViewController = modalParentViewContorller
         return sasBannerView
     }
 }
