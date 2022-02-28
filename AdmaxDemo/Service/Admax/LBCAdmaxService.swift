@@ -20,13 +20,16 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
     private let request: LBCGAMRequestProtocol
     private weak var viewController: UIViewController?
 
+    // MARK: - Dependencie
     private let googleMobileAdsService: LBCGoogleMobileAdsServiceProtocol
     private let sasDisplayKitService: LBCSASDisplayKitServiceProtocol
     private let admaxPrebidMobileService: LBCAdmaxPrebidMobileServiceProtocol
 
+    // MARK: - AdUnit
     private var interstitialUnit: LBCGamInterstitialAdUnitProtocol!
-
     private var bannerAdUnit: LBCBannerAdUnitProtocol!
+
+    // MARK: - Delegate
     private let adSizeDelegate = LBCAdSizeDelegate()
     private let sasBannerViewDelegate: LBCSASBannerViewDelegateProtocol = LBCSASBannerViewDelegate()
     private let gadBannerViewDelegate = LBCGADBannerViewDelegate()
@@ -66,7 +69,7 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
         self.admaxPrebidMobileService = admaxPrebidMobileService
     }
 
-    // MARK: - Interstitial
+    // MARK: - INTERSTITIAL
 
     func loadInterstitial() {
         guard let viewController = self.viewController else { return }
@@ -96,6 +99,8 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
 
         return configId
     }
+
+    // MARK: Google
 
     private func loadGoogleInterstitial() {
         print("entered \(self.adServerName) loop")
@@ -130,6 +135,8 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
         )
     }
 
+    // MARK: Smart
+
     private func loadSmartInterstitial() {
         print("entered \(self.adServerName) loop")
         let sasInterstitialManager = self.createSASInterstitialManager()
@@ -160,7 +167,7 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
                                                                delegate: self.sasInterstitialManagerDelegate)
     }
 
-    // MARK: - Banner
+    // MARK: - BANNER
 
     func stopBannerUnitAutoRefresh() {
         guard let bannerUnit = self.bannerAdUnit else { return }
@@ -202,6 +209,8 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
         }
     }
 
+    // MARK: Google
+
     private func loadGoogleBanner(adContainer: UIView) {
         print("entered \(self.adServerName) loop")
         let gamBannerView = self.googleMobileAdsService.createBannerView(adUnitId: "/21807464892/pb_admax_320x50_top",
@@ -214,6 +223,8 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
             gamBannerView.load(self.request)
         }
     }
+
+    // MARK: Smart
 
     private func loadSmartBanner(adContainer: UIView) {
         print("entered \(self.adServerName) loop")
