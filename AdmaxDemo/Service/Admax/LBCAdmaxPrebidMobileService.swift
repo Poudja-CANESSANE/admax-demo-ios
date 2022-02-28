@@ -12,10 +12,19 @@ protocol LBCAdmaxPrebidMobileServiceProtocol: AnyObject {
     var admaxConfig: Data? { get }
 
     func start()
+    func createGamInterstitialAdUnit(configId: String,
+                                     viewController: UIViewController) -> LBCGamInterstitialAdUnitProtocol
+    func createBannerAdUnit(configId: String,
+                            size: CGSize,
+                            viewController: UIViewController?,
+                            adContainer: UIView?) -> LBCBannerAdUnitProtocol
     func getKeyvaluePrefix(admaxConfig: Data?) -> String
     func findPrebidCreativeSize(_ adView: UIView,
                                 success: @escaping (CGSize) -> Void,
                                 failure: @escaping (Error) -> Void)
+    func findPrebidCreativeBidder(_ adObject: NSObject,
+                                  success: @escaping (String) -> Void,
+                                  failure: @escaping (Error) -> Void)
 }
 
 final class LBCAdmaxPrebidMobileService: LBCAdmaxPrebidMobileServiceProtocol {
@@ -31,6 +40,20 @@ final class LBCAdmaxPrebidMobileService: LBCAdmaxPrebidMobileServiceProtocol {
         Prebid.shared.initAdmaxConfig()
     }
 
+    func createGamInterstitialAdUnit(configId: String, viewController: UIViewController) -> LBCGamInterstitialAdUnitProtocol {
+        return GamInterstitialAdUnit(configId: configId, viewController: viewController)
+    }
+
+    func createBannerAdUnit(configId: String,
+                            size: CGSize,
+                            viewController: UIViewController?,
+                            adContainer: UIView?) -> LBCBannerAdUnitProtocol {
+        return BannerAdUnit(configId: configId,
+                            size: size,
+                            viewController: viewController,
+                            adContainer: adContainer)
+    }
+
     func getKeyvaluePrefix(admaxConfig: Data?) -> String {
         AdmaxConfigUtil.getKeyvaluePrefix(admaxConfig: admaxConfig)
     }
@@ -39,5 +62,11 @@ final class LBCAdmaxPrebidMobileService: LBCAdmaxPrebidMobileServiceProtocol {
                                 success: @escaping (CGSize) -> Void,
                                 failure: @escaping (Error) -> Void) {
         Utils.shared.findPrebidCreativeSize(adView, success: success, failure: failure)
+    }
+
+    func findPrebidCreativeBidder(_ adObject: NSObject,
+                                  success: @escaping (String) -> Void,
+                                  failure: @escaping (Error) -> Void) {
+        Utils.shared.findPrebidCreativeBidder(adObject, success: success, failure: failure)
     }
 }
