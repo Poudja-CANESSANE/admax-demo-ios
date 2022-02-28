@@ -8,15 +8,21 @@
 
 import AdmaxPrebidMobile
 
-typealias LBCAdUnitServiceHandler = (_ result: ResultCode) -> Void
+typealias LBCAdUnitServiceHandler = (_ result: LBCResultCode) -> Void
 
 protocol LBCAdUnitProtocol: AnyObject {
     var isSmartAdServerAd: Bool { get set }
 
     func isSmartAdServerSdkRendering() -> Bool
     func loadAd()
-    func fetchDemand(adObject: AnyObject, completion: @escaping LBCAdUnitServiceHandler)
+    func fetchLBCDemand(adObject: AnyObject, completion: @escaping LBCAdUnitServiceHandler)
 }
 
-extension AdUnit: LBCAdUnitProtocol {}
+extension AdUnit: LBCAdUnitProtocol {
+    func fetchLBCDemand(adObject: AnyObject, completion: @escaping LBCAdUnitServiceHandler) {
+        self.fetchDemand(adObject: adObject) { result in
+            completion(result.convertToLBCResultCode())
+        }
+    }
+}
 
