@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         LBCServices.shared.googleMobileAdsService.start(completion: nil)
         //Declare in AppDelegate to the user agent could be passed in first call
-        LBCServices.shared.prebidService.start()
+        LBCServices.shared.admaxPrebidMobileService.start()
         LBCServices.shared.sasDisplayKitService.start()
         coreLocation = CLLocationManager()
         coreLocation?.requestWhenInUseAuthorization()
