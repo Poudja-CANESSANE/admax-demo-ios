@@ -202,8 +202,8 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
                                                                          delegate: self.gadBannerViewDelegate,
                                                                          appEventDelegate: self.bannerAppEventDelegate)
         adContainer.addSubview(gamBannerView)
-        self.bannerAdUnit.fetchDemand(adObject: self.request) { resultCode in
-            print("Prebid demand fetch for Google \(resultCode.name())")
+        self.bannerAdUnit.fetchLBCDemand(adObject: self.request) { resultCode in
+            print("Prebid demand fetch for Google \(resultCode)")
             gamBannerView.load(self.request)
         }
     }
@@ -212,7 +212,7 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
         print("entered \(self.adServerName) loop")
         let sasBannerView = self.createSASBannerView(adContainer: adContainer)
         let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: self.bannerAdUnit)
-        self.bannerAdUnit.fetchDemand(adObject: admaxBidderAdapter) { resultCode in
+        self.bannerAdUnit.fetchLBCDemand(adObject: admaxBidderAdapter) { resultCode in
             self.handleBannerSmartFetchDemand(resultCode: resultCode,
                                               sasBannerView: sasBannerView,
                                               bidderAdapter: admaxBidderAdapter)
@@ -227,15 +227,15 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
         return sasBannerView
     }
 
-    private func handleBannerSmartFetchDemand(resultCode: ResultCode,
+    private func handleBannerSmartFetchDemand(resultCode: LBCResultCode,
                                               sasBannerView: LBCSASBannerViewProtocol,
                                               bidderAdapter: SASAdmaxBidderAdapter) {
-        print("Prebid demand fetch for Smart \(resultCode.name())")
+        print("Prebid demand fetch for Smart \(resultCode)")
         let sasAdPlacement = LBCSASAdPlacement(siteId: 305017, pageId: 1109572, formatId: 80250)
 
         switch resultCode {
-        case .prebidDemandFetchSuccess: sasBannerView.load(with: sasAdPlacement, bidderAdapter: bidderAdapter)
-        default: sasBannerView.load(with: sasAdPlacement)
+        case .success: sasBannerView.load(with: sasAdPlacement, bidderAdapter: bidderAdapter)
+        case .failure: sasBannerView.load(with: sasAdPlacement)
         }
     }
 }
