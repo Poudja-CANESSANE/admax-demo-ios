@@ -13,6 +13,13 @@ protocol LBCBannerAdUnitProtocol: AnyObject {
 
     func isAdServerSdkRendering() -> Bool
     func loadAd()
+    func fetchLBCDemand(adObject: AnyObject, completion: @escaping(_ result: LBCResultCode) -> Void)
 }
 
-extension BannerAdUnit: LBCBannerAdUnitProtocol {}
+extension BannerAdUnit: LBCBannerAdUnitProtocol {
+    func fetchLBCDemand(adObject: AnyObject, completion: @escaping (LBCResultCode) -> Void) {
+        self.fetchDemand(adObject: adObject) { result in
+            completion(result.convertToLBCResultCode())
+        }
+    }
+}
