@@ -13,7 +13,7 @@ protocol LBCSASDisplayKitServiceProtocol: AnyObject {
     func createSASInterstitialManager(siteId: Int,
                                       pageId: Int,
                                       formatId: Int,
-                                      delegate: LBCSASInterstitialManagerDelegate?) -> LBCSASInterstitialManager
+                                      delegate: LBCSASInterstitialManagerDelegate?) -> LBCSASInterstitialManagerProtocol
     func createSASAdPlacement(siteId: Int,
                               pageId: Int,
                               formatId: Int) -> LBCSASAdPlacementProtocol
@@ -30,10 +30,10 @@ final class LBCSASDisplayKitService: LBCSASDisplayKitServiceProtocol {
         SASConfiguration.shared.loggingEnabled = true
     }
 
-    func createSASInterstitialManager(siteId: Int, pageId: Int, formatId: Int, delegate: LBCSASInterstitialManagerDelegate?) -> LBCSASInterstitialManager {
+    func createSASInterstitialManager(siteId: Int, pageId: Int, formatId: Int, delegate: LBCSASInterstitialManagerDelegate?) -> LBCSASInterstitialManagerProtocol {
         let sasAdPlacement = self.createSASAdPlacement(siteId: siteId, pageId: pageId, formatId: formatId)
-        let sasInterstitialManager = LBCSASInterstitialManager(placement: sasAdPlacement,
-                                                               delegate: delegate)
+        let sasInterstitialManager = SASInterstitialManager(placement: sasAdPlacement,
+                                                            delegate: delegate)
         delegate?.sasInterstitialManager = sasInterstitialManager
         return sasInterstitialManager
     }

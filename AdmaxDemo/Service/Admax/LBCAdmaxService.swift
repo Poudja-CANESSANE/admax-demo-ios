@@ -150,21 +150,21 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
         }
     }
 
+    private func createSASInterstitialManager() -> LBCSASInterstitialManagerProtocol {
+        self.sasDisplayKitService.createSASInterstitialManager(siteId: 305017,
+                                                               pageId: 1109572,
+                                                               formatId: 80600,
+                                                               delegate: self.sasInterstitialManagerDelegate)
+    }
+
     private func handleInterstitialSmartFetchDemand(resultCode: LBCResultCode,
-                                                    sasInterstitialManager: LBCSASInterstitialManager,
+                                                    sasInterstitialManager: LBCSASInterstitialManagerProtocol,
                                                     admaxBidderAdapter: SASAdmaxBidderAdapter) {
         print("Prebid demand fetch for Smart \(resultCode)")
         switch resultCode {
         case .success: sasInterstitialManager.load(bidderAdapter: admaxBidderAdapter)
         case .failure: sasInterstitialManager.load()
         }
-    }
-
-    private func createSASInterstitialManager() -> LBCSASInterstitialManager {
-        self.sasDisplayKitService.createSASInterstitialManager(siteId: 305017,
-                                                               pageId: 1109572,
-                                                               formatId: 80600,
-                                                               delegate: self.sasInterstitialManagerDelegate)
     }
 
     // MARK: - BANNER

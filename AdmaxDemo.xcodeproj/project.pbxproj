@@ -31,7 +31,7 @@
 		A2C1099A27BFFBC2003CBDDB /* LBCAnalyticsEventTypeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1099927BFFBC2003CBDDB /* LBCAnalyticsEventTypeName.swift */; };
 		A2C1099C27BFFD37003CBDDB /* LBCSASInterstitialManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1099B27BFFD37003CBDDB /* LBCSASInterstitialManagerDelegate.swift */; };
 		A2C1099E27C0048B003CBDDB /* LBCSASAdPlacementProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1099D27C0048B003CBDDB /* LBCSASAdPlacementProtocol.swift */; };
-		A2C109A027C00907003CBDDB /* LBCSASInterstitialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1099F27C00907003CBDDB /* LBCSASInterstitialManager.swift */; };
+		A2C109A027C00907003CBDDB /* LBCSASInterstitialManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1099F27C00907003CBDDB /* LBCSASInterstitialManagerProtocol.swift */; };
 		A2C109A827C5442D003CBDDB /* LBCSASBannerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C109A727C5442D003CBDDB /* LBCSASBannerViewDelegate.swift */; };
 		A2C109AA27C54C03003CBDDB /* LBCBannerGADAppEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C109A927C54C03003CBDDB /* LBCBannerGADAppEventDelegate.swift */; };
 		A2C109AC27C54FC2003CBDDB /* LBCBannerAdUnitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C109AB27C54FC2003CBDDB /* LBCBannerAdUnitProtocol.swift */; };
@@ -76,7 +76,7 @@
 		A2C1099927BFFBC2003CBDDB /* LBCAnalyticsEventTypeName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCAnalyticsEventTypeName.swift; sourceTree = "<group>"; };
 		A2C1099B27BFFD37003CBDDB /* LBCSASInterstitialManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCSASInterstitialManagerDelegate.swift; sourceTree = "<group>"; };
 		A2C1099D27C0048B003CBDDB /* LBCSASAdPlacementProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCSASAdPlacementProtocol.swift; sourceTree = "<group>"; };
-		A2C1099F27C00907003CBDDB /* LBCSASInterstitialManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCSASInterstitialManager.swift; sourceTree = "<group>"; };
+		A2C1099F27C00907003CBDDB /* LBCSASInterstitialManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCSASInterstitialManagerProtocol.swift; sourceTree = "<group>"; };
 		A2C109A727C5442D003CBDDB /* LBCSASBannerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCSASBannerViewDelegate.swift; sourceTree = "<group>"; };
 		A2C109A927C54C03003CBDDB /* LBCBannerGADAppEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCBannerGADAppEventDelegate.swift; sourceTree = "<group>"; };
 		A2C109AB27C54FC2003CBDDB /* LBCBannerAdUnitProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCBannerAdUnitProtocol.swift; sourceTree = "<group>"; };
@@ -217,7 +217,7 @@
 				A2C109DA27C9468C003CBDDB /* LBCSASDisplayKitService.swift */,
 				A2C109E827CD5C50003CBDDB /* Delegate */,
 				A2C1099D27C0048B003CBDDB /* LBCSASAdPlacementProtocol.swift */,
-				A2C1099F27C00907003CBDDB /* LBCSASInterstitialManager.swift */,
+				A2C1099F27C00907003CBDDB /* LBCSASInterstitialManagerProtocol.swift */,
 				A2C109B127C56109003CBDDB /* LBCSASBannerView.swift */,
 			);
 			path = Smart;
@@ -434,7 +434,7 @@
 				525B818D22A98DD1002BDD54 /* DemoAdmaxExceptionLogger.swift in Sources */,
 				A2C109C627C7BFF9003CBDDB /* LBCGAMRequestProtocol.swift in Sources */,
 				A2C1099827BFFAC2003CBDDB /* LBCGamInterstitialAdUnitProtocol.swift in Sources */,
-				A2C109A027C00907003CBDDB /* LBCSASInterstitialManager.swift in Sources */,
+				A2C109A027C00907003CBDDB /* LBCSASInterstitialManagerProtocol.swift in Sources */,
 				A2C1099C27BFFD37003CBDDB /* LBCSASInterstitialManagerDelegate.swift in Sources */,
 				A2C1097D27BEABAB003CBDDB /* LBCUpdatableProtocol.swift in Sources */,
 				525B819122B51E2B002BDD54 /* SASAdmaxBidderAdapter.swift in Sources */,
