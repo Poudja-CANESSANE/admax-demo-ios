@@ -6,9 +6,10 @@
 //  Copyright © 2022 Admax. All rights reserved.
 //
 
-import UIKit
+import SASDisplayKit
 
 protocol LBCSASDisplayKitServiceProtocol: AnyObject {
+    func start()
     func createSASInterstitialManager(siteId: Int,
                                       pageId: Int,
                                       formatId: Int,
@@ -19,6 +20,13 @@ protocol LBCSASDisplayKitServiceProtocol: AnyObject {
 }
 
 final class LBCSASDisplayKitService: LBCSASDisplayKitServiceProtocol {
+    private let SAS_SITE_ID: Int = 305017
+
+    func start() {
+        SASConfiguration.shared.configure(siteId: self.SAS_SITE_ID)
+        SASConfiguration.shared.loggingEnabled = true
+    }
+
     func createSASInterstitialManager(siteId: Int, pageId: Int, formatId: Int, delegate: LBCSASInterstitialManagerDelegate?) -> LBCSASInterstitialManager {
         let sasAdPlacement = LBCSASAdPlacement(siteId: siteId,
                                                pageId: pageId,

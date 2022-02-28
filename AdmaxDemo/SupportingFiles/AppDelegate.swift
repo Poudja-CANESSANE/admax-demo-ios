@@ -20,22 +20,15 @@ import SASDisplayKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
-    let SAS_SITE_ID: Int = 305017
-
     var window: UIWindow?
 
     var coreLocation: CLLocationManager?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-
         LBCServices.shared.googleMobileAdsService.start(completion: nil)
         //Declare in AppDelegate to the user agent could be passed in first call
         LBCServices.shared.prebidService.start()
-        
-        SASConfiguration.shared.configure(siteId: SAS_SITE_ID)
-        SASConfiguration.shared.loggingEnabled = true
-
+        LBCServices.shared.sasDisplayKitService.start()
         coreLocation = CLLocationManager()
         coreLocation?.requestWhenInUseAuthorization()
 
