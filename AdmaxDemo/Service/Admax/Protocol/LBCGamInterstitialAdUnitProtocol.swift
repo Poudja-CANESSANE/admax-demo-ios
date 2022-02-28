@@ -9,12 +9,8 @@
 import AdmaxPrebidMobile
 
 protocol LBCGamInterstitialAdUnitProtocol: LBCAdUnitProtocol {
-    var isGoogleAdServerAd: Bool { get set }
-
-    func isAdServerSdkRendering() -> Bool
-    func loadAd()
-    func isSmartAdServerSdkRendering() -> Bool
     func createDfpOnlyInterstitial()
+    func setGamAdUnitId(gamAdUnitId: String)
 }
 
 extension GamInterstitialAdUnit: LBCGamInterstitialAdUnitProtocol {}

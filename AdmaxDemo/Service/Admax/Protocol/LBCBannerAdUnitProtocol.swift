@@ -8,11 +8,6 @@
 
 import AdmaxPrebidMobile
 
-protocol LBCBannerAdUnitProtocol: AnyObject {
-    var isGoogleAdServerAd: Bool { get set }
-
-    func isAdServerSdkRendering() -> Bool
-    func loadAd()
-}
+protocol LBCBannerAdUnitProtocol: LBCAdUnitProtocol {}
 
 extension BannerAdUnit: LBCBannerAdUnitProtocol {}

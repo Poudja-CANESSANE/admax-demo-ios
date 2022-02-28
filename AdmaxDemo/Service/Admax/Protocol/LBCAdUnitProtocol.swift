@@ -11,10 +11,14 @@ import AdmaxPrebidMobile
 typealias LBCAdUnitServiceHandler = (_ result: LBCResultCode) -> Void
 
 protocol LBCAdUnitProtocol: AnyObject {
+    var isGoogleAdServerAd: Bool { get set }
     var isSmartAdServerAd: Bool { get set }
+    var adSizeDelegate: AdSizeDelegate? { get set }
 
+    func isAdServerSdkRendering() -> Bool
     func isSmartAdServerSdkRendering() -> Bool
     func loadAd()
+    func stopAutoRefresh()
     func fetchLBCDemand(adObject: AnyObject, completion: @escaping LBCAdUnitServiceHandler)
 }
 
