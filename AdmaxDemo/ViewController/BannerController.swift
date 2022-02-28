@@ -22,21 +22,21 @@ final class BannerController: UIViewController {
     var adServerName: String = ""
     var bidderName: String = ""
 
-    private lazy var admaxPrebidMobileService: LBCAdmaxPrebidMobileServiceProtocol = {
-        return LBCAdmaxPrebidMobileService(adServerName: self.adServerName,
-                                           bidderName: self.bidderName,
-                                           viewController: self)
+    private lazy var admaxService: LBCAdmaxServiceProtocol = {
+        return LBCAdmaxService(adServerName: self.adServerName,
+                               bidderName: self.bidderName,
+                               viewController: self)
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.adServerLabel.text = self.adServerName
-        self.admaxPrebidMobileService.loadBanner(adContainer: self.appBannerView)
+        self.admaxService.loadBanner(adContainer: self.appBannerView)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         // important to remove the time instance
-        self.admaxPrebidMobileService.stopBannerUnitAutoRefresh()
+        self.admaxService.stopBannerUnitAutoRefresh()
     }
 
     func viewControllerForPresentingModalView() -> UIViewController! {

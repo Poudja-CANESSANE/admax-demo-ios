@@ -1,5 +1,5 @@
 //
-//  LBCAdmaxPrebidMobileService.swift
+//  LBCAdmaxService.swift
 //  AdmaxDemo
 //
 //  Created by Poudja.canessane on 17/02/2022.
@@ -8,13 +8,13 @@
 
 import AdmaxPrebidMobile
 
-protocol LBCAdmaxPrebidMobileServiceProtocol: AnyObject {
+protocol LBCAdmaxServiceProtocol: AnyObject {
     func loadInterstitial()
     func loadBanner(adContainer: UIView)
     func stopBannerUnitAutoRefresh()
 }
 
-final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServiceProtocol {
+final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
     private let adServerName: String
     private let bidderName: String
     private let request: LBCGAMRequestProtocol
