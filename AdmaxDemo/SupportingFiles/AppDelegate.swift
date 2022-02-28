@@ -16,7 +16,6 @@
 import UIKit
 import AdmaxPrebidMobile
 import CoreLocation
-import SASDisplayKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
