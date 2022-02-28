@@ -23,9 +23,9 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
     private let googleMobileAdsService: LBCGoogleMobileAdsServiceProtocol
     private let sasDisplayKitService: LBCSASDisplayKitServiceProtocol
 
-    private var interstitialUnit: GamInterstitialAdUnit!
+    private var interstitialUnit: LBCGamInterstitialAdUnitProtocol!
 
-    private var bannerAdUnit: BannerAdUnit!
+    private var bannerAdUnit: LBCBannerAdUnitProtocol!
     private let adSizeDelegate = LBCAdSizeDelegate()
     private let sasBannerViewDelegate: LBCSASBannerViewDelegateProtocol = LBCSASBannerViewDelegate()
     private let gadBannerViewDelegate = LBCGADBannerViewDelegate()
