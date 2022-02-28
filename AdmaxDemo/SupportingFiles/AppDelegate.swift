@@ -14,7 +14,6 @@
  */
 
 import UIKit
-import AdmaxPrebidMobile
 import CoreLocation
 
 @UIApplicationMain
