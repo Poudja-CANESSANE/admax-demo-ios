@@ -95,8 +95,8 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
 
     private func loadGoogleInterstitial() {
         print("entered \(self.adServerName) loop")
-        self.interstitialUnit.fetchDemand(adObject: self.request) { resultCode in
-            print("Prebid demand fetch for Google \(resultCode.name())")
+        self.interstitialUnit.fetchLBCDemand(adObject: self.request) { resultCode in
+            print("Prebid demand fetch for Google \(resultCode)")
             self.loadGAMInterstitialAd()
         }
     }
@@ -132,20 +132,20 @@ final class LBCAdmaxPrebidMobileService: NSObject, LBCAdmaxPrebidMobileServicePr
         self.interstitialUnit.setGamAdUnitId(gamAdUnitId: "/21807464892/pb_admax_interstitial")
         let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: self.interstitialUnit)
 
-        self.interstitialUnit.fetchDemand(adObject: admaxBidderAdapter) { resultCode in
+        self.interstitialUnit.fetchLBCDemand(adObject: admaxBidderAdapter) { resultCode in
             self.handleInterstitialSmartFetchDemand(resultCode: resultCode,
                                                     sasInterstitialManager: sasInterstitialManager,
                                                     admaxBidderAdapter: admaxBidderAdapter)
         }
     }
 
-    private func handleInterstitialSmartFetchDemand(resultCode: ResultCode,
+    private func handleInterstitialSmartFetchDemand(resultCode: LBCResultCode,
                                                     sasInterstitialManager: LBCSASInterstitialManager,
                                                     admaxBidderAdapter: SASAdmaxBidderAdapter) {
-        print("Prebid demand fetch for Smart \(resultCode.name())")
+        print("Prebid demand fetch for Smart \(resultCode)")
         switch resultCode {
-        case .prebidDemandFetchSuccess: sasInterstitialManager.load(bidderAdapter: admaxBidderAdapter)
-        default: sasInterstitialManager.load()
+        case .success: sasInterstitialManager.load(bidderAdapter: admaxBidderAdapter)
+        case .failure: sasInterstitialManager.load()
         }
     }
 
