@@ -17,7 +17,6 @@ import UIKit
 import AdmaxPrebidMobile
 import CoreLocation
 import SASDisplayKit
-import GoogleMobileAds
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
