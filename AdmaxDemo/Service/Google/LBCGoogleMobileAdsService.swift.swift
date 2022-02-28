@@ -10,7 +10,8 @@ import GoogleMobileAds
 
 protocol LBCGoogleMobileAdsServiceProtocol: AnyObject {
     var gamInterstitial: LBCGAMInterstitialAdProtocol { get set }
-    
+
+    func start(completion: GADInitializationCompletionHandler?)
     func createGAMRequest() -> LBCGAMRequestProtocol
     func createBannerView(adUnitId: String,
                           rootViewController: UIViewController?,
@@ -22,6 +23,10 @@ protocol LBCGoogleMobileAdsServiceProtocol: AnyObject {
 final class LBCGoogleMobileAdsService: LBCGoogleMobileAdsServiceProtocol {
     var gamInterstitial: LBCGAMInterstitialAdProtocol = GAMInterstitialAd()
     private var gamBannerView: GAMBannerView?
+
+    func start(completion: GADInitializationCompletionHandler? = nil) {
+        GADMobileAds.sharedInstance().start(completionHandler: completion)
+    }
 
     func createGAMRequest() -> LBCGAMRequestProtocol {
         return GAMRequest()

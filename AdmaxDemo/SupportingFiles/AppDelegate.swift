@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 
-        GADMobileAds.sharedInstance().start(completionHandler: nil)
+        LBCServices.shared.googleMobileAdsService.start(completion: nil)
         //Declare in AppDelegate to the user agent could be passed in first call
         LBCServices.shared.prebidService.start()
         
