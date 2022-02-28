@@ -9,15 +9,15 @@
 import GoogleMobileAds
 
 final class LBCGADBannerViewDelegate: NSObject, GADBannerViewDelegate {
-    private let utilsService: LBCUtilsServiceProtocol
+    private let admaxPrebidMobileService: LBCAdmaxPrebidMobileServiceProtocol
 
-    init(utilsService: LBCUtilsServiceProtocol = LBCServices.shared.utilsService) {
-        self.utilsService = utilsService
+    init(admaxPrebidMobileService: LBCAdmaxPrebidMobileServiceProtocol = LBCServices.shared.admaxPrebidMobileService) {
+        self.admaxPrebidMobileService = admaxPrebidMobileService
     }
 
     func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
         print("GAD adViewDidReceiveAd")
-        self.utilsService.findPrebidCreativeSize(
+        self.admaxPrebidMobileService.findPrebidCreativeSize(
             bannerView,
             success: { size in
                 guard let bannerView = bannerView as? GAMBannerView else { return }
