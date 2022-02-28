@@ -6,7 +6,7 @@
 //  Copyright © 2022 Admax. All rights reserved.
 //
 
-import AdmaxPrebidMobile
+import UIKit
 
 protocol LBCAdmaxServiceProtocol: AnyObject {
     func loadInterstitial()
