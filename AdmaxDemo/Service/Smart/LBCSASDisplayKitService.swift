@@ -14,6 +14,9 @@ protocol LBCSASDisplayKitServiceProtocol: AnyObject {
                                       pageId: Int,
                                       formatId: Int,
                                       delegate: LBCSASInterstitialManagerDelegate?) -> LBCSASInterstitialManager
+    func createSASAdPlacement(siteId: Int,
+                              pageId: Int,
+                              formatId: Int) -> LBCSASAdPlacementProtocol
     func createSASBannerView(width: CGFloat,
                              delegate: LBCSASBannerViewDelegateProtocol?,
                              modalParentViewContorller: UIViewController?) -> LBCSASBannerViewProtocol
@@ -28,13 +31,15 @@ final class LBCSASDisplayKitService: LBCSASDisplayKitServiceProtocol {
     }
 
     func createSASInterstitialManager(siteId: Int, pageId: Int, formatId: Int, delegate: LBCSASInterstitialManagerDelegate?) -> LBCSASInterstitialManager {
-        let sasAdPlacement = LBCSASAdPlacement(siteId: siteId,
-                                               pageId: pageId,
-                                               formatId: formatId)
+        let sasAdPlacement = self.createSASAdPlacement(siteId: siteId, pageId: pageId, formatId: formatId)
         let sasInterstitialManager = LBCSASInterstitialManager(placement: sasAdPlacement,
                                                                delegate: delegate)
         delegate?.sasInterstitialManager = sasInterstitialManager
         return sasInterstitialManager
+    }
+
+    func createSASAdPlacement(siteId: Int, pageId: Int, formatId: Int) -> LBCSASAdPlacementProtocol {
+        return SASAdPlacement(siteId: siteId, pageId: pageId, formatId: formatId)
     }
 
     func createSASBannerView(width: CGFloat, delegate: LBCSASBannerViewDelegateProtocol?, modalParentViewContorller: UIViewController?) -> LBCSASBannerViewProtocol {

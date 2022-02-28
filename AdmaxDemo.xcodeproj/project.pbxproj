@@ -30,7 +30,7 @@
 		A2C1099827BFFAC2003CBDDB /* LBCGamInterstitialAdUnitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1099727BFFAC2003CBDDB /* LBCGamInterstitialAdUnitProtocol.swift */; };
 		A2C1099A27BFFBC2003CBDDB /* LBCAnalyticsEventTypeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1099927BFFBC2003CBDDB /* LBCAnalyticsEventTypeName.swift */; };
 		A2C1099C27BFFD37003CBDDB /* LBCSASInterstitialManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1099B27BFFD37003CBDDB /* LBCSASInterstitialManagerDelegate.swift */; };
-		A2C1099E27C0048B003CBDDB /* LBCSASAdPlacement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1099D27C0048B003CBDDB /* LBCSASAdPlacement.swift */; };
+		A2C1099E27C0048B003CBDDB /* LBCSASAdPlacementProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1099D27C0048B003CBDDB /* LBCSASAdPlacementProtocol.swift */; };
 		A2C109A027C00907003CBDDB /* LBCSASInterstitialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1099F27C00907003CBDDB /* LBCSASInterstitialManager.swift */; };
 		A2C109A827C5442D003CBDDB /* LBCSASBannerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C109A727C5442D003CBDDB /* LBCSASBannerViewDelegate.swift */; };
 		A2C109AA27C54C03003CBDDB /* LBCBannerGADAppEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C109A927C54C03003CBDDB /* LBCBannerGADAppEventDelegate.swift */; };
@@ -75,7 +75,7 @@
 		A2C1099727BFFAC2003CBDDB /* LBCGamInterstitialAdUnitProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCGamInterstitialAdUnitProtocol.swift; sourceTree = "<group>"; };
 		A2C1099927BFFBC2003CBDDB /* LBCAnalyticsEventTypeName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCAnalyticsEventTypeName.swift; sourceTree = "<group>"; };
 		A2C1099B27BFFD37003CBDDB /* LBCSASInterstitialManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCSASInterstitialManagerDelegate.swift; sourceTree = "<group>"; };
-		A2C1099D27C0048B003CBDDB /* LBCSASAdPlacement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCSASAdPlacement.swift; sourceTree = "<group>"; };
+		A2C1099D27C0048B003CBDDB /* LBCSASAdPlacementProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCSASAdPlacementProtocol.swift; sourceTree = "<group>"; };
 		A2C1099F27C00907003CBDDB /* LBCSASInterstitialManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCSASInterstitialManager.swift; sourceTree = "<group>"; };
 		A2C109A727C5442D003CBDDB /* LBCSASBannerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCSASBannerViewDelegate.swift; sourceTree = "<group>"; };
 		A2C109A927C54C03003CBDDB /* LBCBannerGADAppEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBCBannerGADAppEventDelegate.swift; sourceTree = "<group>"; };
@@ -216,7 +216,7 @@
 			children = (
 				A2C109DA27C9468C003CBDDB /* LBCSASDisplayKitService.swift */,
 				A2C109E827CD5C50003CBDDB /* Delegate */,
-				A2C1099D27C0048B003CBDDB /* LBCSASAdPlacement.swift */,
+				A2C1099D27C0048B003CBDDB /* LBCSASAdPlacementProtocol.swift */,
 				A2C1099F27C00907003CBDDB /* LBCSASInterstitialManager.swift */,
 				A2C109B127C56109003CBDDB /* LBCSASBannerView.swift */,
 			);
@@ -422,7 +422,7 @@
 				52142D2126D7F165004851C7 /* NativeInAppViewController.swift in Sources */,
 				A2C1097B27BEA9E2003CBDDB /* LBCAdUnitProtocol.swift in Sources */,
 				525B816D22842646002BDD54 /* IndexController.swift in Sources */,
-				A2C1099E27C0048B003CBDDB /* LBCSASAdPlacement.swift in Sources */,
+				A2C1099E27C0048B003CBDDB /* LBCSASAdPlacementProtocol.swift in Sources */,
 				525B819322B51F4C002BDD54 /* RectangleController.swift in Sources */,
 				A2C109AE27C55572003CBDDB /* LBCGADBannerViewDelegate.swift in Sources */,
 				A2C109E727CD3DD7003CBDDB /* LBCAdmaxPrebidMobileService.swift in Sources */,

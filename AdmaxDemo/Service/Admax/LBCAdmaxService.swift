@@ -258,8 +258,9 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
                                               sasBannerView: LBCSASBannerViewProtocol,
                                               bidderAdapter: SASAdmaxBidderAdapter) {
         print("Prebid demand fetch for Smart \(resultCode)")
-        let sasAdPlacement = LBCSASAdPlacement(siteId: 305017, pageId: 1109572, formatId: 80250)
-
+        let sasAdPlacement = self.sasDisplayKitService.createSASAdPlacement(siteId: 305017,
+                                                                            pageId: 1109572,
+                                                                            formatId: 80250)
         switch resultCode {
         case .success: sasBannerView.load(with: sasAdPlacement, bidderAdapter: bidderAdapter)
         case .failure: sasBannerView.load(with: sasAdPlacement)
