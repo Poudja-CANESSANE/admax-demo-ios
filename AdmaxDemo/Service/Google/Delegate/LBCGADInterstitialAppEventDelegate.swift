@@ -9,14 +9,14 @@
 import GoogleMobileAds
 
 final class LBCGADInterstitialAppEventDelegate: NSObject, GADAppEventDelegate {
-    private let interstitialUnit: LBCGamInterstitialAdUnitProtocol
+    private let interstitialAdUnit: LBCGamInterstitialAdUnitProtocol
     private let viewController: UIViewController
     private weak var gamInterstitial: LBCGAMInterstitialAdProtocol?
 
-    init(interstitialUnit: LBCGamInterstitialAdUnitProtocol,
+    init(interstitialAdUnit: LBCGamInterstitialAdUnitProtocol,
          viewController: UIViewController,
          gamInterstitial: LBCGAMInterstitialAdProtocol?) {
-        self.interstitialUnit = interstitialUnit
+        self.interstitialAdUnit = interstitialAdUnit
         self.viewController = viewController
         self.gamInterstitial = gamInterstitial
     }
@@ -24,10 +24,10 @@ final class LBCGADInterstitialAppEventDelegate: NSObject, GADAppEventDelegate {
     func interstitialAd(_ interstitial: GADInterstitialAd, didReceiveAppEvent name: String, withInfo info: String?) {
         print("GAD interstitialAd did receive app event")
         guard LBCAnalyticsEventTypeName.bidWon.rawValue == name else { return }
-        self.interstitialUnit.isGoogleAdServerAd = false
+        self.interstitialAdUnit.isGoogleAdServerAd = false
 
-        !self.interstitialUnit.isAdServerSdkRendering()
-        ? self.interstitialUnit.loadAd()
+        !self.interstitialAdUnit.isAdServerSdkRendering()
+        ? self.interstitialAdUnit.loadAd()
         : self.gamInterstitial?.present(fromRootViewController: self.viewController)
 
     }

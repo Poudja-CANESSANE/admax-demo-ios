@@ -10,18 +10,18 @@ import SASDisplayKit
 
 final class LBCSASInterstitialManagerDelegate: NSObject, SASInterstitialManagerDelegate {
     weak var sasInterstitialManager: SASInterstitialManager?
-    private let interstitialUnit: LBCGamInterstitialAdUnitProtocol
+    private let interstitialAdUnit: LBCGamInterstitialAdUnitProtocol
     private let viewController: UIViewController
 
-    init(interstitialUnit: LBCGamInterstitialAdUnitProtocol,
+    init(interstitialAdUnit: LBCGamInterstitialAdUnitProtocol,
          viewController: UIViewController) {
-        self.interstitialUnit = interstitialUnit
+        self.interstitialAdUnit = interstitialAdUnit
         self.viewController = viewController
     }
 
     func interstitialManager(_ manager: SASInterstitialManager, didLoad ad: SASAd) {
         guard self.sasInterstitialManager == manager,
-              self.interstitialUnit.isSmartAdServerSdkRendering()
+              self.interstitialAdUnit.isSmartAdServerSdkRendering()
         else { return }
         print("Interstitial ad has been loaded")
         self.sasInterstitialManager?.show(from: self.viewController)
@@ -30,7 +30,7 @@ final class LBCSASInterstitialManagerDelegate: NSObject, SASInterstitialManagerD
     func interstitialManager(_ manager: SASInterstitialManager, didFailToLoadWithError error: Error) {
         guard self.sasInterstitialManager == manager else { return }
         print("Interstitial ad did fail to load: \(error.localizedDescription)")
-        self.interstitialUnit.createDfpOnlyInterstitial()
+        self.interstitialAdUnit.createDfpOnlyInterstitial()
     }
 
     func interstitialManager(_ manager: SASInterstitialManager, didFailToShowWithError error: Error) {

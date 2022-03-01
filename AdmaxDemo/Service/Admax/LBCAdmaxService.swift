@@ -26,7 +26,7 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
     private let admaxPrebidMobileService: LBCAdmaxPrebidMobileServiceProtocol
 
     // MARK: - AdUnit
-    private var interstitialUnit: LBCGamInterstitialAdUnitProtocol?
+    private var interstitialAdUnit: LBCGamInterstitialAdUnitProtocol?
     private var bannerAdUnit: LBCBannerAdUnitProtocol!
 
     // MARK: - Delegate
@@ -37,11 +37,11 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
 
     private lazy var gadInterstitialAppEventDelegate: LBCGADInterstitialAppEventDelegate? = {
         guard let viewController = self.viewController,
-              let interstitialUnit = self.interstitialUnit
+              let interstitialAdUnit = self.interstitialAdUnit
         else { return nil }
 
         return LBCGADInterstitialAppEventDelegate(
-            interstitialUnit: interstitialUnit,
+            interstitialAdUnit: interstitialAdUnit,
             viewController: viewController,
             gamInterstitial: self.googleMobileAdsService.gamInterstitial
         )
@@ -49,11 +49,11 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
 
     private lazy var sasInterstitialManagerDelegate: LBCSASInterstitialManagerDelegate? = {
         guard let viewController = self.viewController,
-              let interstitialUnit = self.interstitialUnit
+              let interstitialAdUnit = self.interstitialAdUnit
         else { return nil }
 
         return LBCSASInterstitialManagerDelegate(
-            interstitialUnit: interstitialUnit,
+            interstitialAdUnit: interstitialAdUnit,
             viewController: viewController
         )
     }()
@@ -85,10 +85,10 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
     private func createGamInterstitialAdUnit() -> LBCGamInterstitialAdUnitProtocol? {
         guard let viewController = self.viewController else { return  nil }
         let configId = self.getInterstitialConfigId()
-        let interstitialUnit = self.admaxPrebidMobileService
+        let interstitialAdUnit = self.admaxPrebidMobileService
             .createGamInterstitialAdUnit(configId: configId, viewController: viewController)
-        self.interstitialUnit = interstitialUnit
-        return interstitialUnit
+        self.interstitialAdUnit = interstitialAdUnit
+        return interstitialAdUnit
     }
 
     private func loadInterstialAccordingToAdServerName(interstitialUnit: LBCGamInterstitialAdUnitProtocol) {
