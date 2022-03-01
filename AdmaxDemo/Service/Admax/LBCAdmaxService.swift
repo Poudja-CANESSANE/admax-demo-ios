@@ -26,7 +26,7 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
     private let admaxPrebidMobileService: LBCAdmaxPrebidMobileServiceProtocol
 
     // MARK: - AdUnit
-    private var interstitialUnit: LBCGamInterstitialAdUnitProtocol!
+    private var interstitialUnit: LBCGamInterstitialAdUnitProtocol?
     private var bannerAdUnit: LBCBannerAdUnitProtocol!
 
     // MARK: - Delegate
@@ -36,18 +36,24 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
     private lazy var bannerAppEventDelegate = LBCBannerGADAppEventDelegate(bannerAdUnit: self.bannerAdUnit)
 
     private lazy var gadInterstitialAppEventDelegate: LBCGADInterstitialAppEventDelegate? = {
-        guard let viewController = self.viewController else { return nil }
+        guard let viewController = self.viewController,
+              let interstitialUnit = self.interstitialUnit
+        else { return nil }
+
         return LBCGADInterstitialAppEventDelegate(
-            interstitialUnit: self.interstitialUnit,
+            interstitialUnit: interstitialUnit,
             viewController: viewController,
             gamInterstitial: self.googleMobileAdsService.gamInterstitial
         )
     }()
 
     private lazy var sasInterstitialManagerDelegate: LBCSASInterstitialManagerDelegate? = {
-        guard let viewController = viewController else { return nil }
+        guard let viewController = self.viewController,
+              let interstitialUnit = self.interstitialUnit
+        else { return nil }
+
         return LBCSASInterstitialManagerDelegate(
-            interstitialUnit: self.interstitialUnit,
+            interstitialUnit: interstitialUnit,
             viewController: viewController
         )
     }()
@@ -72,17 +78,23 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
     // MARK: - INTERSTITIAL
 
     func loadInterstitial() {
-        guard let viewController = self.viewController else { return }
-        let configId = self.getInterstitialConfigId()
-        self.interstitialUnit = self.admaxPrebidMobileService
-            .createGamInterstitialAdUnit(configId: configId, viewController: viewController)
-        self.loadInterstialAccordingToAdServerName()
+        guard let interstitialUnit = self.createGamInterstitialAdUnit() else { return }
+        self.loadInterstialAccordingToAdServerName(interstitialUnit: interstitialUnit)
     }
 
-    private func loadInterstialAccordingToAdServerName() {
+    private func createGamInterstitialAdUnit() -> LBCGamInterstitialAdUnitProtocol? {
+        guard let viewController = self.viewController else { return  nil }
+        let configId = self.getInterstitialConfigId()
+        let interstitialUnit = self.admaxPrebidMobileService
+            .createGamInterstitialAdUnit(configId: configId, viewController: viewController)
+        self.interstitialUnit = interstitialUnit
+        return interstitialUnit
+    }
+
+    private func loadInterstialAccordingToAdServerName(interstitialUnit: LBCGamInterstitialAdUnitProtocol) {
         switch self.adServerName {
-        case "Google": self.loadGoogleInterstitial()
-        case "Smart": self.loadSmartInterstitial()
+        case "Google": self.loadGoogleInterstitial(interstitialUnit: interstitialUnit)
+        case "Smart": self.loadSmartInterstitial(interstitialUnit: interstitialUnit)
         default: return
         }
     }
@@ -102,9 +114,9 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
 
     // MARK: Google
 
-    private func loadGoogleInterstitial() {
+    private func loadGoogleInterstitial(interstitialUnit: LBCGamInterstitialAdUnitProtocol) {
         print("entered \(self.adServerName) loop")
-        self.interstitialUnit.fetchLBCDemand(adObject: self.request) { resultCode in
+        interstitialUnit.fetchLBCDemand(adObject: self.request) { resultCode in
             print("Prebid demand fetch for Google \(resultCode)")
             self.loadGAMInterstitialAd()
         }
@@ -137,13 +149,13 @@ final class LBCAdmaxService: NSObject, LBCAdmaxServiceProtocol {
 
     // MARK: Smart
 
-    private func loadSmartInterstitial() {
+    private func loadSmartInterstitial(interstitialUnit: LBCGamInterstitialAdUnitProtocol) {
         print("entered \(self.adServerName) loop")
         let sasInterstitialManager = self.createSASInterstitialManager()
-        self.interstitialUnit.setGamAdUnitId(gamAdUnitId: "/21807464892/pb_admax_interstitial")
-        let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: self.interstitialUnit)
+        interstitialUnit.setGamAdUnitId(gamAdUnitId: "/21807464892/pb_admax_interstitial")
+        let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: interstitialUnit)
 
-        self.interstitialUnit.fetchLBCDemand(adObject: admaxBidderAdapter) { resultCode in
+        interstitialUnit.fetchLBCDemand(adObject: admaxBidderAdapter) { resultCode in
             self.handleInterstitialSmartFetchDemand(resultCode: resultCode,
                                                     sasInterstitialManager: sasInterstitialManager,
                                                     admaxBidderAdapter: admaxBidderAdapter)
