@@ -20,6 +20,7 @@ protocol LBCSASDisplayKitServiceProtocol: AnyObject {
     func createSASBannerView(width: CGFloat,
                              delegate: LBCSASBannerViewDelegateProtocol?,
                              modalParentViewContorller: UIViewController?) -> LBCSASBannerViewProtocol
+    func createSASAdmaxBidderAdapter(adUnit: LBCAdUnitProtocol) -> SASAdmaxBidderAdapter
 }
 
 final class LBCSASDisplayKitService: LBCSASDisplayKitServiceProtocol {
@@ -50,5 +51,9 @@ final class LBCSASDisplayKitService: LBCSASDisplayKitServiceProtocol {
         sasBannerView.delegate = delegate
         sasBannerView.modalParentViewController = modalParentViewContorller
         return sasBannerView
+    }
+
+    func createSASAdmaxBidderAdapter(adUnit: LBCAdUnitProtocol) -> SASAdmaxBidderAdapter {
+        return SASAdmaxBidderAdapter(adUnit: adUnit)
     }
 }

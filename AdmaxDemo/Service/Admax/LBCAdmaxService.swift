@@ -157,7 +157,7 @@ private func loadGoogleInterstitial(interstitialAdUnit: LBCGamInterstitialAdUnit
         print("entered \(self.adServerName) loop")
         let sasInterstitialManager = self.createSASInterstitialManager()
         interstitialAdUnit.setGamAdUnitId(gamAdUnitId: "/21807464892/pb_admax_interstitial")
-        let admaxBidderAdapter = SASAdmaxBidderAdapter(adUnit: interstitialAdUnit)
+        let admaxBidderAdapter = self.sasDisplayKitService.createSASAdmaxBidderAdapter(adUnit: interstitialAdUnit)
 
         interstitialAdUnit.fetchLBCDemand(adObject: admaxBidderAdapter) { resultCode in
             self.handleInterstitialSmartFetchDemand(resultCode: resultCode,
